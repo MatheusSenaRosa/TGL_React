@@ -1,7 +1,7 @@
 import { Logo, Screen } from "@components";
 import * as S from "./styles";
 
-export const NotFound = () => {
+export function NotFound() {
   return (
     <Screen>
       <S.Container>
@@ -10,4 +10,4 @@ export const NotFound = () => {
       </S.Container>
     </Screen>
   );
-};
+}

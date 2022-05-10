@@ -2,7 +2,7 @@ import { Form, Screen, Logo } from "@components";
 
 import * as S from "./styles";
 
-export const Registration = () => {
+export function Registration() {
   return (
     <Screen>
       <S.Container>
@@ -16,4 +16,4 @@ export const Registration = () => {
       </S.Container>
     </Screen>
   );
-};
+}

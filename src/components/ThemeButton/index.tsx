@@ -4,7 +4,7 @@ import { useThemeStore } from "@store";
 
 import * as S from "./styles";
 
-export const ThemeButton = () => {
+export function ThemeButton() {
   const { switchTheme } = useThemeStore();
   const { title } = useContext(ThemeContext);
   return (
@@ -12,4 +12,4 @@ export const ThemeButton = () => {
       {title === "light" ? <S.SunIcon size={32} /> : <S.MoonIcon size={32} />}
     </S.Button>
   );
-};
+}

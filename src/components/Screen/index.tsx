@@ -6,10 +6,12 @@ type Props = {
   children: ReactNode;
 };
 
-export const Screen = ({ children }: Props) => (
-  <S.Container>
-    {children}
+export function Screen({ children }: Props) {
+  return (
+    <S.Container>
+      {children}
 
-    <S.Footer>Copyright 2020 Luby Software</S.Footer>
-  </S.Container>
-);
+      <S.Footer>Copyright 2020 Luby Software</S.Footer>
+    </S.Container>
+  );
+}

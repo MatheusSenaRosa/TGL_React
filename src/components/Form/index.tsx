@@ -11,13 +11,13 @@ type Props = {
   forgotPassword?: boolean;
 };
 
-export const Form = ({
+export function Form({
   children,
   title,
   buttonText,
   forgotPassword,
   goBack,
-}: Props) => {
+}: Props) {
   return (
     <S.Container>
       <S.Title>{title}</S.Title>
@@ -48,4 +48,4 @@ export const Form = ({
       )}
     </S.Container>
   );
-};
+}

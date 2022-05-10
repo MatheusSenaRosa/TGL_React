@@ -1,6 +1,6 @@
 import * as S from "./styles";
 
-export const Logo = () => {
+export function Logo() {
   return (
     <S.Container>
       <h1>
@@ -10,4 +10,4 @@ export const Logo = () => {
       </h1>
     </S.Container>
   );
-};
+}

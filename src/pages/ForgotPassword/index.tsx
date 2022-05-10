@@ -1,7 +1,7 @@
 import { Form, Logo, Screen } from "@components";
 import * as S from "./styles";
 
-export const ForgotPassword = () => {
+export function ForgotPassword() {
   return (
     <Screen>
       <S.Container>
@@ -12,4 +12,4 @@ export const ForgotPassword = () => {
       </S.Container>
     </Screen>
   );
-};
+}

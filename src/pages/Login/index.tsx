@@ -2,7 +2,7 @@ import { Logo, Screen, Form } from "@components";
 
 import * as S from "./styles";
 
-export const Login = () => {
+export function Login() {
   return (
     <Screen>
       <S.Container>
@@ -14,4 +14,4 @@ export const Login = () => {
       </S.Container>
     </Screen>
   );
-};
+}

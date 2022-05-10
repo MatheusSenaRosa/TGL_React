@@ -7,6 +7,8 @@
       "@pages": ["./pages/index"],
       "@store": ["./shared/store/index"],
       "@utils": ["./shared/utils/index"],
+      "@themes": ["./styles/themes/index"],
+      "@animations": ["./styles/animations/index"],
       "@routes": ["./routes/index"]
     },
     "target": "ESNext",

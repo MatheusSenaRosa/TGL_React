@@ -1,5 +1,5 @@
 import create from "zustand";
-import { light, dark } from "@styles";
+import { light, dark } from "@themes";
 import { IThemeStore } from "./types";
 
 export const useThemeStore = create<IThemeStore>((set) => ({

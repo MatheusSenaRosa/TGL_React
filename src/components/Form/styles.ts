@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { ArrowRight, ArrowLeft } from "phosphor-react";
 import { rem } from "polished";
 import { Link } from "react-router-dom";
+import { formSlideIn } from "@animations";
 
 export const Container = styled.section`
   display: flex;
@@ -10,6 +10,8 @@ export const Container = styled.section`
 
   width: 95%;
   max-width: ${rem(352)};
+
+  animation: ${formSlideIn} ease-out 0.3s;
 
   @media (max-width: ${rem(768)}) {
     margin-bottom: ${rem(30)};

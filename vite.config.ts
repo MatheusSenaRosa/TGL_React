@@ -13,6 +13,8 @@ export default defineConfig({
       "@routes": path.resolve(__dirname, "src/routes"),
       "@store": path.resolve(__dirname, "src/shared/store"),
       "@utils": path.resolve(__dirname, "src/shared/utils"),
+      "@themes": path.resolve(__dirname, "src/styles/themes"),
+      "@animations": path.resolve(__dirname, "src/styles/animations"),
     },
   },
 });

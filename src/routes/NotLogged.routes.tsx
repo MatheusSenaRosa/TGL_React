@@ -1,5 +1,5 @@
-import { Login, Registration, ForgotPassword, NotFound } from "@pages";
 import { Routes, Route } from "react-router-dom";
+import { Login, Registration, ForgotPassword, NotFound } from "@pages";
 
 export function NotLogged() {
   return (

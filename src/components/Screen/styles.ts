@@ -1,15 +1,15 @@
-import { rem } from "polished";
 import styled, { css } from "styled-components";
+import { rotateIcon } from "@animations";
+import { Moon, Sun } from "phosphor-react";
+import { rem } from "polished";
 
 export const Container = styled.div`
-  ${({ theme }) => css`
-    min-height: 100vh;
-    background-color: ${theme.colors.background};
+  min-height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  `}
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
 `;
 
 export const Footer = styled.footer`
@@ -54,4 +54,14 @@ export const SwitchTheme = styled.button`
       color: ${theme.colors.background};
     }
   `}
+`;
+
+export const MoonIcon = styled(Moon)`
+  font-size: ${rem(32)};
+  animation: ${rotateIcon} 1s;
+`;
+
+export const SunIcon = styled(Sun)`
+  font-size: ${rem(32)};
+  animation: ${rotateIcon} 1s;
 `;

@@ -2,12 +2,15 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 
 export const Container = styled.div`
-  min-height: 100vh;
+  ${({ theme }) => css`
+    min-height: 100vh;
 
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background-color: ${theme.colors.background};
+  `}
 `;
 
 export const Footer = styled.footer`

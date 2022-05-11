@@ -1,7 +1,6 @@
 import { createGlobalStyle, css } from "styled-components";
 
-export const Global = createGlobalStyle`
-${({ theme }) => css`
+export const GlobalStyles = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
@@ -12,8 +11,4 @@ ${({ theme }) => css`
     font-style: italic;
     transition: background 0.5s, color 0.1s, border-color 0.5s;
   }
-  body {
-    background-color: ${theme.colors.background};
-  }
-`}
 `;

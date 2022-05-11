@@ -2,15 +2,18 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 
 export const Container = styled.main`
-  display: flex;
+  ${({ theme }) => css`
+    display: flex;
 
-  align-items: center;
-  justify-content: space-evenly;
-  flex: 1;
+    align-items: center;
+    justify-content: space-evenly;
+    flex: 1;
+    background-color: ${theme.colors.background};
 
-  @media (max-width: ${rem(768)}) {
-    flex-direction: column;
-  }
+    @media (max-width: ${rem(768)}) {
+      flex-direction: column;
+    }
+  `}
 `;
 
 export const Input = styled.input`

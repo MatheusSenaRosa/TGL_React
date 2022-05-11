@@ -1,1 +1,1 @@
-export type { IThemeStore } from "./theme";
+export type { IThemeStore } from "./themeStore";

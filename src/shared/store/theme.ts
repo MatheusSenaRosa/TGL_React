@@ -2,8 +2,10 @@ import create from "zustand";
 import { light, dark } from "@themes";
 import { IThemeStore } from "./types";
 
+const initialValue = JSON.parse(localStorage.getItem("theme")!) ?? light;
+
 export const useThemeStore = create<IThemeStore>((set) => ({
-  currentTheme: JSON.parse(localStorage.getItem("theme")!) ?? light,
+  currentTheme: initialValue,
   switchTheme: () =>
     set((state) => {
       const newTheme = state.currentTheme.title === "light" ? dark : light;

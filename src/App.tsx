@@ -3,6 +3,7 @@ import { ThemeProvider } from "styled-components";
 import { Logged, NotLogged } from "@routes";
 import { ThemeButton } from "@components";
 import { useThemeStore } from "@store";
+import { GlobalStyles } from "@styles";
 import { userType } from "@types";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <ThemeProvider theme={currentTheme}>
+      <GlobalStyles />
       <ThemeButton />
       {user ? <Logged /> : <NotLogged />}
     </ThemeProvider>

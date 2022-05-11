@@ -9,7 +9,7 @@
       "@utils": ["./shared/utils/index"],
       "@themes": ["./styles/themes/index"],
       "@animations": ["./styles/animations/index"],
-      "@fireBase": ["./shared/firebase/index"],
+      "@services": ["./shared/services/index"],
       "@types": ["./shared/utils/types/index"],
       "@routes": ["./routes/index"]
     },

@@ -13,7 +13,7 @@ export default defineConfig({
       "@store": path.resolve(__dirname, "src/shared/store"),
       "@utils": path.resolve(__dirname, "src/shared/utils"),
       "@styles": path.resolve(__dirname, "src/styles"),
-      "@fireBase": path.resolve(__dirname, "src/shared/firebase"),
+      "@services": path.resolve(__dirname, "src/shared/services"),
       "@themes": path.resolve(__dirname, "src/styles/themes"),
       "@types": path.resolve(__dirname, "src/shared/utils/types"),
       "@animations": path.resolve(__dirname, "src/styles/animations"),

@@ -13,6 +13,27 @@ export const Container = styled.main`
   }
 `;
 
+export const PasswordContainer = styled.div`
+  ${({ theme }) => css`
+    position: relative;
+    display: flex;
+
+    button {
+      cursor: pointer;
+      background-color: transparent;
+      color: ${theme.colors.form.placeholder};
+      border: none;
+      position: absolute;
+      right: 3%;
+      align-self: center;
+
+      &:hover {
+        color: ${theme.colors.text.primary};
+      }
+    }
+  `}
+`;
+
 export const Input = styled.input`
   ${({ theme }) => css`
     height: ${rem(80)};

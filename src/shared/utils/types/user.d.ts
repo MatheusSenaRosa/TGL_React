@@ -1,3 +1,3 @@
-import { auth } from "@fireBase";
+import { auth } from "@services";
 
 export type userType = typeof auth.currentUser;

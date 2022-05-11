@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import { Logo, Screen, Form } from "@components";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@fireBase";
+import { auth } from "@services";
 
 import * as S from "./styles";
 

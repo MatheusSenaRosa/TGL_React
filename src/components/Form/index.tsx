@@ -1,15 +1,14 @@
-import { FormEvent, ReactNode } from "react";
+import { FormHTMLAttributes, ReactNode } from "react";
 import { ArrowRight, ArrowLeft } from "phosphor-react";
 
 import * as S from "./styles";
 
-type Props = {
+type Props = FormHTMLAttributes<HTMLFormElement> & {
   children: ReactNode;
   title: string;
   buttonText: string;
   goBack?: boolean;
   forgotPassword?: boolean;
-  onSubmit: (e: FormEvent) => void;
 };
 
 export function Form({
@@ -18,10 +17,10 @@ export function Form({
   buttonText,
   forgotPassword,
   goBack,
-  onSubmit,
+  ...rest
 }: Props) {
   return (
-    <S.Container onSubmit={onSubmit}>
+    <S.Container {...rest}>
       <S.Title>{title}</S.Title>
       <S.Form>
         {children}

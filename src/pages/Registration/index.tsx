@@ -1,17 +1,21 @@
 import { Form, Screen, Logo } from "@components";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useForm } from "react-hook-form";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { registrationSchema } from "@utils";
 import * as S from "./styles";
 
-type Form = {
+type FormType = {
   email: string;
   password: string;
 };
 
 export function Registration() {
-  const { register, handleSubmit, watch } = useForm<Form>();
+  const { register, handleSubmit } = useForm<FormType>({
+    resolver: yupResolver(registrationSchema),
+  });
 
-  const regiterUser = async () => {
+  const registerUser = async (data: FormType) => {
     try {
       // const response = await createUserWithEmailAndPassword("")
     } catch (e) {}
@@ -23,16 +27,18 @@ export function Registration() {
         <Logo />
 
         <Form
+          onSubmit={handleSubmit(registerUser)}
           title="Registration"
           buttonText="Register"
           goBack
-          onSubmit={() => {}}
         >
-          <S.Input placeholder="Email" {...register("email")} />
+          <S.Input placeholder="Email" {...register("email")} type="email" />
           <S.Input
             placeholder="Password"
             type="password"
             {...register("password")}
+            minLength={6}
+            maxLength={20}
           />
         </Form>
       </S.Container>

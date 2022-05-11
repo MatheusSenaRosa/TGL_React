@@ -6,7 +6,12 @@ export function ForgotPassword() {
     <Screen>
       <S.Container>
         <Logo />
-        <Form title="Reset password" buttonText="Send link" goBack>
+        <Form
+          title="Reset password"
+          buttonText="Send link"
+          goBack
+          onSubmit={() => {}}
+        >
           <S.Input placeholder="Email" />
         </Form>
       </S.Container>

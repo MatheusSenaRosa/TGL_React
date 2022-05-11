@@ -8,7 +8,12 @@ export function Registration() {
       <S.Container>
         <Logo />
 
-        <Form title="Registration" buttonText="Register" goBack>
+        <Form
+          title="Registration"
+          buttonText="Register"
+          goBack
+          onSubmit={() => {}}
+        >
           <S.Input placeholder="Name" type="text" />
           <S.Input placeholder="Email" />
           <S.Input placeholder="Password" type="password" />

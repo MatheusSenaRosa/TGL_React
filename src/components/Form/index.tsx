@@ -1,5 +1,6 @@
 import { FormHTMLAttributes, ReactNode } from "react";
 import { ArrowRight, ArrowLeft } from "phosphor-react";
+import { useNavigate } from "react-router-dom";
 
 import * as S from "./styles";
 
@@ -19,6 +20,8 @@ export function Form({
   goBack,
   ...rest
 }: Props) {
+  const navigate = useNavigate();
+
   return (
     <S.Container {...rest}>
       <S.Title>{title}</S.Title>
@@ -42,10 +45,10 @@ export function Form({
         </S.OutsideButton>
       )}
       {goBack && (
-        <S.OutsideButton to="/">
+        <S.BackButton onClick={() => navigate(-1)}>
           <ArrowLeft weight="bold" />
           Back
-        </S.OutsideButton>
+        </S.BackButton>
       )}
     </S.Container>
   );

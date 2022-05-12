@@ -131,3 +131,32 @@ export const OutsideButton = styled(Link)`
     }
   `}
 `;
+
+export const BackButton = styled.button`
+  ${({ theme }) => css`
+    margin-top: ${rem(30)};
+
+    color: ${theme.colors.text.primary};
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: ${rem(35)};
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+
+    outline-color: ${theme.colors.text.primary};
+
+    display: flex;
+    gap: ${rem(15)};
+
+    @media (max-width: ${rem(768)}) {
+      font-size: ${rem(30)};
+    }
+
+    @media (max-width: ${rem(425)}) {
+      font-size: ${rem(25)};
+    }
+  `}
+`;

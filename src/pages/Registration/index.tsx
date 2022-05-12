@@ -28,7 +28,6 @@ export function Registration() {
   }, [errors]);
 
   const registerUser = async (data: FormType) => {
-    console.log("foi");
     try {
       // const response = await createUserWithEmailAndPassword("")
     } catch (e) {}

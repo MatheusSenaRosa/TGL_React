@@ -1,8 +1,10 @@
+import { auth } from "@services";
+import { signOut } from "firebase/auth";
 import * as S from "./styles";
 
 export const Home = () => {
-  const logOut = () => {
-    localStorage.removeItem("user");
+  const logOut = async () => {
+    await signOut(auth);
     location.reload();
   };
 

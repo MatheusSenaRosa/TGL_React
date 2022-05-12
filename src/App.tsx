@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
-import { NotLogged } from "@routes";
 import { ThemeButton } from "@components";
 import { useThemeStore } from "@store";
 import { GlobalStyles } from "@styles";
 import { auth } from "@services";
 import { onAuthStateChanged } from "firebase/auth";
 import { AuthContext } from "@context";
-import { LoadingPage } from "@pages";
+import { Routes } from "@routes";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,8 +23,7 @@ function App() {
     <ThemeProvider theme={currentTheme}>
       <GlobalStyles />
       <ThemeButton />
-      {!isLoading && <NotLogged />}
-      {isLoading && <LoadingPage />}
+      <Routes isLoading={isLoading} />
     </ThemeProvider>
   );
 }

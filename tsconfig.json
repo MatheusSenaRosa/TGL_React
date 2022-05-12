@@ -11,6 +11,7 @@
       "@animations": ["./styles/animations/index"],
       "@services": ["./shared/services/index"],
       "@types": ["./shared/utils/types/index"],
+      "@context": ["./shared/context/index"],
       "@routes": ["./routes/index"]
     },
     "target": "ESNext",

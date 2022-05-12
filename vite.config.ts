@@ -17,6 +17,7 @@ export default defineConfig({
       "@themes": path.resolve(__dirname, "src/styles/themes"),
       "@types": path.resolve(__dirname, "src/shared/utils/types"),
       "@animations": path.resolve(__dirname, "src/styles/animations"),
+      "@context": path.resolve(__dirname, "src/shared/context"),
     },
   },
 });

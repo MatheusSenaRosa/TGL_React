@@ -1,6 +1,6 @@
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 import { Logo, Screen, Form } from "@components";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, getIdTokenResult } from "firebase/auth";
 import { auth } from "@services";
 
 import * as S from "./styles";
@@ -8,15 +8,9 @@ import * as S from "./styles";
 export function Login() {
   const loginHandler = async (e: FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await signInWithEmailAndPassword(
-        auth,
-        "teste@gmail.com",
-        "1234231ewq"
-      );
 
-      localStorage.setItem("user", JSON.stringify(response.user));
-      location.reload();
+    try {
+      await signInWithEmailAndPassword(auth, "teste@gmail.com", "1234231ewq");
     } catch (e) {
       console.log(e);
     }

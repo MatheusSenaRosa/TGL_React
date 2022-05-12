@@ -48,7 +48,7 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
 
-    > input {
+    > input:first-child {
       border-radius: ${rem(14)} ${rem(14)} 0 0;
     }
   `}

@@ -12,5 +12,10 @@ ${({ theme }) => css`
     font-style: italic;
     transition: background 0.5s, color 0.1s, border-color 0.5s;
   }
+
+  html,
+  body {
+    background-color: ${theme.colors.background};
+  }
 `}
 `;

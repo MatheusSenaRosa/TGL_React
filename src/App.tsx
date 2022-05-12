@@ -1,25 +1,31 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
-import { Logged, NotLogged } from "@routes";
+import { NotLogged } from "@routes";
 import { ThemeButton } from "@components";
 import { useThemeStore } from "@store";
 import { GlobalStyles } from "@styles";
-import { userType } from "@types";
+import { auth } from "@services";
+import { onAuthStateChanged } from "firebase/auth";
+import { AuthContext } from "@context";
+import { LoadingPage } from "@pages";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const { currentTheme } = useThemeStore();
-  const [user, setUser] = useState<userType>(null);
+  const { setUser } = useContext(AuthContext);
+
+  onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
 
   useEffect(() => {
-    const storageUser = localStorage.getItem("user");
-    if (storageUser) setUser(JSON.parse(storageUser));
+    setTimeout(() => setIsLoading(false), 700);
   }, []);
 
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyles />
       <ThemeButton />
-      {user ? <Logged /> : <NotLogged />}
+      {!isLoading && <NotLogged />}
+      {isLoading && <LoadingPage />}
     </ThemeProvider>
   );
 }

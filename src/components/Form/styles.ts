@@ -1,21 +1,29 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { Link } from "react-router-dom";
-import { formSlideIn } from "@animations";
+import { fadeOut, formSlideIn } from "@animations";
 
-export const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const Container = styled.section<{ isChangingPage: boolean }>`
+  ${({ isChangingPage }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  width: 95%;
-  max-width: ${rem(352)};
+    width: 95%;
+    max-width: ${rem(352)};
 
-  animation: ${formSlideIn} ease-out 0.3s;
+    ${isChangingPage
+      ? css`
+          animation: ${fadeOut} ease-in-out 0.2s forwards;
+        `
+      : css`
+          animation: ${formSlideIn} ease-out 0.3s;
+        `}
 
-  @media (max-width: ${rem(768)}) {
-    margin-bottom: ${rem(30)};
-  }
+    @media (max-width: ${rem(768)}) {
+      margin-bottom: ${rem(30)};
+    }
+  `}
 `;
 
 export const Title = styled.h2`
@@ -54,10 +62,13 @@ export const Form = styled.form`
   `}
 `;
 
-export const ForgotPassword = styled(Link)`
+export const ForgotPassword = styled.button`
   ${({ theme }) => css`
     align-self: flex-end;
     margin: ${rem(27)} ${rem(27)} ${rem(22)} 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 
     color: ${theme.colors.form.forgotPassword};
     font-size: ${rem(17)};
@@ -74,7 +85,6 @@ export const SubmitButton = styled.button`
   ${({ theme }) => css`
     border: none;
     background-color: transparent;
-    cursor: pointer;
     transition-duration: 0.3s;
 
     font-size: ${rem(35)};
@@ -90,8 +100,11 @@ export const SubmitButton = styled.button`
     gap: ${rem(15)};
 
     outline-color: ${theme.colors.primary};
+    cursor: not-allowed;
 
     &&:not(:disabled) {
+      cursor: pointer;
+
       &&:hover {
         background-color: ${theme.colors.primary};
         color: ${theme.colors.form.buttonTextHover};
@@ -108,13 +121,16 @@ export const SubmitButton = styled.button`
   `}
 `;
 
-export const OutsideButton = styled(Link)`
+export const OutsideButton = styled.button`
   ${({ theme }) => css`
     margin-top: ${rem(30)};
 
     color: ${theme.colors.text.primary};
     font-size: ${rem(35)};
     font-weight: bold;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 
     display: flex;
     align-items: center;

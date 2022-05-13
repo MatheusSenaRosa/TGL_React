@@ -1,6 +1,6 @@
 import create from "zustand";
 import { light, dark } from "@themes";
-import { IThemeStore } from "./types";
+import { IThemeStore } from "./interfaces";
 
 const initialValue = JSON.parse(localStorage.getItem("theme")!) ?? light;
 

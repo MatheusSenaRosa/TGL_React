@@ -48,6 +48,8 @@ export const Input = styled.input`
 
     color: ${theme.colors.form.placeholder};
     font-size: ${rem(17)};
+    margin-bottom: ${rem(2)};
+
     font-weight: bold;
 
     &&::placeholder {

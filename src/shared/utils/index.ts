@@ -1,2 +1,2 @@
-export { registrationSchema } from "./yupSchemas";
+export { registrationSchema, loginSchema } from "./yupSchemas";
 export { formatErrorMessage } from "./formatErrorMessage";

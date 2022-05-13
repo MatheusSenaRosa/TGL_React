@@ -15,3 +15,8 @@ export const registrationSchema = yup.object({
       "the password must contain special characters, lowercase letters, uppercase letters and numbers"
     ),
 });
+
+export const loginSchema = yup.object({
+  email: yup.string().required().email(),
+  password: yup.string().required(),
+});

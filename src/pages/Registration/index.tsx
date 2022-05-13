@@ -37,13 +37,17 @@ export function Registration() {
     }
   }, [errors]);
 
-  const registerUser = async (data: FormType) => {
+  const registerUser = async ({ email, password }: FormType) => {
     setIsLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      await createUserWithEmailAndPassword(auth, email, password);
       toast.success("Account successfully created!");
       navigate("/", { replace: true });
-    } catch (e) {
+    } catch (e: any) {
+      if ("Firebase: Error (auth/email-already-in-use).") {
+        toast.error("This user already exists.");
+        return;
+      }
       toast.warn("The account could not be created.");
     } finally {
       setIsLoading(false);

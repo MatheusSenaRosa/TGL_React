@@ -1,9 +1,10 @@
 import { FormHTMLAttributes, ReactNode } from "react";
 import { ArrowRight, ArrowLeft } from "phosphor-react";
-import { useNavigate } from "react-router-dom";
 import { Loading } from "@components";
+import { useChangePageStore } from "@store";
 
 import * as S from "./styles";
+import { To, useNavigate } from "react-router-dom";
 
 type Props = FormHTMLAttributes<HTMLFormElement> & {
   children: ReactNode;
@@ -23,16 +24,28 @@ export function Form({
   isLoading,
   ...rest
 }: Props) {
+  const { isChanging, setIsChanging } = useChangePageStore();
   const navigate = useNavigate();
 
+  const navigationHandler = (to: string | number) => {
+    setIsChanging(true);
+    setTimeout(() => {
+      setIsChanging(false);
+      navigate(to as To);
+    }, 200);
+  };
+
   return (
-    <S.Container {...rest}>
+    <S.Container {...rest} isChangingPage={isChanging}>
       <S.Title>{title}</S.Title>
       <S.Form>
         {children}
 
         {forgotPassword && (
-          <S.ForgotPassword to="/forgot-password">
+          <S.ForgotPassword
+            onClick={() => navigationHandler("/forgot-password")}
+            type="button"
+          >
             I Forgot my password
           </S.ForgotPassword>
         )}
@@ -48,13 +61,16 @@ export function Form({
         </S.SubmitButton>
       </S.Form>
       {!goBack && (
-        <S.OutsideButton to="/registration">
+        <S.OutsideButton
+          type="button"
+          onClick={() => navigationHandler("/registration")}
+        >
           Sign Up
           <ArrowRight weight="bold" />
         </S.OutsideButton>
       )}
       {goBack && (
-        <S.BackButton onClick={() => navigate(-1)}>
+        <S.BackButton type="button" onClick={() => navigationHandler(-1)}>
           <ArrowLeft weight="bold" />
           Back
         </S.BackButton>

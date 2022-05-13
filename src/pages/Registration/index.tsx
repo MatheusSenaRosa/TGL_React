@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Eye, EyeClosed } from "phosphor-react";
+import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Form, Screen, Logo } from "@components";
-import { registrationSchema } from "@utils";
+import { registrationSchema, formatErrorMessage } from "@utils";
+import { useNavigate, useRoutes } from "react-router-dom";
+import { auth } from "@services";
 import * as S from "./styles";
 
 type FormType = {
@@ -14,6 +17,7 @@ type FormType = {
 
 export function Registration() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,14 +27,23 @@ export function Registration() {
   });
 
   useEffect(() => {
-    if (errors.email) return console.log(errors.email.message);
-    if (errors.password) return console.log(errors.password.message);
+    if (errors.email?.message) {
+      toast.warn(formatErrorMessage(errors.email.message));
+      return;
+    }
+    if (errors.password?.message) {
+      toast.warn(formatErrorMessage(errors.password.message));
+    }
   }, [errors]);
 
   const registerUser = async (data: FormType) => {
     try {
-      // const response = await createUserWithEmailAndPassword("")
-    } catch (e) {}
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      toast.success("Account successfully created!");
+      navigate("/", { replace: true });
+    } catch (e) {
+      toast.warn("The account could not be created.");
+    }
   };
 
   return (

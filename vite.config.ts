@@ -15,7 +15,7 @@ export default defineConfig({
       "@styles": path.resolve(__dirname, "src/styles"),
       "@services": path.resolve(__dirname, "src/shared/services"),
       "@themes": path.resolve(__dirname, "src/styles/themes"),
-      "@types": path.resolve(__dirname, "src/shared/utils/types"),
+      "@interfaces": path.resolve(__dirname, "src/shared/utils/interfaces"),
       "@animations": path.resolve(__dirname, "src/styles/animations"),
       "@context": path.resolve(__dirname, "src/shared/context"),
     },

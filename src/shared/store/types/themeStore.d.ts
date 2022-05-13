@@ -1,6 +1,6 @@
-import { light, dark } from "@styles";
+import { ITheme } from "@interfaces";
 
 export interface IThemeStore {
-  currentTheme: typeof light | typeof dark;
+  currentTheme: ITheme;
   switchTheme: () => void;
 }

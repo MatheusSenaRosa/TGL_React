@@ -6,6 +6,7 @@ import { GlobalStyles } from "@styles";
 import { auth } from "@services";
 import { onAuthStateChanged } from "firebase/auth";
 import { AuthContext } from "@context";
+import { ToastContainer } from "react-toastify";
 import { Routes } from "@routes";
 
 function App() {
@@ -23,6 +24,9 @@ function App() {
     <ThemeProvider theme={currentTheme}>
       <GlobalStyles />
       <ThemeButton />
+      <ToastContainer
+        theme={currentTheme.title === "dark" ? "dark" : "colored"}
+      />
       <Routes isLoading={isLoading} />
     </ThemeProvider>
   );

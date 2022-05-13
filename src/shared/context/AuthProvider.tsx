@@ -1,9 +1,9 @@
-import { userType } from "@types";
+import { IUser } from "@interfaces";
 import { createContext, ReactNode, useState } from "react";
 
 type AuthContextType = {
-  user: userType;
-  setUser: (currentUser: userType) => void;
+  user: IUser;
+  setUser: (currentUser: IUser) => void;
 };
 
 const initialState: AuthContextType = {
@@ -18,7 +18,7 @@ type Props = {
 };
 
 export const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<userType>(initialState.user);
+  const [user, setUser] = useState<IUser>(initialState.user);
 
   return (
     <AuthContext.Provider

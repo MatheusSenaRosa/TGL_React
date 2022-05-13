@@ -10,7 +10,7 @@
       "@themes": ["./styles/themes/index"],
       "@animations": ["./styles/animations/index"],
       "@services": ["./shared/services/index"],
-      "@types": ["./shared/utils/types/index"],
+      "@interfaces": ["./shared/utils/interfaces/index"],
       "@context": ["./shared/context/index"],
       "@routes": ["./routes/index"]
     },

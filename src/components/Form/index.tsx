@@ -1,6 +1,7 @@
 import { FormHTMLAttributes, ReactNode } from "react";
 import { ArrowRight, ArrowLeft } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "@components";
 
 import * as S from "./styles";
 
@@ -10,6 +11,7 @@ type Props = FormHTMLAttributes<HTMLFormElement> & {
   buttonText: string;
   goBack?: boolean;
   forgotPassword?: boolean;
+  isLoading: boolean;
 };
 
 export function Form({
@@ -18,6 +20,7 @@ export function Form({
   buttonText,
   forgotPassword,
   goBack,
+  isLoading,
   ...rest
 }: Props) {
   const navigate = useNavigate();
@@ -34,8 +37,14 @@ export function Form({
           </S.ForgotPassword>
         )}
 
-        <S.SubmitButton type="submit">
-          {buttonText} <ArrowRight weight="bold" />
+        <S.SubmitButton type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <Loading size={40} />
+          ) : (
+            <>
+              {buttonText} <ArrowRight weight="bold" />
+            </>
+          )}
         </S.SubmitButton>
       </S.Form>
       {!goBack && (

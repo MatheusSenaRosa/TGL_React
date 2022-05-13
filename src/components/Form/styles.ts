@@ -91,9 +91,11 @@ export const SubmitButton = styled.button`
 
     outline-color: ${theme.colors.primary};
 
-    &&:hover {
-      background-color: ${theme.colors.primary};
-      color: ${theme.colors.form.buttonTextHover};
+    &&:not(:disabled) {
+      &&:hover {
+        background-color: ${theme.colors.primary};
+        color: ${theme.colors.form.buttonTextHover};
+      }
     }
 
     @media (max-width: ${rem(768)}) {

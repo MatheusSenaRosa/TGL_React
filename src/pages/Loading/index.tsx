@@ -5,7 +5,7 @@ export const LoadingPage = () => {
   return (
     <Screen>
       <S.Container>
-        <Loading />
+        <Loading size={90} />
       </S.Container>
     </Screen>
   );

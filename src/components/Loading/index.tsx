@@ -1,3 +1,7 @@
 import * as S from "./styles";
 
-export const Loading = () => <S.Container />;
+type Props = {
+  size?: number;
+};
+
+export const Loading = ({ size = 40 }: Props) => <S.Container size={size} />;

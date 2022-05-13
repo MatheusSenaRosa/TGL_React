@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Form, Screen, Logo } from "@components";
 import { registrationSchema, formatErrorMessage } from "@utils";
-import { useNavigate, useRoutes } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth } from "@services";
 import * as S from "./styles";
 
@@ -17,6 +17,7 @@ type FormType = {
 
 export function Registration() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -37,12 +38,15 @@ export function Registration() {
   }, [errors]);
 
   const registerUser = async (data: FormType) => {
+    setIsLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
       toast.success("Account successfully created!");
       navigate("/", { replace: true });
     } catch (e) {
       toast.warn("The account could not be created.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -52,6 +56,7 @@ export function Registration() {
         <Logo />
 
         <Form
+          isLoading={isLoading}
           onSubmit={handleSubmit(registerUser)}
           title="Registration"
           buttonText="Register"

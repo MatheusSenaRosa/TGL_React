@@ -1,11 +1,13 @@
-import { FormEvent, useEffect } from "react";
+import { FormEvent, useState } from "react";
 import { Logo, Screen, Form } from "@components";
-import { signInWithEmailAndPassword, getIdTokenResult } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@services";
 
 import * as S from "./styles";
 
 export function Login() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const loginHandler = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -21,6 +23,7 @@ export function Login() {
       <S.Container>
         <Logo />
         <Form
+          isLoading={isLoading}
           onSubmit={loginHandler}
           title="Authentication"
           buttonText="Log In"

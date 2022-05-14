@@ -1,8 +1,6 @@
 import * as yup from "yup";
 
-const passwordRegex = new RegExp(
-  "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=_()])"
-);
+const passwordRegex = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])");
 
 export const registrationSchema = yup.object({
   email: yup.string().required().email(),
@@ -12,7 +10,7 @@ export const registrationSchema = yup.object({
     .min(6, "the min length to password is 6")
     .matches(
       passwordRegex,
-      "the password must contain special characters, lowercase letters, uppercase letters and numbers"
+      "the password must contains lowercase letters, uppercase letters and numbers"
     ),
 });
 

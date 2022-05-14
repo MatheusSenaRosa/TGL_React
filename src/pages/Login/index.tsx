@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import { Eye, EyeClosed } from "phosphor-react";
 
 import { Logo, Screen, Form } from "@components";
 import { auth } from "@services";
@@ -16,6 +17,7 @@ type FormType = {
 };
 
 export function Login() {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const {
     handleSubmit,
@@ -64,11 +66,20 @@ export function Login() {
           forgotPassword
         >
           <S.Input placeholder="Email" {...register("email")} />
-          <S.Input
-            placeholder="Password"
-            type="password"
-            {...register("password")}
-          />
+          <S.PasswordContainer>
+            <S.Input
+              placeholder="Password"
+              type={isPasswordVisible ? "text" : "password"}
+              maxLength={20}
+              {...register("password")}
+            />
+            <S.EyeButton
+              type="button"
+              onClick={() => setIsPasswordVisible((prev) => !prev)}
+            >
+              {isPasswordVisible ? <Eye size={32} /> : <EyeClosed size={32} />}
+            </S.EyeButton>
+          </S.PasswordContainer>
         </Form>
       </S.Container>
     </Screen>

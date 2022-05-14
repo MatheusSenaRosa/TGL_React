@@ -74,12 +74,12 @@ export function Registration() {
               {...register("password")}
               maxLength={20}
             />
-            <button
+            <S.EyeButton
               type="button"
               onClick={() => setIsPasswordVisible((prev) => !prev)}
             >
               {isPasswordVisible ? <Eye size={32} /> : <EyeClosed size={32} />}
-            </button>
+            </S.EyeButton>
           </S.PasswordContainer>
         </Form>
       </S.Container>

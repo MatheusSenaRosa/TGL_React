@@ -14,24 +14,8 @@ export const Container = styled.main`
 `;
 
 export const PasswordContainer = styled.div`
-  ${({ theme }) => css`
-    position: relative;
-    display: flex;
-
-    button {
-      cursor: pointer;
-      background-color: transparent;
-      color: ${theme.colors.form.placeholder};
-      border: none;
-      position: absolute;
-      right: 3%;
-      align-self: center;
-
-      &:hover {
-        color: ${theme.colors.text.primary};
-      }
-    }
-  `}
+  position: relative;
+  display: flex;
 `;
 
 export const Input = styled.input`
@@ -56,6 +40,22 @@ export const Input = styled.input`
       color: ${theme.colors.form.placeholder};
       font-size: ${rem(17)};
       font-weight: bold;
+    }
+  `}
+`;
+
+export const EyeButton = styled.button`
+  ${({ theme }) => css`
+    cursor: pointer;
+    background-color: transparent;
+    color: ${theme.colors.form.placeholder};
+    border: none;
+    position: absolute;
+    right: 3%;
+    align-self: center;
+
+    &:hover {
+      color: ${theme.colors.text.primary};
     }
   `}
 `;

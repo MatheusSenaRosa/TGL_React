@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
-import { Link } from "react-router-dom";
 import { fadeOut, formSlideIn } from "@animations";
 
 export const Container = styled.section<{ isChangingPage: boolean }>`
@@ -17,7 +16,7 @@ export const Container = styled.section<{ isChangingPage: boolean }>`
           animation: ${fadeOut} ease-in-out 0.2s forwards;
         `
       : css`
-          animation: ${formSlideIn} ease-out 0.3s;
+          animation: ${formSlideIn} ease-out 0.2s;
         `}
 
     @media (max-width: ${rem(768)}) {
@@ -58,6 +57,12 @@ export const Form = styled.form`
 
     > input:first-child {
       border-radius: ${rem(14)} ${rem(14)} 0 0;
+    }
+
+    > div:first-child {
+      input {
+        border-radius: ${rem(14)} ${rem(14)} 0 0;
+      }
     }
   `}
 `;
@@ -121,7 +126,7 @@ export const SubmitButton = styled.button`
   `}
 `;
 
-export const OutsideButton = styled.button`
+export const NavigationButton = styled.button`
   ${({ theme }) => css`
     margin-top: ${rem(30)};
 

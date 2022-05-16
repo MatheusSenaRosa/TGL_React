@@ -45,7 +45,7 @@ export function Login() {
       toast.success("You are logged in!");
     } catch (e: any) {
       if (e.message === "Firebase: Error (auth/user-not-found).") {
-        toast.error("This account do not exists.");
+        toast.error("Email or password is invalid. Try it again!");
         return;
       }
       toast.error("An error has ocurred. Try to reload the page.");
@@ -53,6 +53,10 @@ export function Login() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    console.log("dokasj");
+  }, []);
 
   return (
     <Screen>
@@ -62,7 +66,8 @@ export function Login() {
           isLoading={isLoading}
           onSubmit={handleSubmit(loginHandler)}
           title="Authentication"
-          buttonText="Log In"
+          submitText="Log In"
+          navigationButton={{ path: "/registration", text: "Sign Up" }}
           forgotPassword
         >
           <S.Input placeholder="Email" {...register("email")} />

@@ -9,29 +9,35 @@ import { To, useNavigate } from "react-router-dom";
 type Props = FormHTMLAttributes<HTMLFormElement> & {
   children: ReactNode;
   title: string;
-  buttonText: string;
+  submitText: string;
   goBack?: boolean;
   forgotPassword?: boolean;
   isLoading: boolean;
+  navigationButton?: {
+    text: string;
+    path: string;
+    replace?: boolean;
+  };
 };
 
 export function Form({
   children,
   title,
-  buttonText,
+  submitText,
   forgotPassword,
   goBack,
   isLoading,
+  navigationButton,
   ...rest
 }: Props) {
   const { isChanging, setIsChanging } = useChangePageStore();
   const navigate = useNavigate();
 
-  const navigationHandler = (to: string | number) => {
+  const navigationHandler = (to: string | number, replace: boolean = false) => {
     setIsChanging(true);
     setTimeout(() => {
       setIsChanging(false);
-      navigate(to as To);
+      navigate(to as To, { replace: replace });
     }, 200);
   };
 
@@ -46,7 +52,7 @@ export function Form({
             onClick={() => navigationHandler("/forgot-password")}
             type="button"
           >
-            I Forgot my password
+            I forgot my password
           </S.ForgotPassword>
         )}
 
@@ -55,22 +61,29 @@ export function Form({
             <Loading size={40} />
           ) : (
             <>
-              {buttonText} <ArrowRight weight="bold" />
+              {submitText} <ArrowRight weight="bold" />
             </>
           )}
         </S.SubmitButton>
       </S.Form>
-      {!goBack && (
-        <S.OutsideButton
+      {navigationButton && (
+        <S.NavigationButton
+          disabled={isLoading}
           type="button"
-          onClick={() => navigationHandler("/registration")}
+          onClick={() =>
+            navigationHandler(navigationButton.path, navigationButton.replace)
+          }
         >
-          Sign Up
+          {navigationButton.text}
           <ArrowRight weight="bold" />
-        </S.OutsideButton>
+        </S.NavigationButton>
       )}
       {goBack && (
-        <S.BackButton type="button" onClick={() => navigationHandler(-1)}>
+        <S.BackButton
+          type="button"
+          onClick={() => navigationHandler(-1)}
+          disabled={isLoading}
+        >
           <ArrowLeft weight="bold" />
           Back
         </S.BackButton>

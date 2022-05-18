@@ -1,12 +1,14 @@
 import { auth, db } from "@services";
+import { SideBar } from "@components";
 import { signOut } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
 import { ArrowRight, List } from "phosphor-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import * as S from "./styles";
 
 export const Home = () => {
+  const [isSideBar, setIsSideBar] = useState(false);
   const gamesCollection = collection(db, "games");
   const logOut = async () => {
     try {
@@ -26,28 +28,31 @@ export const Home = () => {
   }, []);
 
   return (
-    <S.Screen>
-      <S.Header>
-        <S.MenuButton>
-          <List />
-        </S.MenuButton>
-        <S.MiniLogo>TGL</S.MiniLogo>
-        <span />
-        <S.NavBar>
-          <ul>
-            <li>
-              <button>Account</button>
-            </li>
-            <li>
-              <button type="button" onClick={logOut}>
-                Log out
-                <ArrowRight weight="bold" size={25} />
-              </button>
-            </li>
-          </ul>
-        </S.NavBar>
-      </S.Header>
-      <S.Container></S.Container>
-    </S.Screen>
+    <>
+      {isSideBar && <SideBar onClose={() => setIsSideBar(false)} />}
+      <S.Screen>
+        <S.Header>
+          <S.MenuButton onClick={() => setIsSideBar(true)}>
+            <List />
+          </S.MenuButton>
+          <S.MiniLogo>TGL</S.MiniLogo>
+          <span />
+          <S.NavBar>
+            <ul>
+              <li>
+                <button>Account</button>
+              </li>
+              <li>
+                <button type="button" onClick={logOut}>
+                  Log out
+                  <ArrowRight weight="bold" size={25} />
+                </button>
+              </li>
+            </ul>
+          </S.NavBar>
+        </S.Header>
+        <S.Container></S.Container>
+      </S.Screen>
+    </>
   );
 };

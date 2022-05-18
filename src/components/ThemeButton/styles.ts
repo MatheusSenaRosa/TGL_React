@@ -33,7 +33,7 @@ export const Button = styled.button`
       color: ${theme.colors.background};
     }
 
-    @media (max-width: ${rem(425)}) {
+    @media (max-width: ${rem(768)}) {
       top: ${rem(19)};
       width: ${rem(37)};
       height: ${rem(37)};
@@ -45,7 +45,7 @@ export const MoonIcon = styled(Moon)`
   font-size: ${rem(32)};
   animation: ${rotateIcon} 1s;
 
-  @media (max-width: ${rem(425)}) {
+  @media (max-width: ${rem(768)}) {
     font-size: ${rem(29)};
   }
 `;
@@ -54,7 +54,7 @@ export const SunIcon = styled(Sun)`
   font-size: ${rem(32)};
   animation: ${rotateIcon} 1s;
 
-  @media (max-width: ${rem(425)}) {
+  @media (max-width: ${rem(768)}) {
     font-size: ${rem(29)};
   }
 `;

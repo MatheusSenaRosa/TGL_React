@@ -16,7 +16,7 @@ export const Button = styled.button`
     border-radius: 50%;
 
     position: fixed;
-    top: ${rem(30)};
+    top: ${rem(15)};
     right: ${rem(30)};
 
     display: flex;

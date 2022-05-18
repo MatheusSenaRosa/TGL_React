@@ -54,10 +54,6 @@ export function Login() {
     }
   };
 
-  useEffect(() => {
-    console.log("dokasj");
-  }, []);
-
   return (
     <Screen>
       <S.Container>

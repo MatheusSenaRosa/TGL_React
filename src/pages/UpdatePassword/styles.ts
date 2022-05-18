@@ -7,6 +7,10 @@ export const Container = styled.main`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+
+  @media (max-width: ${rem(768)}) {
+    flex-direction: column;
+  }
 `;
 
 export const PasswordContainer = styled.div`

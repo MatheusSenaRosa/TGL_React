@@ -73,9 +73,14 @@ export function Registration() {
           submitText="Register"
           goBack
         >
-          <S.Input placeholder="Email" {...register("email")} />
+          <S.Input
+            placeholder="Email"
+            {...register("email")}
+            autoCapitalize="off"
+          />
           <S.PasswordContainer>
             <S.Input
+              autoCapitalize="off"
               placeholder="Password"
               type={isPasswordVisible ? "text" : "password"}
               {...register("password")}
@@ -90,6 +95,7 @@ export function Registration() {
           </S.PasswordContainer>
           <S.PasswordContainer>
             <S.Input
+              autoCapitalize="off"
               placeholder="Confirm password"
               type={isConfirmPasswordVisible ? "text" : "password"}
               {...register("confirmPassword")}

@@ -1,15 +1,18 @@
+import { toast } from "react-toastify";
+import { signOut } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { ArrowRight, List } from "phosphor-react";
+import { collection, getDocs } from "firebase/firestore";
+
 import { auth, db } from "@services";
 import { SideBar } from "@components";
-import { signOut } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
-import { ArrowRight, List } from "phosphor-react";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+
 import * as S from "./styles";
 
 export const Home = () => {
   const [isSideBar, setIsSideBar] = useState(false);
   const gamesCollection = collection(db, "games");
+
   const logOut = async () => {
     try {
       await signOut(auth);
@@ -29,7 +32,9 @@ export const Home = () => {
 
   return (
     <>
-      {isSideBar && <SideBar onClose={() => setIsSideBar(false)} />}
+      {isSideBar && (
+        <SideBar onClose={() => setIsSideBar(false)} onLogout={logOut} />
+      )}
       <S.Screen>
         <S.Header>
           <S.MenuButton onClick={() => setIsSideBar(true)}>

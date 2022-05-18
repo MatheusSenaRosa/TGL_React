@@ -66,9 +66,14 @@ export function Login() {
           navigationButton={{ path: "/registration", text: "Sign Up" }}
           forgotPassword
         >
-          <S.Input placeholder="Email" {...register("email")} />
+          <S.Input
+            placeholder="Email"
+            {...register("email")}
+            autoCapitalize="off"
+          />
           <S.PasswordContainer>
             <S.Input
+              autoCapitalize="off"
               placeholder="Password"
               type={isPasswordVisible ? "text" : "password"}
               maxLength={20}

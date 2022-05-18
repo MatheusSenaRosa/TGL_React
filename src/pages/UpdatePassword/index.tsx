@@ -97,6 +97,7 @@ export const UpdatePassword = () => {
           <S.PasswordContainer>
             <S.Input
               placeholder="Password"
+              autoCapitalize="off"
               type={isPasswordVisible ? "text" : "password"}
               {...register("password")}
               maxLength={20}
@@ -110,6 +111,7 @@ export const UpdatePassword = () => {
           </S.PasswordContainer>
           <S.PasswordContainer>
             <S.Input
+              autoCapitalize="off"
               placeholder="Confirm password"
               type={isConfirmPasswordVisible ? "text" : "password"}
               {...register("confirmPassword")}

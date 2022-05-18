@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
-import { List } from "phosphor-react";
 
 export const Screen = styled.main`
   ${({ theme }) => css`
@@ -34,6 +33,14 @@ export const Header = styled.header`
       width: ${rem(107)};
       height: ${rem(7)};
       background-color: ${theme.colors.primary};
+    }
+
+    @media (max-width: ${rem(1024)}) {
+      padding: 0 ${rem(130)};
+
+      span {
+        left: ${rem(115)};
+      }
     }
 
     @media (max-width: ${rem(768)}) {

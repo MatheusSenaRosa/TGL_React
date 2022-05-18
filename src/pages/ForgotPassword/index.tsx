@@ -54,6 +54,7 @@ export function ForgotPassword() {
         <Logo />
         <Form
           isLoading={isLoading}
+          autoCapitalize="off"
           title="Reset password"
           submitText="Send link"
           goBack

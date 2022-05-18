@@ -14,6 +14,7 @@ export const Button = styled.button`
 
     border: none;
     border-radius: 50%;
+    overflow: hidden;
 
     position: fixed;
     top: ${rem(15)};
@@ -23,6 +24,7 @@ export const Button = styled.button`
     align-items: center;
     justify-content: center;
     transition-duration: 0.3s;
+    outline-color: ${theme.colors.primary};
 
     box-shadow: 0 0 ${rem(8)} ${theme.colors.negative};
 
@@ -30,15 +32,29 @@ export const Button = styled.button`
       background-color: ${theme.colors.negative};
       color: ${theme.colors.background};
     }
+
+    @media (max-width: ${rem(425)}) {
+      top: ${rem(19)};
+      width: ${rem(37)};
+      height: ${rem(37)};
+    }
   `}
 `;
 
 export const MoonIcon = styled(Moon)`
   font-size: ${rem(32)};
   animation: ${rotateIcon} 1s;
+
+  @media (max-width: ${rem(425)}) {
+    font-size: ${rem(29)};
+  }
 `;
 
 export const SunIcon = styled(Sun)`
   font-size: ${rem(32)};
   animation: ${rotateIcon} 1s;
+
+  @media (max-width: ${rem(425)}) {
+    font-size: ${rem(29)};
+  }
 `;

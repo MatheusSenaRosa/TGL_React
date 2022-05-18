@@ -1,7 +1,7 @@
 import { auth, db } from "@services";
 import { signOut } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
-import { ArrowRight } from "phosphor-react";
+import { ArrowRight, List } from "phosphor-react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import * as S from "./styles";
@@ -28,9 +28,11 @@ export const Home = () => {
   return (
     <S.Screen>
       <S.Header>
-        <S.MiniLogo>
-          TGL <span />
-        </S.MiniLogo>
+        <S.MenuButton>
+          <List />
+        </S.MenuButton>
+        <S.MiniLogo>TGL</S.MiniLogo>
+        <span />
         <S.NavBar>
           <ul>
             <li>
@@ -45,6 +47,7 @@ export const Home = () => {
           </ul>
         </S.NavBar>
       </S.Header>
+      <S.Container></S.Container>
     </S.Screen>
   );
 };

@@ -9,7 +9,7 @@ export function ThemeButton() {
   const { title } = useContext(ThemeContext);
   return (
     <S.Button onClick={switchTheme}>
-      {title === "light" ? <S.SunIcon size={32} /> : <S.MoonIcon size={32} />}
+      {title === "light" ? <S.SunIcon /> : <S.MoonIcon />}
     </S.Button>
   );
 }

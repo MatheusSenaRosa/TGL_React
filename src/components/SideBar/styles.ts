@@ -17,8 +17,7 @@ export const Overlay = styled.div<{ isClosing: boolean }>`
 
 export const Aside = styled.aside<{ isClosing: boolean }>`
   ${({ theme, isClosing }) => css`
-    width: 100%;
-    max-width: ${rem(200)};
+    width: ${rem(200)};
     height: 100vh;
     position: fixed;
     z-index: 2;

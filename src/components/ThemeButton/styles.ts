@@ -7,7 +7,7 @@ export const Button = styled.button`
   ${({ theme }) => css`
     width: ${rem(45)};
     height: ${rem(45)};
-    background-color: transparent;
+    background-color: ${theme.colors.background};
     color: ${theme.colors.negative};
     cursor: pointer;
     z-index: 1;
@@ -24,7 +24,6 @@ export const Button = styled.button`
     align-items: center;
     justify-content: center;
     transition-duration: 0.3s;
-    outline-color: ${theme.colors.primary};
 
     box-shadow: 0 0 ${rem(8)} ${theme.colors.negative};
 

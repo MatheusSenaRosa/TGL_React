@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { AuthContext } from "@context";
-import { LoadingPage } from "@pages";
+import { LoadingPage } from "@publicRoutes";
 
-import { NotLogged } from "./NotLogged.routes";
-import { Logged } from "./Logged.routes";
+import { PublicRoutes } from "./Public.routes";
+import { PrivatedRoutes } from "./Privated.routes";
 
 type Props = {
   isLoading: boolean;
@@ -18,8 +18,8 @@ export const Routes = ({ isLoading }: Props) => {
         <LoadingPage />
       ) : (
         <>
-          {!user && <NotLogged />}
-          {user && <Logged />}
+          {!user && <PublicRoutes />}
+          {user && <PrivatedRoutes />}
         </>
       )}
     </>

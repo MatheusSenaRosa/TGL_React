@@ -5,9 +5,9 @@ import {
   ForgotPassword,
   NotFound,
   UpdatePassword,
-} from "@pages";
+} from "@publicRoutes";
 
-export function NotLogged() {
+export function PublicRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />

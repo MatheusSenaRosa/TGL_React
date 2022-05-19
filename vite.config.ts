@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@pages": path.resolve(__dirname, "src/pages"),
+      "@privatedRoutes": path.resolve(__dirname, "src/pages/privated"),
+      "@publicRoutes": path.resolve(__dirname, "src/pages/public"),
       "@components": path.resolve(__dirname, "src/components"),
       "@routes": path.resolve(__dirname, "src/routes"),
       "@store": path.resolve(__dirname, "src/shared/store"),

@@ -1,13 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import { ThemeProvider } from "styled-components";
-import { ThemeButton } from "@components";
-import { useThemeStore } from "@store";
-import { GlobalStyles } from "@styles";
-import { auth } from "@services";
-import { onAuthStateChanged } from "firebase/auth";
-import { AuthContext } from "@context";
 import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from "styled-components";
+import { onAuthStateChanged } from "firebase/auth";
+import { useContext, useEffect, useState } from "react";
+
 import { Routes } from "@routes";
+import { auth } from "@services";
+import { AuthContext } from "@context";
+import { GlobalStyles } from "@styles";
+import { useThemeStore } from "@store";
+import { ThemeButton } from "@components";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +18,7 @@ function App() {
   onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 700);
+    setTimeout(() => setIsLoading(false), 1000);
   }, []);
 
   return (

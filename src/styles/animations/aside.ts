@@ -1,9 +1,9 @@
 import { css, keyframes } from "styled-components";
-
+import { rem } from "polished";
 export const slideIn = keyframes`
     ${css`
       from {
-        transform: translateX(-350px);
+        transform: translateX(${rem(-210)});
       }
     `}
 `;
@@ -11,7 +11,7 @@ export const slideIn = keyframes`
 export const slideOut = keyframes`
     ${css`
       to {
-        transform: translateX(-350px);
+        transform: translateX(${rem(-210)});
       }
     `}
 `;

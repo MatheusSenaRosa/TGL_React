@@ -8,7 +8,7 @@ export const Container = styled.section<{ isChangingPage: boolean }>`
     flex-direction: column;
     align-items: center;
 
-    width: 95%;
+    width: 97%;
     max-width: ${rem(352)};
 
     ${isChangingPage
@@ -104,7 +104,6 @@ export const SubmitButton = styled.button`
     justify-content: center;
     gap: ${rem(15)};
 
-    outline-color: ${theme.colors.primary};
     cursor: not-allowed;
 
     &&:not(:disabled) {
@@ -140,8 +139,6 @@ export const NavigationButton = styled.button`
     display: flex;
     align-items: center;
 
-    outline-color: ${theme.colors.text.primary};
-
     display: flex;
     gap: ${rem(15)};
 
@@ -168,8 +165,6 @@ export const BackButton = styled.button`
 
     display: flex;
     align-items: center;
-
-    outline-color: ${theme.colors.text.primary};
 
     display: flex;
     gap: ${rem(15)};

@@ -108,8 +108,6 @@ export const MenuButton = styled.button`
     left: ${rem(10)};
     font-size: ${rem(32)};
 
-    outline-color: ${theme.colors.primary};
-
     @media (min-width: ${rem(769)}) {
       display: none;
     }

@@ -26,8 +26,6 @@ export const Input = styled.input`
     border: none;
     border-bottom: ${rem(2)} solid ${theme.colors.form.inputBorder};
 
-    outline-color: ${theme.colors.primary};
-
     color: ${theme.colors.form.placeholder};
     font-size: ${rem(17)};
     font-weight: bold;

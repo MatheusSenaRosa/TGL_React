@@ -2,10 +2,10 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 
 export const Container = styled.main`
-  display: flex;
-  align-items: center;
   flex: 1;
 
+  display: flex;
+  align-items: center;
   justify-content: space-evenly;
 
   @media (max-width: ${rem(768)}) {
@@ -27,8 +27,6 @@ export const Input = styled.input`
 
     border: none;
     border-bottom: ${rem(2)} solid ${theme.colors.form.inputBorder};
-
-    outline-color: ${theme.colors.primary};
 
     color: ${theme.colors.form.placeholder};
     font-size: ${rem(17)};

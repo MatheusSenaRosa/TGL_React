@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { X, ArrowLeft } from "phosphor-react";
+import { X, SignOut } from "phosphor-react";
 
 import * as S from "./styles";
 
 export type NavButtonsType = {
   text: string;
   path: string;
+  isHeader: boolean;
 };
 
 type Props = {
@@ -32,15 +33,16 @@ export const SideBar = ({ navButtons, onClose, onLogout }: Props) => {
     <>
       <S.Overlay onClick={onCloseHandler} isClosing={isClosing} />
       <S.Aside isClosing={isClosing}>
-        <X size={32} onClick={onCloseHandler} />
+        <S.ActionButtons>
+          <button type="button">
+            <X size={32} onClick={onCloseHandler} />
+          </button>
+          <button type="button">
+            <SignOut size={32} onClick={onLogout} />
+          </button>
+        </S.ActionButtons>
         <S.Nav>
           <ul>
-            <li>
-              <button type="button" onClick={onLogout}>
-                <ArrowLeft weight="bold" size={25} />
-                Log out
-              </button>
-            </li>
             {navButtons.map((item) => (
               <li>
                 <button type="button" onClick={() => navigate(item.path)}>

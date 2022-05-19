@@ -15,6 +15,26 @@ export const Overlay = styled.div<{ isClosing: boolean }>`
   `}
 `;
 
+export const ActionButtons = styled.div`
+  ${({ theme }) => css`
+    margin: ${rem(21)} ${rem(9)} 0 ${rem(9)};
+    margin-top: ${rem(21)};
+
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      color: ${theme.colors.logo.primary};
+      background-color: transparent;
+      border: none;
+    }
+
+    button:nth-child(2) {
+      color: ${theme.colors.error};
+    }
+  `}
+`;
+
 export const Aside = styled.aside<{ isClosing: boolean }>`
   ${({ theme, isClosing }) => css`
     width: ${rem(200)};
@@ -27,12 +47,6 @@ export const Aside = styled.aside<{ isClosing: boolean }>`
     border-radius: 0 ${rem(20)} ${rem(20)} 0;
 
     animation: ${isClosing ? slideOut : slideIn} 0.6s forwards;
-
-    > svg {
-      color: ${theme.colors.logo.primary};
-      margin-left: ${rem(9)};
-      margin-top: ${rem(21)};
-    }
   `}
 `;
 
@@ -50,25 +64,19 @@ export const Nav = styled.nav`
       align-items: center;
 
       gap: ${rem(15)};
+    }
 
-      li:first-child {
-        margin-left: ${rem(-25)};
-      }
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: ${theme.colors.logo.primary};
+      font-size: ${rem(20)};
+      font-weight: bold;
 
-      li {
-        button {
-          background-color: transparent;
-          border: none;
-          cursor: pointer;
-          color: ${theme.colors.logo.primary};
-          font-size: ${rem(20)};
-          font-weight: bold;
+      display: flex;
 
-          display: flex;
-
-          gap: ${rem(10)};
-        }
-      }
+      gap: ${rem(10)};
     }
   `}
 `;

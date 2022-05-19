@@ -2,6 +2,7 @@ import { ReactNode, useState } from "react";
 import { ArrowRight, List } from "phosphor-react";
 import { toast } from "react-toastify";
 import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 import { auth } from "@services";
 import { SideBar, NavButtonsType } from "@components";
@@ -15,10 +16,12 @@ type Props = {
 
 export const PrivatedScreen = ({ children, navButtons }: Props) => {
   const [isSideBar, setIsSideBar] = useState(false);
+  const navigate = useNavigate();
 
   const logOut = async () => {
     try {
       await signOut(auth);
+      navigate("/", { replace: true });
       toast.success("You`ve logged out.");
     } catch (e) {
       toast.success("An error has occurred.");
@@ -41,11 +44,20 @@ export const PrivatedScreen = ({ children, navButtons }: Props) => {
           </S.MenuButton>
           <S.MiniLogo>TGL</S.MiniLogo>
           <span />
-          <S.NavBar>
+          <S.NavBar
+            navButtons={navButtons.filter((item) => item.isHeader).length}
+          >
             <ul>
-              <li>
-                <button>Account</button>
-              </li>
+              {navButtons.map(
+                (item) =>
+                  item.isHeader && (
+                    <li>
+                      <button type="button" onClick={() => navigate(item.path)}>
+                        {item.text}
+                      </button>
+                    </li>
+                  )
+              )}
               <li>
                 <button type="button" onClick={logOut}>
                   Log out
@@ -56,6 +68,7 @@ export const PrivatedScreen = ({ children, navButtons }: Props) => {
           </S.NavBar>
         </S.Header>
         {children}
+        <S.Footer>Copyright 2020 Luby Software</S.Footer>
       </S.Container>
     </>
   );

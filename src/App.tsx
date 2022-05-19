@@ -9,6 +9,7 @@ import { AuthContext } from "@context";
 import { GlobalStyles } from "@styles";
 import { useThemeStore } from "@store";
 import { ThemeButton } from "@components";
+import { LoadingPage } from "@publicRoutes";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +29,7 @@ function App() {
       <ToastContainer
         theme={currentTheme.title === "dark" ? "dark" : "colored"}
       />
-      <Routes isLoading={isLoading} />
+      {isLoading ? <LoadingPage /> : <Routes isLoading={isLoading} />}
     </ThemeProvider>
   );
 }

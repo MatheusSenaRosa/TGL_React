@@ -14,14 +14,8 @@ export const Routes = ({ isLoading }: Props) => {
 
   return (
     <>
-      {isLoading ? (
-        <LoadingPage />
-      ) : (
-        <>
-          {!user && <PublicRoutes />}
-          {user && <PrivatedRoutes />}
-        </>
-      )}
+      {!user && <PublicRoutes />}
+      {user && <PrivatedRoutes />}
     </>
   );
 };

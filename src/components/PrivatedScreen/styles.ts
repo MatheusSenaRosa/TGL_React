@@ -65,8 +65,22 @@ export const MiniLogo = styled.h1`
   `}
 `;
 
-export const NavBar = styled.nav`
-  ${({ theme }) => css`
+export const NavBar = styled.nav<{ navButtons: number }>`
+  ${({ theme, navButtons }) => css`
+    ${() =>
+      navButtons >= 2 &&
+      css`
+        flex: 1;
+        ul {
+          justify-content: flex-end;
+
+          li:first-child {
+            margin-right: auto;
+            margin-left: ${rem(57)};
+          }
+        }
+      `}
+
     ul {
       display: flex;
       gap: ${rem(57)};
@@ -108,5 +122,20 @@ export const MenuButton = styled.button`
     @media (min-width: ${rem(769)}) {
       display: none;
     }
+  `}
+`;
+
+export const Footer = styled.footer`
+  ${({ theme }) => css`
+    height: ${rem(89)};
+    margin-top: auto;
+    border-top: ${rem(2)} solid ${theme.colors.footer.border};
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: ${rem(15)};
+    color: ${theme.colors.text.primary};
   `}
 `;

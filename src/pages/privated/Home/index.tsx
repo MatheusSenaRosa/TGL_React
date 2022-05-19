@@ -1,26 +1,15 @@
-import { toast } from "react-toastify";
-import { signOut } from "firebase/auth";
-import { useEffect, useState } from "react";
-import { ArrowRight, List } from "phosphor-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 
-import { auth, db } from "@services";
-import { SideBar } from "@components";
+import { db } from "@services";
+import { PrivatedScreen } from "@components";
 
 import * as S from "./styles";
 
 export const Home = () => {
-  const [isSideBar, setIsSideBar] = useState(false);
+  const navigate = useNavigate();
   const gamesCollection = collection(db, "games");
-
-  const logOut = async () => {
-    try {
-      await signOut(auth);
-      toast.success("You`ve logged out.");
-    } catch (e) {
-      toast.success("An error has occurred.");
-    }
-  };
 
   useEffect(() => {
     const get = async () => {
@@ -31,33 +20,17 @@ export const Home = () => {
   }, []);
 
   return (
-    <>
-      {isSideBar && (
-        <SideBar onClose={() => setIsSideBar(false)} onLogout={logOut} />
-      )}
-      <S.Screen>
-        <S.Header>
-          <S.MenuButton onClick={() => setIsSideBar(true)}>
-            <List />
-          </S.MenuButton>
-          <S.MiniLogo>TGL</S.MiniLogo>
-          <span />
-          <S.NavBar>
-            <ul>
-              <li>
-                <button>Account</button>
-              </li>
-              <li>
-                <button type="button" onClick={logOut}>
-                  Log out
-                  <ArrowRight weight="bold" size={25} />
-                </button>
-              </li>
-            </ul>
-          </S.NavBar>
-        </S.Header>
-        <S.Container></S.Container>
-      </S.Screen>
-    </>
+    <PrivatedScreen
+      navButtons={[
+        { text: "New Bet", path: "/new-bet" },
+        { text: "Account", path: "/account" },
+      ]}
+    >
+      <S.Container>
+        <h4 style={{ color: "white" }} onClick={() => navigate("/new-bet")}>
+          New bet
+        </h4>
+      </S.Container>
+    </PrivatedScreen>
   );
 };

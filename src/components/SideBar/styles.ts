@@ -41,18 +41,18 @@ export const Nav = styled.nav`
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    justify-content: center;
     margin-top: ${rem(10)};
 
     ul {
       display: flex;
       flex-direction: column;
-      gap: ${rem(10)};
+      align-items: center;
+
+      gap: ${rem(15)};
 
       li:first-child {
-        button {
-          margin-left: ${rem(-25)};
-        }
+        margin-left: ${rem(-25)};
       }
 
       li {

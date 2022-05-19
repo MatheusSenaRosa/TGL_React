@@ -5,7 +5,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-import { Form, Logo, Screen } from "@components";
+import { Form, Logo, PublicScreen } from "@components";
 import { forgotPasswordSchema, formatErrorMessage } from "@utils";
 import { auth } from "@services";
 
@@ -49,7 +49,7 @@ export function ForgotPassword() {
   };
 
   return (
-    <Screen>
+    <PublicScreen>
       <S.Container>
         <Logo />
         <Form
@@ -63,6 +63,6 @@ export function ForgotPassword() {
           <S.Input placeholder="Email" {...register("email")} />
         </Form>
       </S.Container>
-    </Screen>
+    </PublicScreen>
   );
 }

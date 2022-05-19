@@ -1,16 +1,23 @@
 import { useState } from "react";
-
-import { X, ArrowRight, ArrowLeft } from "phosphor-react";
+import { useNavigate } from "react-router-dom";
+import { X, ArrowLeft } from "phosphor-react";
 
 import * as S from "./styles";
 
+export type NavButtonsType = {
+  text: string;
+  path: string;
+};
+
 type Props = {
+  navButtons: NavButtonsType[];
   onClose: () => void;
   onLogout: () => void;
 };
 
-export const SideBar = ({ onClose, onLogout }: Props) => {
+export const SideBar = ({ navButtons, onClose, onLogout }: Props) => {
   const [isClosing, setIsClosing] = useState(false);
+  const navigate = useNavigate();
 
   const onCloseHandler = () => {
     setIsClosing(true);
@@ -34,9 +41,13 @@ export const SideBar = ({ onClose, onLogout }: Props) => {
                 Log out
               </button>
             </li>
-            <li>
-              <button type="button">Account</button>
-            </li>
+            {navButtons.map((item) => (
+              <li>
+                <button type="button" onClick={() => navigate(item.path)}>
+                  {item.text}
+                </button>
+              </li>
+            ))}
           </ul>
         </S.Nav>
       </S.Aside>

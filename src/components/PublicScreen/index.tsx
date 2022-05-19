@@ -6,7 +6,7 @@ type Props = {
   children: ReactNode;
 };
 
-export function Screen({ children }: Props) {
+export function PublicScreen({ children }: Props) {
   return (
     <S.Container>
       {children}

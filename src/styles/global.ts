@@ -11,6 +11,7 @@ ${({ theme }) => css`
     font-family: "Roboto", sans-serif;
     font-style: italic;
     transition: background 0.5s, color 0.1s, border-color 0.5s;
+    outline-color: ${theme.colors.primary};
   }
 
   html,

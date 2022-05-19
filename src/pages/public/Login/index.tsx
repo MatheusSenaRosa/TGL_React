@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { Eye, EyeClosed } from "phosphor-react";
 
-import { Logo, Screen, Form } from "@components";
+import { Logo, PublicScreen, Form } from "@components";
 import { auth } from "@services";
 import { formatErrorMessage, loginSchema } from "@utils";
 
@@ -55,7 +55,7 @@ export function Login() {
   };
 
   return (
-    <Screen>
+    <PublicScreen>
       <S.Container>
         <Logo />
         <Form
@@ -88,6 +88,6 @@ export function Login() {
           </S.PasswordContainer>
         </Form>
       </S.Container>
-    </Screen>
+    </PublicScreen>
   );
 }

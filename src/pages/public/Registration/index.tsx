@@ -4,7 +4,7 @@ import { Eye, EyeClosed } from "phosphor-react";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Form, Screen, Logo } from "@components";
+import { Form, PublicScreen, Logo } from "@components";
 import { registrationSchema, formatErrorMessage } from "@utils";
 import { useNavigate } from "react-router-dom";
 import { auth } from "@services";
@@ -62,7 +62,7 @@ export function Registration() {
   };
 
   return (
-    <Screen>
+    <PublicScreen>
       <S.Container>
         <Logo />
 
@@ -114,6 +114,6 @@ export function Registration() {
           </S.PasswordContainer>
         </Form>
       </S.Container>
-    </Screen>
+    </PublicScreen>
   );
 }

@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { confirmPasswordReset, verifyPasswordResetCode } from "firebase/auth";
 
 import { auth } from "@services";
-import { Form, Logo, Screen } from "@components";
+import { Form, Logo, PublicScreen } from "@components";
 import {
   formatErrorMessage,
   formatPasswordResetCode,
@@ -84,7 +84,7 @@ export const UpdatePassword = () => {
   };
 
   return (
-    <Screen>
+    <PublicScreen>
       <S.Container>
         <Logo />
         <Form
@@ -130,6 +130,6 @@ export const UpdatePassword = () => {
           </S.PasswordContainer>
         </Form>
       </S.Container>
-    </Screen>
+    </PublicScreen>
   );
 };

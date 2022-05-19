@@ -1,12 +1,12 @@
-import { Loading, Screen } from "@components";
+import { Loading, PublicScreen } from "@components";
 import * as S from "./styles";
 
 export const LoadingPage = () => {
   return (
-    <Screen>
+    <PublicScreen>
       <S.Container>
         <Loading size={90} />
       </S.Container>
-    </Screen>
+    </PublicScreen>
   );
 };

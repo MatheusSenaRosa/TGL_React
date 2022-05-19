@@ -1,10 +1,10 @@
-import { Logo, Screen } from "@components";
+import { Logo, PublicScreen } from "@components";
 import { ArrowLeft } from "phosphor-react";
 import * as S from "./styles";
 
 export function NotFound() {
   return (
-    <Screen>
+    <PublicScreen>
       <S.Container>
         <Logo />
         <div>
@@ -16,6 +16,6 @@ export function NotFound() {
           </S.HomeLink>
         </div>
       </S.Container>
-    </Screen>
+    </PublicScreen>
   );
 }

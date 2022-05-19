@@ -41,7 +41,7 @@ export const ChooseGameWrapper = styled.section`
 export const ChooseGameButton = styled.button`
   ${({ theme, color }) => css`
     cursor: pointer;
-    background-color: transparent;
+    background-color: ${theme.title === "dark" ? "black" : "white"};
     border: ${rem(2)} solid ${color};
     width: ${rem(113)};
     height: ${rem(34)};

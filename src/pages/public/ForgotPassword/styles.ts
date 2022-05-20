@@ -20,14 +20,14 @@ export const Input = styled.input`
     background-color: transparent;
 
     border: none;
-    border-bottom: ${rem(2)} solid ${theme.colors.form.inputBorder};
+    border-bottom: ${rem(2)} solid ${theme.colors.border.primary};
 
-    color: ${theme.colors.form.placeholder};
+    color: ${theme.colors.text.placeholder};
     font-size: ${rem(17)};
     font-weight: bold;
 
     &&::placeholder {
-      color: ${theme.colors.form.placeholder};
+      color: ${theme.colors.text.placeholder};
       font-size: ${rem(17)};
       font-weight: bold;
     }

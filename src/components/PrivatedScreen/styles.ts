@@ -5,7 +5,7 @@ export const Container = styled.div`
   ${({ theme }) => css`
     height: 100vh;
 
-    background-color: ${theme.colors.background};
+    background-color: ${theme.colors.background.body};
 
     display: flex;
     flex-direction: column;
@@ -16,7 +16,7 @@ export const Header = styled.header`
   ${({ theme }) => css`
     height: ${rem(75)};
     padding: 0 ${rem(200)};
-    border-bottom: ${rem(2)} solid ${theme.colors.footer.border};
+    border-bottom: ${rem(2)} solid ${theme.colors.border.primary};
     max-width: 100%;
     min-width: 100%;
 
@@ -59,7 +59,7 @@ export const Header = styled.header`
 
 export const MiniLogo = styled.h1`
   ${({ theme }) => css`
-    color: ${theme.colors.logo.primary};
+    color: ${theme.colors.text.primary};
     font-size: ${rem(44)};
     font-weight: bold;
   `}
@@ -90,7 +90,7 @@ export const NavBar = styled.nav<{ navButtons: number }>`
           background-color: transparent;
           border: none;
           cursor: pointer;
-          color: ${theme.colors.logo.primary};
+          color: ${theme.colors.text.primary};
           font-size: ${rem(20)};
           font-weight: bold;
 
@@ -110,7 +110,7 @@ export const NavBar = styled.nav<{ navButtons: number }>`
 
 export const MenuButton = styled.button`
   ${({ theme }) => css`
-    color: ${theme.colors.logo.primary};
+    color: ${theme.colors.text.primary};
     display: flex;
     align-items: center;
     background-color: transparent;
@@ -129,7 +129,7 @@ export const Footer = styled.footer`
   ${({ theme }) => css`
     height: ${rem(89)};
     margin-top: auto;
-    border-top: ${rem(2)} solid ${theme.colors.footer.border};
+    border-top: ${rem(2)} solid ${theme.colors.border.primary};
 
     display: flex;
     align-items: center;

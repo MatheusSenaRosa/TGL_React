@@ -46,9 +46,9 @@ export const Title = styled.h2`
 export const Form = styled.form`
   ${({ theme }) => css`
     width: 100%;
-    border: ${rem(1)} solid ${theme.colors.form.border};
+    border: ${rem(1)} solid ${theme.colors.border.form};
     border-radius: ${rem(14)};
-    background-color: ${theme.colors.form.background};
+    background-color: ${theme.colors.background.form};
 
     box-shadow: 0px 3px 25px #00000014;
 
@@ -75,7 +75,7 @@ export const ForgotPassword = styled.button`
     border: none;
     cursor: pointer;
 
-    color: ${theme.colors.form.forgotPassword};
+    color: ${theme.colors.text.forgotPassword};
     font-size: ${rem(17)};
     transition-duration: 0.3s;
 
@@ -111,7 +111,7 @@ export const SubmitButton = styled.button`
 
       &&:hover {
         background-color: ${theme.colors.primary};
-        color: ${theme.colors.form.buttonTextHover};
+        color: ${theme.colors.background.body};
       }
     }
 

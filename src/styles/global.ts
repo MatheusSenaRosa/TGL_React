@@ -16,7 +16,7 @@ ${({ theme }) => css`
 
   html,
   body {
-    background-color: ${theme.colors.background};
+    background-color: ${theme.colors.background.body};
   }
 `}
 `;

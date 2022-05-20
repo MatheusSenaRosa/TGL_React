@@ -45,7 +45,7 @@ export const ChooseGameWrapper = styled.section`
     p {
       font-size: ${rem(17)};
       font-weight: bold;
-      color: ${theme.colors.logo.primary};
+      color: ${theme.colors.text.primary};
     }
 
     div {
@@ -70,18 +70,18 @@ export const ChooseGameButton = styled.button<{ isActive: boolean }>`
 
     ${!isActive &&
     css`
-      background-color: ${theme.title === "dark" ? "black" : "white"};
+      background-color: ${theme.colors.background.highlight};
 
       :hover {
         background-color: ${color};
-        color: ${theme.colors.background};
+        color: ${theme.colors.background.body};
       }
     `}
 
     ${isActive &&
     css`
       background-color: ${color};
-      color: ${theme.title === "dark" ? "black" : "white"};
+      color: ${theme.colors.background.highlight};
     `}
   `}
 `;

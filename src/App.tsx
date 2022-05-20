@@ -16,8 +16,6 @@ function App() {
   const { currentTheme } = useThemeStore();
   const { setUser } = useContext(AuthContext);
 
-  console.log("dsad");
-
   onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
 
   useEffect(() => {

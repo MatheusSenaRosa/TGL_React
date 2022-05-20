@@ -1,32 +1,27 @@
 export interface ITheme {
   title: string;
-
   colors: {
-    background: string;
     negative: string;
     primary: string;
     error: string;
 
-    form: {
-      background: string;
-      border: string;
-      inputBorder: string;
-      placeholder: string;
-      forgotPassword: string;
-      buttonTextHover: string;
+    background: {
+      body: string;
+      highlight: string;
+      form: string;
     };
 
-    logo: {
+    border: {
+      form: string;
       primary: string;
-      secondary: string;
-    };
-
-    footer: {
-      border: string;
     };
 
     text: {
       primary: string;
+      brand: string;
+      placeholder: string;
+      forgotPassword: string;
+      highlight: string;
     };
   };
 }

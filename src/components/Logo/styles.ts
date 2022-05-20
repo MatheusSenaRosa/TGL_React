@@ -4,7 +4,7 @@ import { rem } from "polished";
 export const Container = styled.section`
   ${({ theme }) => css`
     h1 {
-      color: ${theme.colors.logo.primary};
+      color: ${theme.colors.text.primary};
       font-size: ${rem(65)};
       font-weight: bold;
       text-align: center;
@@ -42,7 +42,7 @@ export const ForWrapper = styled.div`
     margin: ${rem(30)} 0 ${rem(20)} 0;
     border-radius: ${rem(100)};
 
-    color: ${theme.colors.logo.secondary};
+    color: ${theme.colors.text.highlight};
     font-size: ${rem(22)};
 
     display: flex;

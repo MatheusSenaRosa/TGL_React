@@ -26,16 +26,16 @@ export const Input = styled.input`
     background-color: transparent;
 
     border: none;
-    border-bottom: ${rem(2)} solid ${theme.colors.form.inputBorder};
+    border-bottom: ${rem(2)} solid ${theme.colors.border.primary};
 
-    color: ${theme.colors.form.placeholder};
+    color: ${theme.colors.text.placeholder};
     font-size: ${rem(17)};
     margin-bottom: ${rem(2)};
 
     font-weight: bold;
 
     &&::placeholder {
-      color: ${theme.colors.form.placeholder};
+      color: ${theme.colors.text.placeholder};
       font-size: ${rem(17)};
       font-weight: bold;
     }
@@ -46,7 +46,7 @@ export const EyeButton = styled.button`
   ${({ theme }) => css`
     cursor: pointer;
     background-color: transparent;
-    color: ${theme.colors.form.placeholder};
+    color: ${theme.colors.text.placeholder};
     border: none;
     position: absolute;
     right: 3%;

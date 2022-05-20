@@ -9,7 +9,7 @@ export const Container = styled.div`
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    background-color: ${theme.colors.background};
+    background-color: ${theme.colors.background.body};
   `}
 `;
 
@@ -17,7 +17,7 @@ export const Footer = styled.footer`
   ${({ theme }) => css`
     height: ${rem(89)};
     margin-top: auto;
-    border-top: ${rem(2)} solid ${theme.colors.footer.border};
+    border-top: ${rem(2)} solid ${theme.colors.border.primary};
 
     display: flex;
     align-items: center;

@@ -24,7 +24,7 @@ export const ActionButtons = styled.div`
     justify-content: space-between;
 
     button {
-      color: ${theme.colors.logo.primary};
+      color: ${theme.colors.text.primary};
       background-color: transparent;
       border: none;
     }
@@ -42,7 +42,7 @@ export const Aside = styled.aside<{ isClosing: boolean }>`
     position: fixed;
     z-index: 2;
 
-    background-color: ${theme.colors.background};
+    background-color: ${theme.colors.background.body};
     border-right: ${rem(2)} solid ${theme.colors.primary};
     border-radius: 0 ${rem(20)} ${rem(20)} 0;
 
@@ -70,7 +70,7 @@ export const Nav = styled.nav`
       background-color: transparent;
       border: none;
       cursor: pointer;
-      color: ${theme.colors.logo.primary};
+      color: ${theme.colors.text.primary};
       font-size: ${rem(20)};
       font-weight: bold;
 

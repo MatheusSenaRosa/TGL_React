@@ -7,7 +7,7 @@ export const Button = styled.button`
   ${({ theme }) => css`
     width: ${rem(45)};
     height: ${rem(45)};
-    background-color: ${theme.colors.background};
+    background-color: ${theme.colors.background.body};
     color: ${theme.colors.negative};
     cursor: pointer;
     z-index: 1;
@@ -29,7 +29,7 @@ export const Button = styled.button`
 
     &&:hover {
       background-color: ${theme.colors.negative};
-      color: ${theme.colors.background};
+      color: ${theme.colors.background.body};
     }
 
     @media (max-width: ${rem(768)}) {

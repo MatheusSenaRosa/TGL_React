@@ -11,6 +11,7 @@ declare module "styled-components" {
       background: {
         body: string;
         highlight: string;
+        numericButton: string;
         form: string;
       };
 
@@ -21,6 +22,7 @@ declare module "styled-components" {
 
       text: {
         primary: string;
+        secondary: string;
         brand: string;
         placeholder: string;
         forgotPassword: string;

@@ -8,6 +8,7 @@ export interface ITheme {
     background: {
       body: string;
       highlight: string;
+      numericButton: string;
       form: string;
     };
 
@@ -18,6 +19,7 @@ export interface ITheme {
 
     text: {
       primary: string;
+      secondary: string;
       brand: string;
       placeholder: string;
       forgotPassword: string;

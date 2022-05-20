@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { ShoppingCart } from "phosphor-react";
 
 import { Loading, PrivatedScreen } from "@components";
 import { db } from "@services";
@@ -11,7 +12,8 @@ import * as S from "./styles";
 
 export const NewBet = () => {
   const [games, setGames] = useState<IGame[] | null>(null);
-  const [gameSelected, setGameSelected] = useState<IGame | null>(null);
+  const [numericArray, setNumericArray] = useState<number[]>([]);
+  const [gameSelected, setGameSelected] = useState<IGame>({} as IGame);
   const navigate = useNavigate();
   const gamesCollection = collection(db, "games");
 
@@ -29,6 +31,16 @@ export const NewBet = () => {
     };
     get();
   }, []);
+
+  useEffect(() => {
+    if (gameSelected.id) {
+      const array = [];
+      for (let i = 1; i <= gameSelected?.range; i++) {
+        array.push(i);
+      }
+      setNumericArray([...array]);
+    }
+  }, [gameSelected]);
 
   if (!games) {
     return (
@@ -55,7 +67,7 @@ export const NewBet = () => {
       <S.Container>
         <S.LeftContent>
           <S.Title>
-            NEW BET <span>FOR {gameSelected?.name}</span>
+            NEW BET <span>FOR {gameSelected.name}</span>
           </S.Title>
 
           <S.ChooseGameWrapper>
@@ -66,7 +78,7 @@ export const NewBet = () => {
                   type="button"
                   color={game.color}
                   key={game.id}
-                  isActive={gameSelected?.id === game.id}
+                  isActive={gameSelected.id === game.id}
                   onClick={() => setGameSelected(game)}
                 >
                   {game.name}
@@ -79,6 +91,25 @@ export const NewBet = () => {
               <p>{gameSelected?.description}</p>
             </S.DescriptionWrapper>
           </S.ChooseGameWrapper>
+
+          <S.NumbersWrapper>
+            {numericArray.map((item) => (
+              <S.NumericButton key={item}>
+                {item < 10 ? `0${item}` : item}
+              </S.NumericButton>
+            ))}
+          </S.NumbersWrapper>
+
+          <S.ActionWrapper color={gameSelected.color}>
+            <span>
+              <button>Complete game</button>
+              <button>Clear game</button>
+            </span>
+            <button>
+              <ShoppingCart size={29} />
+              Add to cart
+            </button>
+          </S.ActionWrapper>
         </S.LeftContent>
       </S.Container>
     </PrivatedScreen>

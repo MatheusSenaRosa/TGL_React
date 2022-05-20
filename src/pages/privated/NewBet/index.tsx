@@ -92,12 +92,14 @@ export const NewBet = () => {
             </S.DescriptionWrapper>
           </S.ChooseGameWrapper>
 
-          <S.NumbersWrapper>
-            {numericArray.map((item) => (
-              <S.NumericButton key={item}>
-                {item < 10 ? `0${item}` : item}
-              </S.NumericButton>
-            ))}
+          <S.NumbersWrapper color={gameSelected.color}>
+            <S.ContainerNumbers>
+              {numericArray.map((item) => (
+                <S.NumericButton color={gameSelected.color} key={item}>
+                  {item < 10 ? `0${item}` : item}
+                </S.NumericButton>
+              ))}
+            </S.ContainerNumbers>
           </S.NumbersWrapper>
 
           <S.ActionWrapper color={gameSelected.color}>

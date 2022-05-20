@@ -22,7 +22,7 @@ export const Container = styled.main<{ isLoading?: boolean }>`
 
 export const LeftContent = styled.div`
   margin-top: ${rem(74)};
-  max-width: ${rem(740)};
+  max-width: ${rem(760)};
 
   display: flex;
   flex-direction: column;
@@ -99,24 +99,54 @@ export const DescriptionWrapper = styled.section`
   }
 
   p {
+    padding-right: ${rem(20)};
     line-height: ${rem(22)};
+    width: 100%;
     font-weight: normal;
   }
 `;
 
 export const NumbersWrapper = styled.section`
-  margin-top: ${rem(27)};
+  ${({ color }) => css`
+    margin-top: ${rem(27)};
+
+    height: ${rem(390)};
+    overflow-y: auto;
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: ${rem(7)};
+      height: 1 ${rem(0)};
+      border-radius: ${rem(5)};
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: ${color};
+      border-radius: ${rem(5)};
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: ${shade(0.3, color!)};
+    }
+  `}
+`;
+
+export const ContainerNumbers = styled.div`
   display: flex;
   column-gap: ${rem(12)};
   row-gap: ${rem(20)};
   flex-wrap: wrap;
-
-  max-height: ${rem(390)};
-  overflow-y: auto;
 `;
 
 export const NumericButton = styled.button`
-  ${({ theme }) => css`
+  ${({ theme, color }) => css`
     min-width: ${rem(63)};
     height: ${rem(65)};
     cursor: pointer;
@@ -131,12 +161,18 @@ export const NumericButton = styled.button`
     font-weight: bold;
     font-style: normal;
     color: ${theme.colors.text.highlight};
+    transition: 0.3s;
+
+    :hover {
+      background-color: ${color};
+    }
   `}
 `;
 
 export const ActionWrapper = styled.section`
   ${({ color, theme }) => css`
     margin: auto 0 ${rem(20)} 0;
+    padding-right: ${rem(20)};
     display: flex;
     justify-content: space-between;
 

@@ -32,24 +32,28 @@ export const Title = styled.h2`
 
     span {
       font-weight: 300;
+      text-transform: uppercase;
     }
   `}
 `;
 
 export const ChooseGameWrapper = styled.section`
-  margin-top: ${rem(33)};
+  ${({ theme }) => css`
+    margin-top: ${rem(33)};
 
-  h3 {
-    font-size: ${rem(17)};
-    font-weight: bold;
-    color: #868686;
-  }
+    h3,
+    p {
+      font-size: ${rem(17)};
+      font-weight: bold;
+      color: ${theme.colors.logo.primary};
+    }
 
-  div {
-    margin-top: ${rem(20)};
-    display: flex;
-    gap: ${rem(25)};
-  }
+    div {
+      margin-top: ${rem(20)};
+      display: flex;
+      gap: ${rem(25)};
+    }
+  `}
 `;
 
 export const ChooseGameButton = styled.button<{ isActive: boolean }>`
@@ -80,4 +84,18 @@ export const ChooseGameButton = styled.button<{ isActive: boolean }>`
       color: ${theme.title === "dark" ? "black" : "white"};
     `}
   `}
+`;
+
+export const DescriptionWrapper = styled.section`
+  margin-top: ${rem(28)};
+  width: ${rem(725)};
+
+  h3 {
+    margin-bottom: ${rem(3)};
+  }
+
+  p {
+    line-height: ${rem(22)};
+    font-weight: normal;
+  }
 `;

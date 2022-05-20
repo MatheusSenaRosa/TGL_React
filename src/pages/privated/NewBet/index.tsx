@@ -55,7 +55,7 @@ export const NewBet = () => {
       <S.Container>
         <S.LeftContent>
           <S.Title>
-            NEW BET <span>FOR MEGA-SENA</span>
+            NEW BET <span>FOR {gameSelected?.name}</span>
           </S.Title>
 
           <S.ChooseGameWrapper>
@@ -73,6 +73,11 @@ export const NewBet = () => {
                 </S.ChooseGameButton>
               ))}
             </div>
+
+            <S.DescriptionWrapper>
+              <h3>Fill your bet</h3>
+              <p>{gameSelected?.description}</p>
+            </S.DescriptionWrapper>
           </S.ChooseGameWrapper>
         </S.LeftContent>
       </S.Container>

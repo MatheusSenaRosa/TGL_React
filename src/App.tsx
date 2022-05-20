@@ -29,7 +29,7 @@ function App() {
       <ToastContainer
         theme={currentTheme.title === "dark" ? "dark" : "colored"}
       />
-      {isLoading ? <LoadingPage /> : <Routes isLoading={isLoading} />}
+      {isLoading ? <LoadingPage /> : <Routes />}
     </ThemeProvider>
   );
 }

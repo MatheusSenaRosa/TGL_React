@@ -3,16 +3,16 @@ import { collection, getDocs } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-import { PrivatedScreen } from "@components";
+import { Loading, PrivatedScreen } from "@components";
 import { db } from "@services";
-import { IGames } from "@interfaces";
+import { IGame } from "@interfaces";
 
 import * as S from "./styles";
 
 export const NewBet = () => {
-  const [games, setGames] = useState<IGames[] | null>(null);
+  const [games, setGames] = useState<IGame[] | null>(null);
+  const [gameSelected, setGameSelected] = useState<IGame | null>(null);
   const navigate = useNavigate();
-
   const gamesCollection = collection(db, "games");
 
   useEffect(() => {
@@ -20,7 +20,8 @@ export const NewBet = () => {
       try {
         const data = await getDocs(gamesCollection);
         const formatedData = data.docs.map((doc) => ({ ...doc.data() }));
-        setGames(formatedData as IGames[]);
+        setGames(formatedData as IGame[]);
+        setGameSelected(formatedData[0] as IGame);
       } catch (e) {
         navigate("/");
         toast.error("An error has occurred.");
@@ -29,7 +30,20 @@ export const NewBet = () => {
     get();
   }, []);
 
-  if (!games) return null;
+  if (!games) {
+    return (
+      <PrivatedScreen
+        navButtons={[
+          { text: "Home", path: "/", isHeader: true },
+          { text: "Account", path: "/account", isHeader: true },
+        ]}
+      >
+        <S.Container isLoading>
+          <Loading size={80} />
+        </S.Container>
+      </PrivatedScreen>
+    );
+  }
 
   return (
     <PrivatedScreen
@@ -47,9 +61,15 @@ export const NewBet = () => {
           <S.ChooseGameWrapper>
             <h3>Choose a game</h3>
             <div>
-              {games.map((item) => (
-                <S.ChooseGameButton type="button" color={item.color}>
-                  {item.name}
+              {games.map((game) => (
+                <S.ChooseGameButton
+                  type="button"
+                  color={game.color}
+                  key={game.id}
+                  isActive={gameSelected?.id === game.id}
+                  onClick={() => setGameSelected(game)}
+                >
+                  {game.name}
                 </S.ChooseGameButton>
               ))}
             </div>

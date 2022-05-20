@@ -49,9 +49,9 @@ export const PrivatedScreen = ({ children, navButtons }: Props) => {
           >
             <ul>
               {navButtons.map(
-                (item) =>
+                (item, index) =>
                   item.isHeader && (
-                    <li>
+                    <li key={index}>
                       <button type="button" onClick={() => navigate(item.path)}>
                         {item.text}
                       </button>

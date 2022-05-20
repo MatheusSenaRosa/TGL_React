@@ -16,10 +16,12 @@ function App() {
   const { currentTheme } = useThemeStore();
   const { setUser } = useContext(AuthContext);
 
+  console.log("dsad");
+
   onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 1000);
+    setTimeout(() => setIsLoading(false), 1500);
   }, []);
 
   return (

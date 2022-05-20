@@ -1,3 +1,3 @@
 export type { IUser } from "./user";
 export type { ITheme } from "./theme";
-export type { IGames } from "./games";
+export type { IGame } from "./game";

@@ -1,4 +1,5 @@
-export interface IGames {
+export interface IGame {
+  id: number;
   color: string;
   description: string;
   max_number: number;

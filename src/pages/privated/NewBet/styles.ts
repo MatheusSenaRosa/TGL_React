@@ -1,12 +1,26 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
 
-export const Container = styled.main`
-  flex: 1;
+export const Container = styled.main<{ isLoading?: boolean }>`
+  ${({ isLoading }) =>
+    css`
+      flex: 1;
+      padding: 0 ${rem(185)};
+
+      ${isLoading &&
+      css`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `}
+
+      @media(max-width: ${rem(1200)}) {
+        padding: 0 ${rem(115)};
+      }
+    `}
 `;
 
 export const LeftContent = styled.div`
-  padding: 0 ${rem(185)};
   margin-top: ${rem(74)};
 `;
 
@@ -38,10 +52,9 @@ export const ChooseGameWrapper = styled.section`
   }
 `;
 
-export const ChooseGameButton = styled.button`
-  ${({ theme, color }) => css`
+export const ChooseGameButton = styled.button<{ isActive: boolean }>`
+  ${({ theme, color, isActive }) => css`
     cursor: pointer;
-    background-color: ${theme.title === "dark" ? "black" : "white"};
     border: ${rem(2)} solid ${color};
     width: ${rem(113)};
     height: ${rem(34)};
@@ -51,9 +64,20 @@ export const ChooseGameButton = styled.button`
     color: ${color};
     transition: 0.3s;
 
-    :hover {
+    ${!isActive &&
+    css`
+      background-color: ${theme.title === "dark" ? "black" : "white"};
+
+      :hover {
+        background-color: ${color};
+        color: ${theme.colors.background};
+      }
+    `}
+
+    ${isActive &&
+    css`
       background-color: ${color};
-      color: ${theme.colors.background};
-    }
+      color: ${theme.title === "dark" ? "black" : "white"};
+    `}
   `}
 `;

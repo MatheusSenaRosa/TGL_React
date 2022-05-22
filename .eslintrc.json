@@ -22,8 +22,7 @@
     "plugins": [
         "react",
         "@typescript-eslint",
-        "eslint-plugin-import-helpers",
-        "prettier"
+        "eslint-plugin-import-helpers"
     ],
     "rules": {
         "react/require-default-props": "off",

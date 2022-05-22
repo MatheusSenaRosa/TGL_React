@@ -33,7 +33,7 @@ export const Container = styled.main<{ isLoading?: boolean }>`
 `;
 
 export const Content = styled.div`
-  max-width: ${rem(760)};
+  max-width: ${rem(780)};
   margin-top: ${rem(74)};
 
   display: flex;

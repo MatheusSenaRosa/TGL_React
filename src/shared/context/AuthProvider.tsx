@@ -25,7 +25,7 @@ export function AuthProvider({ children }: Props) {
     <AuthContext.Provider
       value={useMemo(
         () => ({ user, setUser: (currentUser) => setUser(currentUser) }),
-        []
+        [user, setUser]
       )}
     >
       {children}

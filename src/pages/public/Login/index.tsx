@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { toast } from "react-toastify";
 import { Eye, EyeClosed } from "phosphor-react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { Logo, PublicScreen, Form } from "@components";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { auth } from "@services";
 import { formatErrorMessage, loginSchema } from "@utils";
 
@@ -43,8 +44,8 @@ export function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("You are logged in!");
-    } catch (e: any) {
-      if (e.message === "Firebase: Error (auth/user-not-found).") {
+    } catch ({ message }) {
+      if (message === "Firebase: Error (auth/user-not-found).") {
         toast.error("Email or password is invalid. Try it again!");
         return;
       }

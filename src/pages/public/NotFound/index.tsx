@@ -1,5 +1,7 @@
-import { Logo, PublicScreen } from "@components";
 import { ArrowLeft } from "phosphor-react";
+
+import { Logo, PublicScreen } from "@components";
+
 import * as S from "./styles";
 
 export function NotFound() {

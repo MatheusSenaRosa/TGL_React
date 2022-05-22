@@ -1,10 +1,11 @@
 import { useContext } from "react";
+
 import { AuthContext } from "@context";
 
-import { PublicRoutes } from "./Public.routes";
 import { PrivatedRoutes } from "./Privated.routes";
+import { PublicRoutes } from "./Public.routes";
 
-export const Routes = () => {
+export function Routes() {
   const { user } = useContext(AuthContext);
 
   return (
@@ -13,4 +14,4 @@ export const Routes = () => {
       {user && <PrivatedRoutes />}
     </>
   );
-};
+}

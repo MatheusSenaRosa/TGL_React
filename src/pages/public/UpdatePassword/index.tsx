@@ -1,13 +1,14 @@
-import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { Eye, EyeClosed } from "phosphor-react";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useLocation, useNavigate } from "react-router-dom";
-import { confirmPasswordReset, verifyPasswordResetCode } from "firebase/auth";
 
-import { auth } from "@services";
+import { confirmPasswordReset, verifyPasswordResetCode } from "firebase/auth";
+import { Eye, EyeClosed } from "phosphor-react";
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { Form, Logo, PublicScreen } from "@components";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { auth } from "@services";
 import {
   formatErrorMessage,
   formatPasswordResetCode,
@@ -21,7 +22,7 @@ type FormType = {
   confirmPassword: string;
 };
 
-export const UpdatePassword = () => {
+export function UpdatePassword() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -43,8 +44,8 @@ export const UpdatePassword = () => {
         const code = formatPasswordResetCode(location.search);
         await verifyPasswordResetCode(auth, code);
         setCodeResetPassword(code);
-      } catch (e: any) {
-        if (e.message === "Firebase: Error (auth/invalid-action-code).")
+      } catch ({ message }) {
+        if (message === "Firebase: Error (auth/invalid-action-code).")
           toast.error("Invalid action code.");
         else toast.error("An error has ocurred. Try it again later.");
 
@@ -126,4 +127,4 @@ export const UpdatePassword = () => {
       </S.Container>
     </PublicScreen>
   );
-};
+}

@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
+
 import { collection, getDocs } from "firebase/firestore";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { ShoppingCart } from "phosphor-react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { Cart, Loading, PrivatedScreen } from "@components";
-import { db } from "@services";
 import { IGame } from "@interfaces";
+import { db } from "@services";
 
 import * as S from "./styles";
 
-export const NewBet = () => {
+export function NewBet() {
   const [games, setGames] = useState<IGame[] | null>(null);
   const [numericArray, setNumericArray] = useState<number[]>([]);
   const [gameSelected, setGameSelected] = useState<IGame>({} as IGame);
@@ -35,7 +36,7 @@ export const NewBet = () => {
   useEffect(() => {
     if (gameSelected.id) {
       const array = [];
-      for (let i = 1; i <= gameSelected?.range; i++) {
+      for (let i = 1; i <= gameSelected?.range; i += 1) {
         array.push(i);
       }
       setNumericArray([...array]);
@@ -104,10 +105,10 @@ export const NewBet = () => {
 
           <S.ActionWrapper color={gameSelected.color}>
             <span>
-              <button>Complete game</button>
-              <button>Clear game</button>
+              <button type="button">Complete game</button>
+              <button type="button">Clear game</button>
             </span>
-            <button>
+            <button type="button">
               <ShoppingCart size={29} />
               Add to cart
             </button>
@@ -117,4 +118,4 @@ export const NewBet = () => {
       </S.Container>
     </PrivatedScreen>
   );
-};
+}

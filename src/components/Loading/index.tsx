@@ -4,4 +4,6 @@ type Props = {
   size?: number;
 };
 
-export const Loading = ({ size = 40 }: Props) => <S.Container size={size} />;
+export function Loading({ size = 40 }: Props) {
+  return <S.Container size={size} />;
+}

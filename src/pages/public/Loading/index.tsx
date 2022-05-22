@@ -1,7 +1,8 @@
 import { Loading, PublicScreen } from "@components";
+
 import * as S from "./styles";
 
-export const LoadingPage = () => {
+export function LoadingPage() {
   return (
     <PublicScreen>
       <S.Container>
@@ -9,4 +10,4 @@ export const LoadingPage = () => {
       </S.Container>
     </PublicScreen>
   );
-};
+}

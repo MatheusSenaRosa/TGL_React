@@ -7,7 +7,7 @@ type Props = {
   onClose: () => void;
 };
 
-export const LogoutModal = ({ onClose, onConfirm }: Props) => {
+export function LogoutModal({ onClose, onConfirm }: Props) {
   const [isClosing, setIsClosing] = useState(false);
 
   const onCloseHandler = () => {
@@ -25,10 +25,14 @@ export const LogoutModal = ({ onClose, onConfirm }: Props) => {
         <h2>Log out</h2>
         <p>Are you sure?</p>
         <S.ActionWrapper>
-          <button onClick={onCloseHandler}>Cancel</button>
-          <button onClick={onConfirm}>Confirm</button>
+          <button type="button" onClick={onCloseHandler}>
+            Cancel
+          </button>
+          <button type="button" onClick={onConfirm}>
+            Confirm
+          </button>
         </S.ActionWrapper>
       </S.Modal>
     </S.Container>
   );
-};
+}

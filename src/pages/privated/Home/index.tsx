@@ -4,7 +4,7 @@ import { PrivatedScreen } from "@components";
 
 import * as S from "./styles";
 
-export const Home = () => {
+export function Home() {
   const navigate = useNavigate();
 
   return (
@@ -15,10 +15,14 @@ export const Home = () => {
       ]}
     >
       <S.Container>
-        <h4 style={{ color: "white" }} onClick={() => navigate("/new-bet")}>
+        <button
+          type="button"
+          style={{ color: "white" }}
+          onClick={() => navigate("/new-bet")}
+        >
           New bet
-        </h4>
+        </button>
       </S.Container>
     </PrivatedScreen>
   );
-};
+}

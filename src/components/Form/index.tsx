@@ -1,10 +1,12 @@
 import { FormHTMLAttributes, ReactNode } from "react";
+
 import { ArrowRight, ArrowLeft } from "phosphor-react";
+import { To, useNavigate } from "react-router-dom";
+
 import { Loading } from "@components";
 import { useChangePageStore } from "@store";
 
 import * as S from "./styles";
-import { To, useNavigate } from "react-router-dom";
 
 type Props = FormHTMLAttributes<HTMLFormElement> & {
   children: ReactNode;
@@ -33,11 +35,11 @@ export function Form({
   const { isChanging, setIsChanging } = useChangePageStore();
   const navigate = useNavigate();
 
-  const navigationHandler = (to: string | number, replace: boolean = false) => {
+  const navigationHandler = (to: string | number, replace = false) => {
     setIsChanging(true);
     setTimeout(() => {
       setIsChanging(false);
-      navigate(to as To, { replace: replace });
+      navigate(to as To, { replace });
     }, 200);
   };
 

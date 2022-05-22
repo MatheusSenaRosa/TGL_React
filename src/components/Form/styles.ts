@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
+
 import { rem } from "polished";
+
 import { fadeOut, slideIn } from "@animations";
 
 export const Container = styled.section<{ isChangingPage: boolean }>`

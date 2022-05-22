@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+
 import { rem, shade } from "polished";
 
 export const Container = styled.main<{ isLoading?: boolean }>`
@@ -131,7 +132,7 @@ export const DescriptionWrapper = styled.section`
   }
 `;
 
-export const NumbersWrapper = styled.section`
+export const NumbersWrapper = styled.section<{ color: string }>`
   ${({ color }) => css`
     margin-top: ${rem(27)};
 
@@ -158,7 +159,7 @@ export const NumbersWrapper = styled.section`
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-      background: ${shade(0.3, color!)};
+      background: ${shade(0.3, color)};
     }
   `}
 `;
@@ -204,7 +205,7 @@ export const NumericButton = styled.button`
   `}
 `;
 
-export const ActionWrapper = styled.section`
+export const ActionWrapper = styled.section<{ color: string }>`
   ${({ color, theme }) => css`
     flex: 1;
     padding-right: ${rem(20)};
@@ -227,8 +228,8 @@ export const ActionWrapper = styled.section`
       gap: ${rem(28)};
       border: ${rem(1)} solid ${color};
       :hover {
-        background-color: ${shade(0.3, color!)};
-        border-color: ${shade(0.3, color!)};
+        background-color: ${shade(0.3, color)};
+        border-color: ${shade(0.3, color)};
       }
     }
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { X, SignOut } from "phosphor-react";
+import { useNavigate } from "react-router-dom";
 
 import * as S from "./styles";
 
@@ -16,7 +17,7 @@ type Props = {
   onLogout: () => void;
 };
 
-export const SideBar = ({ navButtons, onClose, onLogout }: Props) => {
+export function SideBar({ navButtons, onClose, onLogout }: Props) {
   const [isClosing, setIsClosing] = useState(false);
   const navigate = useNavigate();
 
@@ -56,4 +57,4 @@ export const SideBar = ({ navButtons, onClose, onLogout }: Props) => {
       </S.Aside>
     </>
   );
-};
+}

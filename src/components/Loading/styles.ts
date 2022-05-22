@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
+
 import { rem } from "polished";
+
 import { spin } from "@animations";
 
 export const Container = styled.main<{ size: number }>`

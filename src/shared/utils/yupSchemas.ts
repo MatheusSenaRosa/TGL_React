@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const passwordRegex = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])");
+const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/;
 
 export const registrationSchema = yup.object({
   email: yup.string().required().email(),

@@ -1,11 +1,12 @@
 import { ReactNode, useState } from "react";
-import { ArrowRight, List } from "phosphor-react";
-import { toast } from "react-toastify";
-import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 
-import { auth } from "@services";
+import { signOut } from "firebase/auth";
+import { ArrowRight, List } from "phosphor-react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { SideBar, NavButtonsType, LogoutModal } from "@components";
+import { auth } from "@services";
 
 import * as S from "./styles";
 
@@ -14,7 +15,7 @@ type Props = {
   navButtons: NavButtonsType[];
 };
 
-export const PrivatedScreen = ({ children, navButtons }: Props) => {
+export function PrivatedScreen({ children, navButtons }: Props) {
   const [isSideBar, setIsSideBar] = useState(false);
   const [isLogoutModal, setIsLogoutModal] = useState(false);
   const navigate = useNavigate();
@@ -56,9 +57,9 @@ export const PrivatedScreen = ({ children, navButtons }: Props) => {
           >
             <ul>
               {navButtons.map(
-                (item, index) =>
+                (item) =>
                   item.isHeader && (
-                    <li key={index}>
+                    <li key={Math.random()}>
                       <button type="button" onClick={() => navigate(item.path)}>
                         {item.text}
                       </button>
@@ -79,4 +80,4 @@ export const PrivatedScreen = ({ children, navButtons }: Props) => {
       </S.Container>
     </>
   );
-};
+}

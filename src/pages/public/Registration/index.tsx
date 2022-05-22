@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { Eye, EyeClosed } from "phosphor-react";
-import { toast } from "react-toastify";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Form, PublicScreen, Logo } from "@components";
-import { registrationSchema, formatErrorMessage } from "@utils";
+import { Eye, EyeClosed } from "phosphor-react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { Form, PublicScreen, Logo } from "@components";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { auth } from "@services";
+import { registrationSchema, formatErrorMessage } from "@utils";
+
 import * as S from "./styles";
 
 type FormType = {
@@ -50,8 +53,8 @@ export function Registration() {
       await createUserWithEmailAndPassword(auth, email, password);
       toast.success("Account successfully created!");
       navigate("/", { replace: true });
-    } catch (e: any) {
-      if ("Firebase: Error (auth/email-already-in-use).") {
+    } catch ({ message }) {
+      if (message === "Firebase: Error (auth/email-already-in-use).") {
         toast.error("This user already exists.");
         return;
       }

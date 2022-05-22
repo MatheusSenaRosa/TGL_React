@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
+
 import { rem, rgba } from "polished";
+
 import { fadeIn, fadeOut, zoomIn, zoomOut } from "@animations";
 
 export const Container = styled.section`

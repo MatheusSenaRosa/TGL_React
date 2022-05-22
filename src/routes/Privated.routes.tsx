@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+
 import { Home, NewBet } from "@privatedRoutes";
 import { NotFound } from "@publicRoutes";
 

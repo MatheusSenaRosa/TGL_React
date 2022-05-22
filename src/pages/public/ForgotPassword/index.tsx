@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import { sendPasswordResetEmail } from "firebase/auth";
-import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { Form, Logo, PublicScreen } from "@components";
-import { forgotPasswordSchema, formatErrorMessage } from "@utils";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { auth } from "@services";
+import { forgotPasswordSchema, formatErrorMessage } from "@utils";
 
 import * as S from "./styles";
 
@@ -37,8 +38,8 @@ export function ForgotPassword() {
         "The email with link to update your password has been sent."
       );
       navigate(-1);
-    } catch (e: any) {
-      if (e.message === "Firebase: Error (auth/user-not-found).") {
+    } catch ({ message }) {
+      if (message === "Firebase: Error (auth/user-not-found).") {
         toast.error("This email doesn`t exists.");
         return;
       }

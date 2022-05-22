@@ -1,5 +1,4 @@
-import styled, { css } from "styled-components";
-import { rem } from "polished";
+import styled from "styled-components";
 
 export const Container = styled.main`
   flex: 1;

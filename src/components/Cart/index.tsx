@@ -6,13 +6,13 @@ type Props = {
   color: string;
 };
 
-export const Cart = ({ color }: Props) => {
+export function Cart({ color }: Props) {
   return (
     <S.Container>
       <S.Title>CART</S.Title>
       <S.List color={color}>
         <S.Item>
-          <button>
+          <button type="button">
             <Trash size={30} />
           </button>
           <span />
@@ -24,7 +24,7 @@ export const Cart = ({ color }: Props) => {
           </div>
         </S.Item>
         <S.Item>
-          <button>
+          <button type="button">
             <Trash size={30} />
           </button>
           <span />
@@ -36,7 +36,7 @@ export const Cart = ({ color }: Props) => {
           </div>
         </S.Item>
         <S.Item>
-          <button>
+          <button type="button">
             <Trash size={30} />
           </button>
           <span />
@@ -57,4 +57,4 @@ export const Cart = ({ color }: Props) => {
       </S.SubmitButton>
     </S.Container>
   );
-};
+}

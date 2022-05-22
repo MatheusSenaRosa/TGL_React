@@ -1,5 +1,6 @@
+import { createContext, ReactNode, useMemo, useState } from "react";
+
 import { IUser } from "@interfaces";
-import { createContext, ReactNode, useState } from "react";
 
 type AuthContextType = {
   user: IUser;
@@ -8,7 +9,7 @@ type AuthContextType = {
 
 const initialState: AuthContextType = {
   user: null,
-  setUser: () => {},
+  setUser: () => null,
 };
 
 export const AuthContext = createContext<AuthContextType>(initialState);
@@ -17,14 +18,17 @@ type Props = {
   children: ReactNode;
 };
 
-export const AuthProvider = ({ children }: Props) => {
+export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<IUser>(initialState.user);
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser: (currentUser) => setUser(currentUser) }}
+      value={useMemo(
+        () => ({ user, setUser: (currentUser) => setUser(currentUser) }),
+        []
+      )}
     >
       {children}
     </AuthContext.Provider>
   );
-};
+}

@@ -39,12 +39,13 @@ export const SideBar = ({ navButtons, onClose, onLogout }: Props) => {
           </button>
           <button type="button">
             <SignOut size={32} onClick={onLogout} />
+            Log out
           </button>
         </S.ActionButtons>
         <S.Nav>
           <ul>
             {navButtons.map((item) => (
-              <li>
+              <li key={item.text}>
                 <button type="button" onClick={() => navigate(item.path)}>
                   {item.text}
                 </button>

@@ -10,7 +10,7 @@ export const Button = styled.button`
     background-color: ${theme.colors.background.body};
     color: ${theme.colors.negative};
     cursor: pointer;
-    z-index: 1;
+    z-index: 10;
 
     border: none;
     border-radius: 50%;

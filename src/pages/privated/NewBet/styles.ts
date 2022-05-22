@@ -171,9 +171,11 @@ export const NumericButton = styled.button`
 
 export const ActionWrapper = styled.section`
   ${({ color, theme }) => css`
-    margin: auto 0 ${rem(20)} 0;
+    flex: 1;
     padding-right: ${rem(20)};
+    margin: ${rem(20)} 0;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 
     button {
@@ -217,6 +219,24 @@ export const ActionWrapper = styled.section`
           background-color: ${color};
           color: ${theme.colors.background.body};
         }
+      }
+    }
+
+    @media (max-width: ${rem(1024)}) {
+      flex-direction: column;
+      padding: 0;
+      gap: ${rem(10)};
+      span {
+        justify-content: space-evenly;
+
+        button {
+          width: auto;
+        }
+      }
+
+      button {
+        width: ${rem(325)};
+        justify-content: center;
       }
     }
   `}

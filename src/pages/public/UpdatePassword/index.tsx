@@ -44,17 +44,11 @@ export const UpdatePassword = () => {
         await verifyPasswordResetCode(auth, code);
         setCodeResetPassword(code);
       } catch (e: any) {
-        if (!toast.isActive(1)) {
-          if (e.message === "Firebase: Error (auth/invalid-action-code).") {
-            toast.error("Invalid action code.", { toastId: 1 });
-            navigate("/", { replace: true });
-          } else {
-            toast.error("An error has ocurred. Try it again later.", {
-              toastId: 1,
-            });
-            navigate("/", { replace: true });
-          }
-        }
+        if (e.message === "Firebase: Error (auth/invalid-action-code).")
+          toast.error("Invalid action code.");
+        else toast.error("An error has ocurred. Try it again later.");
+
+        navigate("/", { replace: true });
       }
     };
     validateCode();

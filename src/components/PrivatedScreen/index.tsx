@@ -5,7 +5,7 @@ import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import { auth } from "@services";
-import { SideBar, NavButtonsType } from "@components";
+import { SideBar, NavButtonsType, LogoutModal } from "@components";
 
 import * as S from "./styles";
 
@@ -16,9 +16,10 @@ type Props = {
 
 export const PrivatedScreen = ({ children, navButtons }: Props) => {
   const [isSideBar, setIsSideBar] = useState(false);
+  const [isLogoutModal, setIsLogoutModal] = useState(false);
   const navigate = useNavigate();
 
-  const logOut = async () => {
+  const logout = async () => {
     try {
       await signOut(auth);
       navigate("/", { replace: true });
@@ -33,10 +34,11 @@ export const PrivatedScreen = ({ children, navButtons }: Props) => {
       {isSideBar && (
         <SideBar
           onClose={() => setIsSideBar(false)}
-          onLogout={logOut}
+          onLogout={logout}
           navButtons={navButtons}
         />
       )}
+      {isLogoutModal && <LogoutModal onClose={() => setIsLogoutModal(false)} />}
       <S.Container>
         <S.Header>
           <S.MenuButton onClick={() => setIsSideBar(true)}>
@@ -59,7 +61,7 @@ export const PrivatedScreen = ({ children, navButtons }: Props) => {
                   )
               )}
               <li>
-                <button type="button" onClick={logOut}>
+                <button type="button" onClick={() => setIsLogoutModal(true)}>
                   Log out
                   <ArrowRight weight="bold" size={25} />
                 </button>

@@ -17,10 +17,8 @@ export const Overlay = styled.div<{ isClosing: boolean }>`
 
 export const ActionButtons = styled.div`
   ${({ theme }) => css`
-    margin: ${rem(21)} ${rem(9)} 0 ${rem(9)};
-    margin-top: ${rem(21)};
-
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 
     button {
@@ -31,6 +29,12 @@ export const ActionButtons = styled.div`
 
     button:nth-child(2) {
       color: ${theme.colors.error};
+      display: flex;
+      flex-direction: column;
+      font-size: ${rem(16)};
+      font-weight: bold;
+      align-items: center;
+      gap: ${rem(3)};
     }
   `}
 `;
@@ -38,32 +42,33 @@ export const ActionButtons = styled.div`
 export const Aside = styled.aside<{ isClosing: boolean }>`
   ${({ theme, isClosing }) => css`
     width: ${rem(200)};
-    height: 100vh;
+    height: 100%;
     position: fixed;
     z-index: 2;
+    padding: ${rem(21)} ${rem(9)} ${rem(10)} ${rem(9)};
 
     background-color: ${theme.colors.background.body};
-    border-right: ${rem(2)} solid ${theme.colors.primary};
+    border: ${rem(2)} solid ${theme.colors.primary};
     border-radius: 0 ${rem(20)} ${rem(20)} 0;
 
     animation: ${isClosing ? slideOut : slideIn} 0.6s forwards;
+
+    display: flex;
   `}
 `;
 
 export const Nav = styled.nav`
   ${({ theme }) => css`
+    margin-top: ${rem(35)};
+    margin-right: ${rem(20)};
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    margin-top: ${rem(10)};
 
     ul {
       display: flex;
       flex-direction: column;
-      align-items: center;
-
-      gap: ${rem(15)};
+      gap: ${rem(8)};
     }
 
     button {
@@ -73,8 +78,6 @@ export const Nav = styled.nav`
       color: ${theme.colors.text.primary};
       font-size: ${rem(20)};
       font-weight: bold;
-
-      display: flex;
 
       gap: ${rem(10)};
     }

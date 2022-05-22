@@ -3,11 +3,12 @@ import { rem } from "polished";
 
 export const Container = styled.div`
   ${({ theme }) => css`
-    height: 100vh;
+    min-height: 100vh;
 
     background-color: ${theme.colors.background.body};
 
     display: flex;
+    position: relative;
     flex-direction: column;
   `}
 `;

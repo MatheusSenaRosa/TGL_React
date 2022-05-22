@@ -1,5 +1,4 @@
-export { formSlideIn } from "./form";
-export { rotateIcon } from "./themeIcon";
-export { spinLoading } from "./loading";
 export { fadeIn, fadeOut } from "./fade";
-export { slideIn, slideOut } from "./aside";
+export { zoomIn, zoomOut } from "./zoom";
+export { slideIn, slideOut } from "./slide";
+export { spin } from "./spin";

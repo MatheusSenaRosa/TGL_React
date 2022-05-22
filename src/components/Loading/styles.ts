@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
-import { spinLoading } from "@animations";
+import { spin } from "@animations";
 
 export const Container = styled.main<{ size: number }>`
   ${({ theme, size }) => css`
@@ -10,6 +10,6 @@ export const Container = styled.main<{ size: number }>`
     border-top-color: ${theme.colors.primary};
     border-radius: 50%;
 
-    animation: ${spinLoading} 1s ease-in-out infinite;
+    animation: ${spin} 1s ease-in-out infinite;
   `}
 `;

@@ -34,11 +34,16 @@ export const PrivatedScreen = ({ children, navButtons }: Props) => {
       {isSideBar && (
         <SideBar
           onClose={() => setIsSideBar(false)}
-          onLogout={logout}
+          onLogout={() => setIsLogoutModal(true)}
           navButtons={navButtons}
         />
       )}
-      {isLogoutModal && <LogoutModal onClose={() => setIsLogoutModal(false)} />}
+      {isLogoutModal && (
+        <LogoutModal
+          onConfirm={logout}
+          onClose={() => setIsLogoutModal(false)}
+        />
+      )}
       <S.Container>
         <S.Header>
           <S.MenuButton onClick={() => setIsSideBar(true)}>

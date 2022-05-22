@@ -3,10 +3,11 @@ import { useState } from "react";
 import * as S from "./styles";
 
 type Props = {
+  onConfirm: () => Promise<void>;
   onClose: () => void;
 };
 
-export const LogoutModal = ({ onClose }: Props) => {
+export const LogoutModal = ({ onClose, onConfirm }: Props) => {
   const [isClosing, setIsClosing] = useState(false);
 
   const onCloseHandler = () => {
@@ -19,13 +20,13 @@ export const LogoutModal = ({ onClose }: Props) => {
 
   return (
     <S.Container>
-      <S.Overlay onClick={onCloseHandler} />
-      <S.Modal>
+      <S.Overlay onClick={onCloseHandler} isClosing={isClosing} />
+      <S.Modal isClosing={isClosing}>
         <h2>Log out</h2>
         <p>Are you sure?</p>
         <S.ActionWrapper>
           <button onClick={onCloseHandler}>Cancel</button>
-          <button>Confirm</button>
+          <button onClick={onConfirm}>Confirm</button>
         </S.ActionWrapper>
       </S.Modal>
     </S.Container>

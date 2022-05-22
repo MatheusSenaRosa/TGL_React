@@ -1,8 +1,8 @@
 import { keyframes, css } from "styled-components";
 
-export const rotateIcon = keyframes`
+export const spin = keyframes`
 ${css`
-  from {
+  to {
     transform: rotate(360deg);
   }
 `}

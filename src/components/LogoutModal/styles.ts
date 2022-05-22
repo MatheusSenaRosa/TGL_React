@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { rem, rgba } from "polished";
-import { fadeIn } from "@animations";
+import { fadeIn, fadeOut, zoomIn, zoomOut } from "@animations";
 
 export const Container = styled.section`
   height: 100vh;
@@ -13,19 +13,22 @@ export const Container = styled.section`
   justify-content: center;
 `;
 
-export const Overlay = styled.div`
-  background-color: ${rgba("#000", 0.5)};
-  height: 100%;
-  width: 100%;
-  position: absolute;
+export const Overlay = styled.div<{ isClosing: boolean }>`
+  ${({ isClosing }) => css`
+    background-color: ${rgba("#000", 0.5)};
+    height: 100%;
+    width: 100%;
+    position: absolute;
 
-  animation: ${fadeIn} 0.3s;
+    animation: ${isClosing ? fadeOut : fadeIn} 0.3s;
+  `}
 `;
 
-export const Modal = styled.div`
-  ${({ theme }) => css`
+export const Modal = styled.div<{ isClosing: boolean }>`
+  ${({ theme, isClosing }) => css`
     height: ${rem(230)};
-    width: ${rem(350)};
+    max-width: ${rem(350)};
+    width: 90%;
 
     z-index: 3;
     background-color: ${theme.colors.background.body};
@@ -36,6 +39,8 @@ export const Modal = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: ${rem(30)} 0;
+
+    animation: ${isClosing ? zoomOut : zoomIn} 0.3s;
 
     h2 {
       color: ${theme.colors.text.primary};

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { Moon, Sun } from "phosphor-react";
-import { rotateIcon } from "@animations";
+import { spin } from "@animations";
 
 export const Button = styled.button`
   ${({ theme }) => css`
@@ -42,7 +42,7 @@ export const Button = styled.button`
 
 export const MoonIcon = styled(Moon)`
   font-size: ${rem(32)};
-  animation: ${rotateIcon} 1s;
+  animation: ${spin} 1s;
 
   @media (max-width: ${rem(768)}) {
     font-size: ${rem(29)};
@@ -51,7 +51,7 @@ export const MoonIcon = styled(Moon)`
 
 export const SunIcon = styled(Sun)`
   font-size: ${rem(32)};
-  animation: ${rotateIcon} 1s;
+  animation: ${spin} 1s;
 
   @media (max-width: ${rem(768)}) {
     font-size: ${rem(29)};

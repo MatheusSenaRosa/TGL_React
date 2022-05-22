@@ -9,7 +9,7 @@ export const dark: ITheme = {
     error: "#cd0000",
 
     border: {
-      form: "#242526",
+      form: "#35313D",
       primary: "#35313D",
     },
 

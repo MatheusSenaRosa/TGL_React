@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCart } from "phosphor-react";
 
-import { Loading, PrivatedScreen } from "@components";
+import { Cart, Loading, PrivatedScreen } from "@components";
 import { db } from "@services";
 import { IGame } from "@interfaces";
 
@@ -65,7 +65,7 @@ export const NewBet = () => {
       ]}
     >
       <S.Container>
-        <S.LeftContent>
+        <S.Content>
           <S.Title>
             NEW BET <span>FOR {gameSelected.name}</span>
           </S.Title>
@@ -112,7 +112,8 @@ export const NewBet = () => {
               Add to cart
             </button>
           </S.ActionWrapper>
-        </S.LeftContent>
+        </S.Content>
+        <Cart color={gameSelected.color} />
       </S.Container>
     </PrivatedScreen>
   );

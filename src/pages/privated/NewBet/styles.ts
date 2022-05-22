@@ -7,6 +7,9 @@ export const Container = styled.main<{ isLoading?: boolean }>`
       flex: 1;
       padding: 0 ${rem(185)};
       display: flex;
+      justify-content: space-between;
+
+      gap: ${rem(20)};
 
       ${isLoading &&
       css`
@@ -14,30 +17,50 @@ export const Container = styled.main<{ isLoading?: boolean }>`
         justify-content: center;
       `}
 
-      @media(max-width: ${rem(1200)}) {
+      @media(max-width: ${rem(1440)}) {
         padding: 0 ${rem(115)};
+      }
+
+      @media (max-width: ${rem(1024)}) {
+        padding: 0 ${rem(85)};
+      }
+
+      @media (max-width: ${rem(425)}) {
+        padding: 0 ${rem(20)};
       }
     `}
 `;
 
-export const LeftContent = styled.div`
-  margin-top: ${rem(74)};
+export const Content = styled.div`
   max-width: ${rem(760)};
+  margin-top: ${rem(74)};
 
   display: flex;
   flex-direction: column;
   flex: 1;
+
+  @media (max-width: ${rem(1024)}) {
+    width: 100%;
+    max-width: none;
+  }
+
+  @media (max-width: ${rem(425)}) {
+    margin-top: ${rem(50)};
+  }
 `;
 
 export const Title = styled.h2`
   ${({ theme }) => css`
-    font-size: ${rem(24)};
+    font-size: ${rem(27)};
     font-weight: bold;
     color: ${theme.colors.text.primary};
 
     span {
       font-weight: 300;
       text-transform: uppercase;
+    }
+    @media (max-width: ${rem(320)}) {
+      font-size: ${rem(23)};
     }
   `}
 `;
@@ -57,6 +80,8 @@ export const ChooseGameWrapper = styled.section`
       margin-top: ${rem(20)};
       display: flex;
       gap: ${rem(25)};
+      overflow-x: auto;
+      height: ${rem(50)};
     }
   `}
 `;
@@ -65,7 +90,7 @@ export const ChooseGameButton = styled.button<{ isActive: boolean }>`
   ${({ theme, color, isActive }) => css`
     cursor: pointer;
     border: ${rem(2)} solid ${color};
-    width: ${rem(113)};
+    min-width: ${rem(113)};
     height: ${rem(34)};
     border-radius: ${rem(100)};
     font-size: ${rem(14)};
@@ -92,7 +117,7 @@ export const ChooseGameButton = styled.button<{ isActive: boolean }>`
 `;
 
 export const DescriptionWrapper = styled.section`
-  margin-top: ${rem(28)};
+  margin-top: ${rem(20)};
 
   h3 {
     margin-bottom: ${rem(3)};
@@ -143,11 +168,15 @@ export const ContainerNumbers = styled.div`
   column-gap: ${rem(12)};
   row-gap: ${rem(20)};
   flex-wrap: wrap;
+
+  @media (max-width: ${rem(425)}) {
+    justify-content: center;
+  }
 `;
 
 export const NumericButton = styled.button`
   ${({ theme, color }) => css`
-    min-width: ${rem(63)};
+    min-width: ${rem(65)};
     height: ${rem(65)};
     cursor: pointer;
 
@@ -165,6 +194,12 @@ export const NumericButton = styled.button`
 
     :hover {
       background-color: ${color};
+    }
+
+    @media (max-width: ${rem(320)}) {
+      height: ${rem(55)};
+      min-width: ${rem(55)};
+      font-size: ${rem(18)};
     }
   `}
 `;
@@ -222,7 +257,7 @@ export const ActionWrapper = styled.section`
       }
     }
 
-    @media (max-width: ${rem(1024)}) {
+    @media (max-width: ${rem(425)}) {
       flex-direction: column;
       padding: 0;
       gap: ${rem(10)};
@@ -237,6 +272,19 @@ export const ActionWrapper = styled.section`
       button {
         width: ${rem(325)};
         justify-content: center;
+      }
+    }
+
+    @media (max-width: ${rem(320)}) {
+      span {
+        button {
+          width: 45%;
+          height: ${rem(55)};
+        }
+      }
+
+      > button {
+        width: 100%;
       }
     }
   `}

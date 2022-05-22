@@ -1,4 +1,5 @@
 export { PublicScreen } from "./PublicScreen";
+export { Cart } from "./Cart";
 export { PrivatedScreen } from "./PrivatedScreen";
 export { Logo } from "./Logo";
 export { Form } from "./Form";

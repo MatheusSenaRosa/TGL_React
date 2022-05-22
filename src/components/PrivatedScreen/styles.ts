@@ -37,11 +37,19 @@ export const Header = styled.header`
       background-color: ${theme.colors.primary};
     }
 
-    @media (max-width: ${rem(1200)}) {
+    @media (max-width: ${rem(1440)}) {
       padding: 0 ${rem(130)};
 
       span {
         left: ${rem(115)};
+      }
+    }
+
+    @media (max-width: ${rem(1024)}) {
+      padding: 0 ${rem(100)};
+
+      span {
+        left: ${rem(85)};
       }
     }
 

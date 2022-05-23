@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 import { ThemeProvider } from "styled-components";
 
@@ -7,14 +7,12 @@ import { ToastContainer } from "react-toastify";
 
 import { ThemeButton } from "@components";
 import { AuthContext } from "@context";
-import { LoadingPage } from "@publicRoutes";
 import { Routes } from "@routes";
 import { auth } from "@services";
 import { useThemeStore } from "@store";
 import { GlobalStyles } from "@styles";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
   const { currentTheme } = useThemeStore();
   const { setUser } = useContext(AuthContext);
 
@@ -31,7 +29,7 @@ function App() {
       <ToastContainer
         theme={currentTheme.title === "dark" ? "dark" : "colored"}
       />
-      {isLoading ? <LoadingPage /> : <Routes />}
+      <Routes />
     </ThemeProvider>
   );
 }

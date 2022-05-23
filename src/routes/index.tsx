@@ -8,10 +8,7 @@ import { PublicRoutes } from "./Public.routes";
 export function Routes() {
   const { user } = useContext(AuthContext);
 
-  return (
-    <>
-      {!user && <PublicRoutes />}
-      {user && <PrivatedRoutes />}
-    </>
-  );
+  if (!user) return <PublicRoutes />;
+
+  return <PrivatedRoutes />;
 }

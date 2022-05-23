@@ -21,7 +21,7 @@ function App() {
   onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 1500);
+    setTimeout(() => setIsLoading(false), 800);
   }, []);
 
   return (

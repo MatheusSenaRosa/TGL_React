@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import { ThemeProvider } from "styled-components";
 
@@ -17,10 +17,6 @@ function App() {
   const { setUser } = useContext(AuthContext);
 
   onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
-
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 800);
-  }, []);
 
   return (
     <ThemeProvider theme={currentTheme}>

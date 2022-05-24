@@ -1,10 +1,9 @@
-import { FormHTMLAttributes, ReactNode } from "react";
+import { FormHTMLAttributes, ReactNode, useState } from "react";
 
 import { ArrowRight, ArrowLeft } from "phosphor-react";
 import { To, useNavigate } from "react-router-dom";
 
 import { Loading } from "@components";
-import { useChangePageStore } from "@store";
 
 import * as S from "./styles";
 
@@ -32,7 +31,7 @@ export function Form({
   navigationButton,
   ...rest
 }: Props) {
-  const { isChanging, setIsChanging } = useChangePageStore();
+  const [isChanging, setIsChanging] = useState(false);
   const navigate = useNavigate();
 
   const navigationHandler = (to: string | number, replace = false) => {

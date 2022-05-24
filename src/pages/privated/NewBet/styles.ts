@@ -2,6 +2,18 @@ import styled, { css } from "styled-components";
 
 import { rem, shade } from "polished";
 
+export const SmallDeviceCart = styled.section`
+  display: none;
+  @media (max-width: ${rem(1023)}) {
+    ${({ theme }) => css`
+      display: flex;
+      justify-content: center;
+      color: ${theme.colors.text.primary};
+      margin-top: ${rem(20)};
+    `}
+  }
+`;
+
 export const Container = styled.main<{ isLoading?: boolean }>`
   ${({ isLoading }) =>
     css`
@@ -43,10 +55,7 @@ export const Content = styled.div`
   @media (max-width: ${rem(1024)}) {
     width: 100%;
     max-width: none;
-  }
-
-  @media (max-width: ${rem(425)}) {
-    margin-top: ${rem(50)};
+    margin-top: ${rem(20)};
   }
 `;
 
@@ -83,6 +92,11 @@ export const ChooseGameWrapper = styled.section`
       gap: ${rem(25)};
       overflow-x: auto;
       height: ${rem(50)};
+      scrollbar-width: none;
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
     }
   `}
 `;
@@ -209,7 +223,7 @@ export const ActionWrapper = styled.section<{ color: string }>`
   ${({ color, theme }) => css`
     flex: 1;
     padding-right: ${rem(20)};
-    margin: ${rem(20)} 0;
+    margin: ${rem(10)} 0;
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -65,6 +65,10 @@ export function NewBet() {
         { text: "Account", path: "/account", isHeader: true },
       ]}
     >
+      <S.SmallDeviceCart>
+        <ShoppingCart size={35} />
+      </S.SmallDeviceCart>
+
       <S.Container>
         <S.Content>
           <S.Title>

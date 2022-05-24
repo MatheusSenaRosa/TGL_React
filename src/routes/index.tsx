@@ -1,13 +1,9 @@
-import { useContext } from "react";
-
-import { AuthContext } from "@context";
-
 import { PrivatedRoutes } from "./Privated.routes";
 import { PublicRoutes } from "./Public.routes";
 
 export function Routes() {
-  const { user } = useContext(AuthContext);
+  const isLogged = !!localStorage.getItem("@user");
 
-  if (user) return <PrivatedRoutes />;
+  if (isLogged) return <PrivatedRoutes />;
   return <PublicRoutes />;
 }

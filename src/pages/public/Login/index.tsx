@@ -42,7 +42,8 @@ export function Login() {
     setIsLoading(true);
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      localStorage.setItem("user", JSON.stringify(user));
       toast.success("You are logged in!");
     } catch ({ message }) {
       if (message === "Firebase: Error (auth/user-not-found).") {

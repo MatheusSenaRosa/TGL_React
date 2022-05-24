@@ -6,3 +6,4 @@ export {
 } from "./yupSchemas";
 export { formatErrorMessage } from "./formatErrorMessage";
 export { formatPasswordResetCode } from "./formatPasswordResetCode";
+export { numberToString } from "./numberToString";

@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { Cart, Loading, PrivatedScreen } from "@components";
 import { IGame } from "@interfaces";
 import { db } from "@services";
+import { numberToString } from "@utils";
 
 import * as S from "./styles";
 
@@ -25,7 +26,7 @@ export function NewBet() {
   const gamesCollection = collection(db, "games");
 
   useEffect(() => {
-    const get = async () => {
+    const fetch = async () => {
       try {
         const data = await getDocs(gamesCollection);
         const formatedData = data.docs.map((doc) => ({ ...doc.data() }));
@@ -39,7 +40,7 @@ export function NewBet() {
         toast.error("An error has occurred.");
       }
     };
-    get();
+    fetch();
   }, []);
 
   useEffect(() => {
@@ -47,7 +48,7 @@ export function NewBet() {
     if (game?.id) {
       const array = [];
       for (let i = 1; i <= game.range; i += 1) {
-        array.push(i < 10 ? `0${i}` : `${i}`);
+        array.push(numberToString(i));
       }
       setNumericArray([...array]);
     }
@@ -55,6 +56,7 @@ export function NewBet() {
 
   const onClickNumberHandler = (value: string) => {
     const { selectedNumbers } = currentBet;
+    const { max_number } = currentBet.game;
 
     if (selectedNumbers.includes(value)) {
       setCurrentBet((prev) => ({
@@ -64,9 +66,41 @@ export function NewBet() {
       return;
     }
 
+    if (selectedNumbers.length === max_number) {
+      toast.warn(`You can\`t select more than ${max_number} numbers.`);
+      return;
+    }
+
     setCurrentBet((prev) => ({
       ...prev,
       selectedNumbers: [...prev.selectedNumbers, value],
+    }));
+  };
+
+  const completeGameHandler = () => {
+    const { selectedNumbers } = currentBet;
+    const { max_number, range } = currentBet.game;
+    const missing = max_number - selectedNumbers.length;
+
+    if (selectedNumbers.length === max_number) {
+      toast.warn(`You can\`t select more than ${max_number} numbers.`);
+      return;
+    }
+
+    const newSelectedNumbers: string[] = [];
+
+    for (let i = 1; i <= missing; i += 1) {
+      const randomNumber = numberToString(Math.ceil(Math.random() * range));
+      if (!newSelectedNumbers.includes(randomNumber)) {
+        newSelectedNumbers.push(randomNumber);
+      } else {
+        i -= 1;
+      }
+    }
+
+    setCurrentBet((prev) => ({
+      ...prev,
+      selectedNumbers: [...prev.selectedNumbers, ...newSelectedNumbers],
     }));
   };
 
@@ -141,8 +175,17 @@ export function NewBet() {
 
           <S.ActionWrapper color={currentBet.game.color}>
             <span>
-              <button type="button">Complete game</button>
-              <button type="button">Clear game</button>
+              <button type="button" onClick={completeGameHandler}>
+                Complete game
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  setCurrentBet((prev) => ({ ...prev, selectedNumbers: [] }))
+                }
+              >
+                Clear game
+              </button>
             </span>
             <button type="button">
               <ShoppingCart size={29} />

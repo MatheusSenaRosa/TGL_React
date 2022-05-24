@@ -189,16 +189,21 @@ export const ContainerNumbers = styled.div`
   }
 `;
 
-export const NumericButton = styled.button`
-  ${({ theme, color }) => css`
+export const NumericButton = styled.button<{ isActive: boolean }>`
+  ${({ theme, color, isActive }) => css`
     min-width: ${rem(65)};
     height: ${rem(65)};
     cursor: pointer;
 
     border-radius: 50%;
-    background-color: ${theme.title === "dark"
-      ? shade(0.2, theme.colors.background.numericButton)
-      : theme.colors.background.numericButton};
+
+    background-color: ${() => {
+      if (isActive) return color;
+
+      return theme.title === "dark"
+        ? shade(0.2, theme.colors.background.numericButton)
+        : theme.colors.background.numericButton;
+    }};
     border: none;
 
     font-size: ${rem(20)};
@@ -207,9 +212,14 @@ export const NumericButton = styled.button`
     color: ${theme.colors.text.highlight};
     transition: 0.3s;
 
-    :hover {
-      background-color: ${color};
-    }
+    ${!isActive &&
+    css`
+      @media (min-width: ${rem(769)}) {
+        :hover {
+          background-color: ${color};
+        }
+      }
+    `}
 
     @media (max-width: ${rem(320)}) {
       height: ${rem(55)};

@@ -11,10 +11,16 @@ import { db } from "@services";
 
 import * as S from "./styles";
 
+type CurrentBet = {
+  game: IGame;
+  selectedNumbers: string[];
+};
+
 export function NewBet() {
   const [games, setGames] = useState<IGame[] | null>(null);
-  const [numericArray, setNumericArray] = useState<number[]>([]);
-  const [gameSelected, setGameSelected] = useState<IGame>({} as IGame);
+  const [numericArray, setNumericArray] = useState<string[]>([]);
+  const [currentBet, setCurrentBet] = useState<CurrentBet>({} as CurrentBet);
+
   const navigate = useNavigate();
   const gamesCollection = collection(db, "games");
 
@@ -24,7 +30,10 @@ export function NewBet() {
         const data = await getDocs(gamesCollection);
         const formatedData = data.docs.map((doc) => ({ ...doc.data() }));
         setGames(formatedData as IGame[]);
-        setGameSelected(formatedData[0] as IGame);
+        setCurrentBet({
+          game: formatedData[0] as IGame,
+          selectedNumbers: [],
+        });
       } catch (e) {
         navigate("/");
         toast.error("An error has occurred.");
@@ -34,14 +43,32 @@ export function NewBet() {
   }, []);
 
   useEffect(() => {
-    if (gameSelected.id) {
+    const { game } = currentBet;
+    if (game?.id) {
       const array = [];
-      for (let i = 1; i <= gameSelected?.range; i += 1) {
-        array.push(i);
+      for (let i = 1; i <= game.range; i += 1) {
+        array.push(i < 10 ? `0${i}` : `${i}`);
       }
       setNumericArray([...array]);
     }
-  }, [gameSelected]);
+  }, [currentBet.game]);
+
+  const onClickNumberHandler = (value: string) => {
+    const { selectedNumbers } = currentBet;
+
+    if (selectedNumbers.includes(value)) {
+      setCurrentBet((prev) => ({
+        ...prev,
+        selectedNumbers: prev.selectedNumbers.filter((item) => item !== value),
+      }));
+      return;
+    }
+
+    setCurrentBet((prev) => ({
+      ...prev,
+      selectedNumbers: [...prev.selectedNumbers, value],
+    }));
+  };
 
   if (!games) {
     return (
@@ -72,7 +99,7 @@ export function NewBet() {
       <S.Container>
         <S.Content>
           <S.Title>
-            NEW BET <span>FOR {gameSelected.name}</span>
+            NEW BET <span>FOR {currentBet.game.name}</span>
           </S.Title>
 
           <S.ChooseGameWrapper>
@@ -83,8 +110,8 @@ export function NewBet() {
                   type="button"
                   color={game.color}
                   key={game.id}
-                  isActive={gameSelected.id === game.id}
-                  onClick={() => setGameSelected(game)}
+                  isActive={currentBet.game.id === game.id}
+                  onClick={() => setCurrentBet({ game, selectedNumbers: [] })}
                 >
                   {game.name}
                 </S.ChooseGameButton>
@@ -93,21 +120,26 @@ export function NewBet() {
 
             <S.DescriptionWrapper>
               <h3>Fill your bet</h3>
-              <p>{gameSelected?.description}</p>
+              <p>{currentBet.game.description}</p>
             </S.DescriptionWrapper>
           </S.ChooseGameWrapper>
 
-          <S.NumbersWrapper color={gameSelected.color}>
+          <S.NumbersWrapper color={currentBet.game.color}>
             <S.ContainerNumbers>
               {numericArray.map((item) => (
-                <S.NumericButton color={gameSelected.color} key={item}>
-                  {item < 10 ? `0${item}` : item}
+                <S.NumericButton
+                  color={currentBet.game.color}
+                  key={item}
+                  isActive={currentBet.selectedNumbers.includes(item)}
+                  onClick={() => onClickNumberHandler(item)}
+                >
+                  {item}
                 </S.NumericButton>
               ))}
             </S.ContainerNumbers>
           </S.NumbersWrapper>
 
-          <S.ActionWrapper color={gameSelected.color}>
+          <S.ActionWrapper color={currentBet.game.color}>
             <span>
               <button type="button">Complete game</button>
               <button type="button">Clear game</button>
@@ -118,7 +150,7 @@ export function NewBet() {
             </button>
           </S.ActionWrapper>
         </S.Content>
-        <Cart color={gameSelected.color} />
+        <Cart color={currentBet.game.color} />
       </S.Container>
     </PrivatedScreen>
   );

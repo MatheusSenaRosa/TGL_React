@@ -81,12 +81,12 @@ export function NewBet() {
   };
 
   const completeGameHandler = () => {
-    toast.dismiss();
     const { selectedNumbers } = currentBet;
     const { max_number, range } = currentBet.game;
     const missing = max_number - selectedNumbers.length;
 
     if (selectedNumbers.length === max_number) {
+      toast.dismiss();
       toast.warn(`You can\`t select more than ${max_number} numbers.`);
       return;
     }
@@ -109,7 +109,6 @@ export function NewBet() {
   };
 
   const addToCartHandler = () => {
-    toast.dismiss();
     const {
       selectedNumbers: { length },
       game: { max_number, color, id, price, name },
@@ -132,14 +131,15 @@ export function NewBet() {
       );
 
       if (alreadyExists) {
+        toast.dismiss();
         toast.warn("This game already exists in your cart.");
         return;
       }
     }
 
+    toast.dismiss();
     addToCart({ id, color, price, numbers: currentBet.selectedNumbers, name });
     setCurrentBet((prev) => ({ ...prev, selectedNumbers: [] }));
-
     toast.success("Added successfully.");
   };
 

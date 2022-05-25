@@ -8,7 +8,8 @@ import { toast } from "react-toastify";
 import { Cart, Loading, PrivatedScreen } from "@components";
 import { IGame } from "@interfaces";
 import { db } from "@services";
-import { numberToString } from "@utils";
+import { useCartStore } from "@store";
+import { formatNumericArray, numberToString } from "@utils";
 
 import * as S from "./styles";
 
@@ -22,6 +23,7 @@ export function NewBet() {
   const [numericArray, setNumericArray] = useState<string[]>([]);
   const [currentBet, setCurrentBet] = useState<CurrentBet>({} as CurrentBet);
 
+  const { cart, addToCart } = useCartStore();
   const navigate = useNavigate();
   const gamesCollection = collection(db, "games");
 
@@ -102,6 +104,38 @@ export function NewBet() {
       ...prev,
       selectedNumbers: [...prev.selectedNumbers, ...newSelectedNumbers],
     }));
+  };
+
+  const addToCartHandler = () => {
+    const {
+      selectedNumbers: { length },
+      game: { max_number, color, id, price, name },
+    } = currentBet;
+    const missing = max_number - length;
+
+    if (missing) {
+      toast.dismiss();
+      toast.warn(`You need select ${max_number} numbers.`);
+      toast.warn(`Missing ${missing} number${missing > 1 ? "s" : ""}.`);
+      return;
+    }
+
+    if (cart.length) {
+      const alreadyExists = cart.some(
+        (item) =>
+          item.id === id &&
+          formatNumericArray(item.numbers) ===
+            formatNumericArray(currentBet.selectedNumbers)
+      );
+
+      if (alreadyExists) {
+        toast.warn("This game already exists in your cart.");
+        return;
+      }
+    }
+
+    toast.success("Added successfully to your cart.");
+    addToCart({ id, color, price, numbers: currentBet.selectedNumbers, name });
   };
 
   if (!games) {
@@ -187,7 +221,7 @@ export function NewBet() {
                 Clear game
               </button>
             </span>
-            <button type="button">
+            <button type="button" onClick={addToCartHandler}>
               <ShoppingCart size={29} />
               Add to cart
             </button>

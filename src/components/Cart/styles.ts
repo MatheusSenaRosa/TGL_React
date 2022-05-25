@@ -75,8 +75,8 @@ export const List = styled.ul`
   `}
 `;
 
-export const Item = styled.li`
-  ${({ theme }) => css`
+export const Item = styled.li<{ color: string }>`
+  ${({ theme, color }) => css`
     min-height: ${rem(80)};
     position: relative;
 
@@ -113,7 +113,7 @@ export const Item = styled.li`
         margin-top: ${rem(4)};
         font-size: ${rem(18)};
         font-weight: bold;
-        color: purple;
+        color: ${color};
 
         span {
           color: ${theme.colors.text.secondary};
@@ -127,7 +127,7 @@ export const Item = styled.li`
       height: 100%;
       width: ${rem(4)};
       border-radius: ${rem(100)} 0 0 ${rem(100)};
-      background-color: purple;
+      background-color: ${color};
       left: ${rem(52)};
     }
   `}

@@ -1,5 +1,8 @@
 import { ArrowRight, Trash } from "phosphor-react";
 
+import { useCartStore } from "@store";
+import { formatNumericArray, formatPrice } from "@utils";
+
 import * as S from "./styles";
 
 type Props = {
@@ -7,46 +10,29 @@ type Props = {
 };
 
 export function Cart({ color }: Props) {
+  const { cart } = useCartStore();
+
   return (
     <S.Container>
       <S.Title>CART</S.Title>
       <S.List color={color}>
-        <S.Item>
-          <button type="button">
-            <Trash size={30} />
-          </button>
-          <span />
-          <div>
-            <p>01, 02, 04, 05, 06, 07, 09, 15, 17, 20, 21, 22, 23, 24, 25</p>
-            <h4>
-              Lotofacil <span>R$ 2,50</span>
-            </h4>
-          </div>
-        </S.Item>
-        <S.Item>
-          <button type="button">
-            <Trash size={30} />
-          </button>
-          <span />
-          <div>
-            <p>01, 02, 04, 05, 06, 07, 09, 15, 17, 20, 21, 22, 23, 24, 25</p>
-            <h4>
-              Lotofacil <span>R$ 2,50</span>
-            </h4>
-          </div>
-        </S.Item>
-        <S.Item>
-          <button type="button">
-            <Trash size={30} />
-          </button>
-          <span />
-          <div>
-            <p>01, 02, 04, 05, 06, 07, 09, 15, 17, 20, 21, 22, 23, 24, 25</p>
-            <h4>
-              Lotofacil <span>R$ 2,50</span>
-            </h4>
-          </div>
-        </S.Item>
+        {cart.map((item) => (
+          <S.Item
+            color={item.color}
+            key={formatNumericArray(item.numbers) + item.id}
+          >
+            <button type="button">
+              <Trash size={30} />
+            </button>
+            <span color={item.color} />
+            <div>
+              <p>{formatNumericArray(item.numbers)}</p>
+              <h4>
+                {item.name} <span>{formatPrice(item.price)}</span>
+              </h4>
+            </div>
+          </S.Item>
+        ))}
       </S.List>
       <S.TotalWrapper>
         CART <span>TOTAL: R$ 7,00</span>

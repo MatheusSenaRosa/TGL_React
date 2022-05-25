@@ -4,8 +4,17 @@ import { ICartStore } from "./interfaces";
 
 export const useCartStore = create<ICartStore>((set) => ({
   cart: [],
-  addToCart: (item) =>
+  addToCart: (newItem) =>
     set((state) => ({
-      cart: [...state.cart, item],
+      cart: [newItem, ...state.cart],
     })),
+
+  removeFromCart: (index) =>
+    set((state) => {
+      const newCart = [...state.cart];
+      newCart.splice(index, 1);
+      return {
+        cart: newCart,
+      };
+    }),
 }));

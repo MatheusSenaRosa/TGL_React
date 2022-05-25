@@ -40,8 +40,8 @@ export const Title = styled.h2`
   `}
 `;
 
-export const List = styled.ul`
-  ${({ color }) => css`
+export const List = styled.ul<{ isEmpty: boolean }>`
+  ${({ color, isEmpty, theme }) => css`
     margin-top: ${rem(35)};
     flex: 1;
     overflow-y: auto;
@@ -50,25 +50,30 @@ export const List = styled.ul`
     flex-direction: column;
     gap: ${rem(32)};
 
-    /* width */
+    ${isEmpty &&
+    css`
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: ${rem(25)};
+      color: ${theme.colors.error};
+    `}
+
     ::-webkit-scrollbar {
       width: ${rem(5)};
       height: 1 ${rem(0)};
       border-radius: ${rem(5)};
     }
 
-    /* Track */
     ::-webkit-scrollbar-track {
       background: transparent;
     }
 
-    /* Handle */
     ::-webkit-scrollbar-thumb {
       background: ${color};
       border-radius: ${rem(5)};
     }
 
-    /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
       background: ${shade(0.3, color!)};
     }

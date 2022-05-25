@@ -69,6 +69,7 @@ export function NewBet() {
     }
 
     if (selectedNumbers.length === max_number) {
+      toast.dismiss();
       toast.warn(`You can\`t select more than ${max_number} numbers.`);
       return;
     }
@@ -80,6 +81,7 @@ export function NewBet() {
   };
 
   const completeGameHandler = () => {
+    toast.dismiss();
     const { selectedNumbers } = currentBet;
     const { max_number, range } = currentBet.game;
     const missing = max_number - selectedNumbers.length;
@@ -107,6 +109,7 @@ export function NewBet() {
   };
 
   const addToCartHandler = () => {
+    toast.dismiss();
     const {
       selectedNumbers: { length },
       game: { max_number, color, id, price, name },
@@ -134,8 +137,10 @@ export function NewBet() {
       }
     }
 
-    toast.success("Added successfully to your cart.");
     addToCart({ id, color, price, numbers: currentBet.selectedNumbers, name });
+    setCurrentBet((prev) => ({ ...prev, selectedNumbers: [] }));
+
+    toast.success("Added successfully.");
   };
 
   if (!games) {

@@ -71,8 +71,6 @@
             {
                 "newlinesBetween": "always",
                 "groups": [
-                    "/^react$/",
-                    "/^styled-components$/",
                     "module",
                     "/^@/",
                     "/^styles/",

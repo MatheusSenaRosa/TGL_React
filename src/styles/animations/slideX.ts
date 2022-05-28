@@ -1,6 +1,6 @@
 import { css, keyframes } from "styled-components";
 
-export const slideIn = keyframes`
+export const slideXIn = keyframes`
     ${css`
       from {
         transform: translateX(-100%);
@@ -8,7 +8,7 @@ export const slideIn = keyframes`
     `}
 `;
 
-export const slideOut = keyframes`
+export const slideXOut = keyframes`
     ${css`
       to {
         transform: translateX(-100%);

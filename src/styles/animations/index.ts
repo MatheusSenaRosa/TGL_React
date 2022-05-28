@@ -1,4 +1,5 @@
 export { fadeIn, fadeOut } from "./fade";
 export { zoomIn, zoomOut } from "./zoom";
-export { slideIn, slideOut } from "./slide";
+export { slideXIn, slideXOut } from "./slideX";
 export { spin } from "./spin";
+export { slideYIn, slideYOut } from "./slideY";

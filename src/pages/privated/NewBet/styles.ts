@@ -1,15 +1,39 @@
+import { rem, shade } from "polished";
 import styled, { css } from "styled-components";
 
-import { rem, shade } from "polished";
-
-export const SmallDeviceCart = styled.section`
+export const SmallDeviceCart = styled.button`
   display: none;
+
   @media (max-width: ${rem(1023)}) {
     ${({ theme }) => css`
       display: flex;
+      align-self: center;
       justify-content: center;
+
       color: ${theme.colors.text.primary};
-      margin-top: ${rem(20)};
+      margin-top: ${rem(15)};
+      width: fit-content;
+      border: none;
+      background-color: transparent;
+      position: relative;
+      padding: 0 ${rem(10)};
+      padding-top: ${rem(10)};
+
+      span {
+        background-color: ${theme.colors.primary};
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: ${rem(20)};
+        width: ${rem(20)};
+        border-radius: 50%;
+
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
     `}
   }
 `;
@@ -97,6 +121,10 @@ export const ChooseGameWrapper = styled.section`
       ::-webkit-scrollbar {
         display: none;
       }
+    }
+
+    @media (max-width: ${rem(425)}) {
+      margin-top: ${rem(20)};
     }
   `}
 `;

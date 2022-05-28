@@ -1,8 +1,8 @@
+import { ArrowRight } from "phosphor-react";
 import { useMemo } from "react";
-
-import { ArrowRight, Trash } from "phosphor-react";
 import { toast } from "react-toastify";
 
+import { CartList } from "@components";
 import { useCartStore } from "@store";
 import { formatNumericArray, formatPrice } from "@utils";
 
@@ -36,30 +36,7 @@ export function Cart({ color }: Props) {
   return (
     <S.Container>
       <S.Title>CART</S.Title>
-      <S.List color={color} isEmpty={!cart.length}>
-        {!!cart.length &&
-          cart.map((item) => (
-            <S.Item
-              color={item.color}
-              key={formatNumericArray(item.numbers) + item.id}
-            >
-              <button
-                type="button"
-                onClick={() => removeHandler(item.id, item.numbers)}
-              >
-                <Trash size={30} />
-              </button>
-              <span color={item.color} />
-              <div>
-                <p>{formatNumericArray(item.numbers)}</p>
-                <h4>
-                  {item.name} <span>{formatPrice(item.price)}</span>
-                </h4>
-              </div>
-            </S.Item>
-          ))}
-        {!cart.length && <h3>Empty</h3>}
-      </S.List>
+      <CartList color={color} removeItem={removeHandler} data={cart} />
       <S.TotalWrapper>
         CART <span>TOTAL: {formatPrice(total)}</span>
       </S.TotalWrapper>

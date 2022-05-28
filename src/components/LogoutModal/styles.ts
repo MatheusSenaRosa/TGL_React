@@ -1,13 +1,17 @@
-import styled, { css } from "styled-components";
-
 import { rem, rgba } from "polished";
+import styled, { css } from "styled-components";
 
 import { fadeIn, fadeOut, zoomIn, zoomOut } from "@animations";
 
 export const Container = styled.section`
   height: 100vh;
   width: 100vw;
-  position: fixed;
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   z-index: 2;
 
   display: flex;
@@ -20,7 +24,7 @@ export const Overlay = styled.div<{ isClosing: boolean }>`
     background-color: ${rgba("#000", 0.5)};
     height: 100%;
     width: 100%;
-    position: absolute;
+    position: fixed;
 
     animation: ${isClosing ? fadeOut : fadeIn} 0.3s;
   `}

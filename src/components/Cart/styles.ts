@@ -1,6 +1,5 @@
+import { rem } from "polished";
 import styled, { css } from "styled-components";
-
-import { rem, shade } from "polished";
 
 export const Container = styled.section`
   ${({ theme }) => css`
@@ -31,110 +30,12 @@ export const Container = styled.section`
 
 export const Title = styled.h2`
   ${({ theme }) => css`
-    padding-top: ${rem(32)};
+    padding: ${rem(35)} 0;
     padding-left: ${rem(19)};
 
     font-size: ${rem(27)};
     font-weight: bold;
     color: ${theme.colors.text.primary};
-  `}
-`;
-
-export const List = styled.ul<{ isEmpty: boolean }>`
-  ${({ color, isEmpty, theme }) => css`
-    margin-top: ${rem(35)};
-    flex: 1;
-    overflow-y: auto;
-
-    display: flex;
-    flex-direction: column;
-    gap: ${rem(32)};
-
-    ${isEmpty &&
-    css`
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: ${rem(25)};
-      color: ${theme.colors.error};
-    `}
-
-    ::-webkit-scrollbar {
-      width: ${rem(5)};
-      height: 1 ${rem(0)};
-      border-radius: ${rem(5)};
-    }
-
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: ${color};
-      border-radius: ${rem(5)};
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: ${shade(0.3, color!)};
-    }
-  `}
-`;
-
-export const Item = styled.li<{ color: string }>`
-  ${({ theme, color }) => css`
-    min-height: ${rem(80)};
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
-    button:first-child {
-      background-color: transparent;
-      cursor: pointer;
-      border: none;
-      color: ${theme.colors.text.secondary};
-      margin: 0 ${rem(10)} 0 ${rem(10)};
-
-      transition-duration: 0ms;
-
-      :hover {
-        color: ${theme.colors.error};
-      }
-    }
-
-    div:last-child {
-      margin-left: ${rem(20)};
-      margin-right: ${rem(15)};
-      padding: ${rem(10)} 0;
-      max-width: ${rem(300)};
-
-      p {
-        font-size: ${rem(17)};
-        font-weight: bold;
-        color: ${theme.colors.text.secondary};
-      }
-
-      h4 {
-        margin-top: ${rem(4)};
-        font-size: ${rem(18)};
-        font-weight: bold;
-        color: ${color};
-
-        span {
-          color: ${theme.colors.text.secondary};
-          font-weight: normal;
-        }
-      }
-    }
-
-    > span {
-      position: absolute;
-      height: 100%;
-      width: ${rem(4)};
-      border-radius: ${rem(100)} 0 0 ${rem(100)};
-      background-color: ${color};
-      left: ${rem(52)};
-    }
   `}
 `;
 

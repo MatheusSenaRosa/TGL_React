@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { Portal } from "@components";
+
 import * as S from "./styles";
 
 type Props = {
@@ -19,20 +21,22 @@ export function LogoutModal({ onClose, onConfirm }: Props) {
   };
 
   return (
-    <S.Container>
-      <S.Overlay onClick={onCloseHandler} isClosing={isClosing} />
-      <S.Modal isClosing={isClosing}>
-        <h2>Log out</h2>
-        <p>Are you sure?</p>
-        <S.ActionWrapper>
-          <button type="button" onClick={onCloseHandler}>
-            Cancel
-          </button>
-          <button type="button" onClick={onConfirm}>
-            Confirm
-          </button>
-        </S.ActionWrapper>
-      </S.Modal>
-    </S.Container>
+    <Portal id="logout-modal">
+      <S.Container>
+        <S.Overlay onClick={onCloseHandler} isClosing={isClosing} />
+        <S.Modal isClosing={isClosing}>
+          <h2>Log out</h2>
+          <p>Are you sure?</p>
+          <S.ActionWrapper>
+            <button type="button" onClick={onCloseHandler}>
+              Cancel
+            </button>
+            <button type="button" onClick={onConfirm}>
+              Confirm
+            </button>
+          </S.ActionWrapper>
+        </S.Modal>
+      </S.Container>
+    </Portal>
   );
 }

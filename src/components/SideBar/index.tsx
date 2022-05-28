@@ -1,7 +1,8 @@
-import { useState } from "react";
-
 import { X, SignOut } from "phosphor-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { Portal } from "@components";
 
 import * as S from "./styles";
 
@@ -31,7 +32,7 @@ export function SideBar({ navButtons, onClose, onLogout }: Props) {
   };
 
   return (
-    <>
+    <Portal id="sidebar">
       <S.Overlay onClick={onCloseHandler} isClosing={isClosing} />
       <S.Aside isClosing={isClosing}>
         <S.ActionButtons>
@@ -39,7 +40,7 @@ export function SideBar({ navButtons, onClose, onLogout }: Props) {
             <X size={32} onClick={onCloseHandler} />
           </button>
           <button type="button">
-            <SignOut size={32} onClick={onLogout} />
+            <SignOut size={32} onClick={onLogout} weight="bold" />
             Log out
           </button>
         </S.ActionButtons>
@@ -55,6 +56,6 @@ export function SideBar({ navButtons, onClose, onLogout }: Props) {
           </ul>
         </S.Nav>
       </S.Aside>
-    </>
+    </Portal>
   );
 }

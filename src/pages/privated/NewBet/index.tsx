@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-
 import { collection, getDocs } from "firebase/firestore";
 import { ShoppingCart } from "phosphor-react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Cart, Loading, PrivatedScreen } from "@components";
+import { Cart, CartModal, Loading, PrivatedScreen } from "@components";
 import { IGame } from "@interfaces";
 import { db } from "@services";
 import { useCartStore } from "@store";
@@ -22,6 +21,7 @@ export function NewBet() {
   const [games, setGames] = useState<IGame[] | null>(null);
   const [numericArray, setNumericArray] = useState<string[]>([]);
   const [currentBet, setCurrentBet] = useState<CurrentBet>({} as CurrentBet);
+  const [isCartModal, setIsCartModal] = useState(false);
 
   const { cart, addToCart } = useCartStore();
   const navigate = useNavigate();
@@ -159,81 +159,90 @@ export function NewBet() {
   }
 
   return (
-    <PrivatedScreen
-      navButtons={[
-        { text: "Home", path: "/", isHeader: true },
-        { text: "Account", path: "/account", isHeader: true },
-      ]}
-    >
-      <S.SmallDeviceCart>
-        <ShoppingCart size={35} />
-      </S.SmallDeviceCart>
+    <>
+      {isCartModal && (
+        <CartModal
+          onClose={() => setIsCartModal(false)}
+          color={currentBet.game.color}
+        />
+      )}
+      <PrivatedScreen
+        navButtons={[
+          { text: "Home", path: "/", isHeader: true },
+          { text: "Account", path: "/account", isHeader: true },
+        ]}
+      >
+        <S.SmallDeviceCart onClick={() => setIsCartModal(true)}>
+          <span>{numberToString(cart.length)}</span>
+          <ShoppingCart size={35} />
+        </S.SmallDeviceCart>
 
-      <S.Container>
-        <S.Content>
-          <S.Title>
-            NEW BET <span>FOR {currentBet.game.name}</span>
-          </S.Title>
+        <S.Container>
+          <S.Content>
+            <S.Title>
+              NEW BET <span>FOR {currentBet.game.name}</span>
+            </S.Title>
 
-          <S.ChooseGameWrapper>
-            <h3>Choose a game</h3>
-            <div>
-              {games.map((game) => (
-                <S.ChooseGameButton
+            <S.ChooseGameWrapper>
+              <h3>Choose a game</h3>
+              <div>
+                {games.map((game) => (
+                  <S.ChooseGameButton
+                    type="button"
+                    color={game.color}
+                    key={game.id}
+                    isActive={currentBet.game.id === game.id}
+                    onClick={() => setCurrentBet({ game, selectedNumbers: [] })}
+                  >
+                    {game.name}
+                  </S.ChooseGameButton>
+                ))}
+              </div>
+
+              <S.DescriptionWrapper>
+                <h3>Fill your bet</h3>
+                <p>{currentBet.game.description}</p>
+              </S.DescriptionWrapper>
+            </S.ChooseGameWrapper>
+
+            <S.NumbersWrapper color={currentBet.game.color}>
+              <S.ContainerNumbers>
+                {numericArray.map((item) => (
+                  <S.NumericButton
+                    color={currentBet.game.color}
+                    key={item}
+                    isActive={currentBet.selectedNumbers.includes(item)}
+                    onClick={() => onClickNumberHandler(item)}
+                  >
+                    {item}
+                  </S.NumericButton>
+                ))}
+              </S.ContainerNumbers>
+            </S.NumbersWrapper>
+
+            <S.ActionWrapper color={currentBet.game.color}>
+              <span>
+                <button type="button" onClick={completeGameHandler}>
+                  Complete game
+                </button>
+                <button
                   type="button"
-                  color={game.color}
-                  key={game.id}
-                  isActive={currentBet.game.id === game.id}
-                  onClick={() => setCurrentBet({ game, selectedNumbers: [] })}
+                  onClick={() =>
+                    setCurrentBet((prev) => ({ ...prev, selectedNumbers: [] }))
+                  }
                 >
-                  {game.name}
-                </S.ChooseGameButton>
-              ))}
-            </div>
-
-            <S.DescriptionWrapper>
-              <h3>Fill your bet</h3>
-              <p>{currentBet.game.description}</p>
-            </S.DescriptionWrapper>
-          </S.ChooseGameWrapper>
-
-          <S.NumbersWrapper color={currentBet.game.color}>
-            <S.ContainerNumbers>
-              {numericArray.map((item) => (
-                <S.NumericButton
-                  color={currentBet.game.color}
-                  key={item}
-                  isActive={currentBet.selectedNumbers.includes(item)}
-                  onClick={() => onClickNumberHandler(item)}
-                >
-                  {item}
-                </S.NumericButton>
-              ))}
-            </S.ContainerNumbers>
-          </S.NumbersWrapper>
-
-          <S.ActionWrapper color={currentBet.game.color}>
-            <span>
-              <button type="button" onClick={completeGameHandler}>
-                Complete game
+                  Clear game
+                </button>
+              </span>
+              <button type="button" onClick={addToCartHandler}>
+                <ShoppingCart size={29} />
+                Add to cart
               </button>
-              <button
-                type="button"
-                onClick={() =>
-                  setCurrentBet((prev) => ({ ...prev, selectedNumbers: [] }))
-                }
-              >
-                Clear game
-              </button>
-            </span>
-            <button type="button" onClick={addToCartHandler}>
-              <ShoppingCart size={29} />
-              Add to cart
-            </button>
-          </S.ActionWrapper>
-        </S.Content>
-        <Cart color={currentBet.game.color} />
-      </S.Container>
-    </PrivatedScreen>
+            </S.ActionWrapper>
+          </S.Content>
+          <Cart color={currentBet.game.color} />
+        </S.Container>
+      </PrivatedScreen>
+    </>
   );
 }

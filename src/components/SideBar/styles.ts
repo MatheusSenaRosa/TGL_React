@@ -1,15 +1,17 @@
+import { rem, rgba } from "polished";
 import styled, { css } from "styled-components";
 
-import { rem, rgba } from "polished";
-
-import { fadeIn, slideIn, slideOut, fadeOut } from "@animations";
+import { fadeIn, slideXIn, slideXOut, fadeOut } from "@animations";
 
 export const Overlay = styled.div<{ isClosing: boolean }>`
   ${({ isClosing }) => css`
     background-color: ${rgba("#000", 0.5)};
     height: 100vh;
     width: 100vw;
-    position: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
     z-index: 1;
 
     animation: ${isClosing ? fadeOut : fadeIn} 0.6s forwards;
@@ -44,15 +46,19 @@ export const Aside = styled.aside<{ isClosing: boolean }>`
   ${({ theme, isClosing }) => css`
     width: ${rem(200)};
     height: 100%;
-    position: fixed;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
     z-index: 2;
+
     padding: ${rem(21)} ${rem(9)} ${rem(10)} ${rem(9)};
 
     background-color: ${theme.colors.background.body};
     border: ${rem(2)} solid ${theme.colors.primary};
     border-radius: 0 ${rem(20)} ${rem(20)} 0;
 
-    animation: ${isClosing ? slideOut : slideIn} 0.6s forwards;
+    animation: ${isClosing ? slideXOut : slideXIn} 0.6s forwards;
 
     display: flex;
   `}

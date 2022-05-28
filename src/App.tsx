@@ -1,9 +1,7 @@
-import { useContext } from "react";
-
-import { ThemeProvider } from "styled-components";
-
 import { onAuthStateChanged } from "firebase/auth";
+import { useContext } from "react";
 import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from "styled-components";
 
 import { ThemeButton } from "@components";
 import { AuthContext } from "@context";

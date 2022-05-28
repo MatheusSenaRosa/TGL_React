@@ -8,3 +8,6 @@ export { Loading } from "./Loading";
 export { SideBar } from "./SideBar";
 export { LogoutModal } from "./LogoutModal";
 export type { NavButtonsType } from "./SideBar";
+export { CartModal } from "./CartModal";
+export { CartList } from "./CartList";
+export { Portal } from "./Portal";

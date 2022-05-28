@@ -1,8 +1,7 @@
+import { rem } from "polished";
 import styled, { css } from "styled-components";
 
-import { rem } from "polished";
-
-import { fadeOut, slideIn } from "@animations";
+import { fadeOut, slideXIn } from "@animations";
 
 export const Container = styled.section<{ isChangingPage: boolean }>`
   ${({ isChangingPage }) => css`
@@ -18,7 +17,7 @@ export const Container = styled.section<{ isChangingPage: boolean }>`
           animation: ${fadeOut} ease-in-out 0.2s forwards;
         `
       : css`
-          animation: ${slideIn} ease-out 0.2s;
+          animation: ${slideXIn} ease-out 0.2s;
         `}
 
     @media (max-width: ${rem(768)}) {

@@ -1,10 +1,4 @@
-interface ICart {
-  id: number;
-  name: string;
-  color: string;
-  price: number;
-  numbers: string[];
-}
+import { ICart } from "@interfaces";
 
 export interface ICartStore {
   cart: ICart[];

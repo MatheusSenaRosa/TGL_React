@@ -17,3 +17,12 @@ export const slideOutCart = keyframes`
       }
     `}
 `;
+
+export const slideYOutCart = keyframes`
+    ${css`
+      to {
+        transform: translateY(100px);
+      }
+    `}
+
+`;

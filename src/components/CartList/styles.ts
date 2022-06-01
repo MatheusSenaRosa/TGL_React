@@ -1,9 +1,10 @@
 import { rem, shade } from "polished";
 import styled, { css } from "styled-components";
 
-import { slideInCart, slideOutCart } from "@animations";
-
-export const List = styled.ul<{ isEmpty: boolean; color: string }>`
+export const List = styled.ul<{
+  isEmpty: boolean;
+  color: string;
+}>`
   ${({ color, isEmpty, theme }) => css`
     overflow-x: hidden;
     flex: 1;
@@ -43,14 +44,12 @@ export const List = styled.ul<{ isEmpty: boolean; color: string }>`
   `}
 `;
 
-export const Item = styled.li<{ color: string; isRemoving: boolean }>`
-  ${({ theme, color, isRemoving }) => css`
+export const Item = styled.li<{ color: string }>`
+  ${({ theme, color }) => css`
     display: flex;
     position: relative;
     gap: ${rem(12)};
     padding: ${rem(15)} 0;
-
-    animation: ${isRemoving ? slideOutCart : slideInCart} 0.3s ease-out;
 
     div:first-child {
       min-width: 14%;

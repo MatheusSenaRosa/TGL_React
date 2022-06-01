@@ -25,7 +25,7 @@ export const Overlay = styled.div<{ isClosing: boolean }>`
     position: absolute;
     background-color: ${rgba("#000", 0.5)};
 
-    animation: ${isClosing ? fadeOut : fadeIn} 0.5s;
+    animation: ${isClosing ? fadeOut : fadeIn} 0.5s forwards;
   `}
 `;
 
@@ -42,7 +42,7 @@ export const Modal = styled.div<{ isClosing: boolean }>`
     flex-direction: column;
     position: relative;
 
-    animation: ${isClosing ? slideYOut : slideYIn} 0.5s;
+    animation: ${isClosing ? slideYOut : slideYIn} 0.5s forwards;
   `}
 `;
 

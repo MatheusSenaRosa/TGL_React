@@ -12,7 +12,7 @@ export const Container = styled.section`
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 2;
+  z-index: 3;
 
   display: flex;
   align-items: center;
@@ -26,7 +26,7 @@ export const Overlay = styled.div<{ isClosing: boolean }>`
     width: 100%;
     position: fixed;
 
-    animation: ${isClosing ? fadeOut : fadeIn} 0.3s;
+    animation: ${isClosing ? fadeOut : fadeIn} 0.3s forwards;
   `}
 `;
 
@@ -46,7 +46,7 @@ export const Modal = styled.div<{ isClosing: boolean }>`
     justify-content: space-between;
     padding: ${rem(30)} 0;
 
-    animation: ${isClosing ? zoomOut : zoomIn} 0.3s;
+    animation: ${isClosing ? zoomOut : zoomIn} 0.3s forwards;
 
     h2 {
       color: ${theme.colors.text.primary};

@@ -17,7 +17,7 @@ type Props = {
 };
 
 export function Cart({ color, minValue }: Props) {
-  const { cart, removeFromCart } = useCartStore();
+  const { cart, removeFromCart, clearCart } = useCartStore();
   const cartCollection = collection(db, "cart");
 
   const total = useMemo(
@@ -53,6 +53,7 @@ export function Cart({ color, minValue }: Props) {
         await setDoc(doc(cartCollection, auth.currentUser?.uid), {
           cart: [...cart],
         });
+        clearCart();
         toast.success("Cart has been saved.");
         return;
       }
@@ -60,6 +61,7 @@ export function Cart({ color, minValue }: Props) {
       await setDoc(doc(cartCollection, auth.currentUser?.uid), {
         cart: [...prevCart.cart, ...cart],
       });
+      clearCart();
       toast.success("Cart has been saved.");
     } catch (e) {
       toast.error("An error has occurred. Try it later.");

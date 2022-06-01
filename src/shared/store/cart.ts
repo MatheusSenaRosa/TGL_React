@@ -17,4 +17,6 @@ export const useCartStore = create<ICartStore>((set) => ({
         cart: newCart,
       };
     }),
+
+  clearCart: () => set({ cart: [] }),
 }));

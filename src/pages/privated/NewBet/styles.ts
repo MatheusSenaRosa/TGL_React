@@ -1,7 +1,7 @@
 import { rem, shade } from "polished";
 import styled, { css } from "styled-components";
 
-export const SmallDeviceCart = styled.button`
+export const OpenCartButton = styled.button`
   display: none;
 
   @media (max-width: ${rem(1023)}) {

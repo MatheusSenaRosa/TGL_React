@@ -1,11 +1,11 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDoc, doc } from "firebase/firestore";
 import { ShoppingCart } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Cart, CartModal, Loading, PrivatedScreen } from "@components";
-import { IGame } from "@interfaces";
+import { IGame, IGames } from "@interfaces";
 import { db } from "@services";
 import { useCartStore } from "@store";
 import { formatNumericArray, numberToString } from "@utils";
@@ -18,23 +18,25 @@ type CurrentBet = {
 };
 
 export function NewBet() {
-  const [games, setGames] = useState<IGame[] | null>(null);
+  const [gamesData, setGamesData] = useState<IGames>({} as IGames);
   const [numericArray, setNumericArray] = useState<string[]>([]);
   const [currentBet, setCurrentBet] = useState<CurrentBet>({} as CurrentBet);
   const [isCartModal, setIsCartModal] = useState(false);
 
-  const { cart, addToCart } = useCartStore();
   const navigate = useNavigate();
+  const { cart, addToCart } = useCartStore();
   const gamesCollection = collection(db, "games");
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        const data = await getDocs(gamesCollection);
-        const formatedData = data.docs.map((doc) => ({ ...doc.data() }));
-        setGames(formatedData as IGame[]);
+        const response = (
+          await getDoc(doc(gamesCollection, "data"))
+        ).data() as IGames;
+
+        setGamesData(response);
         setCurrentBet({
-          game: formatedData[0] as IGame,
+          game: response.games[0],
           selectedNumbers: [],
         });
       } catch (e) {
@@ -143,7 +145,7 @@ export function NewBet() {
     toast.success("Added successfully.");
   };
 
-  if (!games) {
+  if (!gamesData.games) {
     return (
       <PrivatedScreen
         navButtons={[
@@ -172,10 +174,10 @@ export function NewBet() {
           { text: "Account", path: "/account", isHeader: true },
         ]}
       >
-        <S.SmallDeviceCart onClick={() => setIsCartModal(true)}>
+        <S.OpenCartButton onClick={() => setIsCartModal(true)}>
           <span>{numberToString(cart.length)}</span>
           <ShoppingCart size={35} />
-        </S.SmallDeviceCart>
+        </S.OpenCartButton>
 
         <S.Container>
           <S.Content>
@@ -186,7 +188,7 @@ export function NewBet() {
             <S.ChooseGameWrapper>
               <h3>Choose a game</h3>
               <div>
-                {games.map((game) => (
+                {gamesData.games.map((game) => (
                   <S.ChooseGameButton
                     type="button"
                     color={game.color}
@@ -240,7 +242,10 @@ export function NewBet() {
               </button>
             </S.ActionWrapper>
           </S.Content>
-          <Cart color={currentBet.game.color} />
+          <Cart
+            color={currentBet.game.color}
+            minValue={gamesData.min_cart_value}
+          />
         </S.Container>
       </PrivatedScreen>
     </>

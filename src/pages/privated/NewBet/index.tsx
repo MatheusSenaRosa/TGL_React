@@ -1,14 +1,14 @@
-import { collection, getDoc, doc } from "firebase/firestore";
+import { collection, getDoc, doc, setDoc } from "firebase/firestore";
 import { ShoppingCart } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Cart, CartModal, Loading, PrivatedScreen } from "@components";
-import { IGame, IGames } from "@interfaces";
-import { db } from "@services";
+import { ICart, IGame, IGames } from "@interfaces";
+import { auth, db } from "@services";
 import { useCartStore } from "@store";
-import { formatNumericArray, numberToString } from "@utils";
+import { formatNumericArray, formatPrice, numberToString } from "@utils";
 
 import * as S from "./styles";
 
@@ -25,7 +25,8 @@ export function NewBet() {
   const [isFetching, setIsFetching] = useState(false);
 
   const navigate = useNavigate();
-  const { cart, addToCart } = useCartStore();
+  const { cart, addToCart, clearCart } = useCartStore();
+  const cartCollection = collection(db, "cart");
   const gamesCollection = collection(db, "games");
 
   useEffect(() => {
@@ -146,6 +147,45 @@ export function NewBet() {
     toast.success("Added successfully.");
   };
 
+  const saveHandler = async () => {
+    const total = cart.reduce((acc, cur) => cur.price + acc, 0);
+
+    if (total < gamesData.min_cart_value) {
+      toast.warn(
+        `The value must be greater than ${formatPrice(
+          gamesData.min_cart_value
+        )}`
+      );
+      return;
+    }
+
+    try {
+      setIsFetching(true);
+      const prevCart = (
+        await getDoc(doc(cartCollection, auth.currentUser?.uid))
+      ).data() as { cart: ICart[] };
+
+      if (!prevCart) {
+        await setDoc(doc(cartCollection, auth.currentUser?.uid), {
+          cart: [...cart],
+        });
+        clearCart();
+        toast.success("Cart has been saved.");
+        return;
+      }
+
+      await setDoc(doc(cartCollection, auth.currentUser?.uid), {
+        cart: [...prevCart.cart, ...cart],
+      });
+      clearCart();
+      toast.success("Cart has been saved.");
+    } catch (e) {
+      toast.error("An error has occurred. Try it later.");
+    } finally {
+      setIsFetching(false);
+    }
+  };
+
   if (!gamesData.games) {
     return (
       <PrivatedScreen
@@ -167,6 +207,8 @@ export function NewBet() {
         <CartModal
           onClose={() => setIsCartModal(false)}
           color={currentBet.game.color}
+          onSave={saveHandler}
+          isFetching={isFetching}
         />
       )}
       <PrivatedScreen
@@ -249,8 +291,8 @@ export function NewBet() {
           </S.Content>
           <Cart
             color={currentBet.game.color}
-            minValue={gamesData.min_cart_value}
-            setFetching={(value: boolean) => setIsFetching(value)}
+            onSave={saveHandler}
+            isFetching={isFetching}
           />
         </S.Container>
       </PrivatedScreen>

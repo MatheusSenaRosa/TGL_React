@@ -18,6 +18,7 @@ export const OpenCartButton = styled.button`
       position: relative;
       padding: 0 ${rem(10)};
       padding-top: ${rem(10)};
+      cursor: pointer;
 
       span {
         background-color: ${theme.colors.primary};

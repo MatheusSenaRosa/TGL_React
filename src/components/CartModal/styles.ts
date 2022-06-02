@@ -55,6 +55,7 @@ export const XButton = styled.button<{ color: string }>`
     color: ${color};
     position: absolute;
     left: ${rem(20)};
+    cursor: pointer;
   `}
 `;
 
@@ -93,7 +94,11 @@ export const SubmitButton = styled.button<{ color: string }>`
     justify-content: center;
     gap: ${rem(9)};
 
-    :hover {
+    :disabled {
+      cursor: not-allowed;
+    }
+
+    :not(:disabled):hover {
       background-color: ${color};
       color: ${theme.colors.background.body};
     }

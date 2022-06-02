@@ -1,11 +1,8 @@
-import { setDoc, collection, doc, getDoc } from "firebase/firestore";
 import { ArrowRight } from "phosphor-react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { toast } from "react-toastify";
 
 import { CartList, Loading } from "@components";
-import { ICart } from "@interfaces";
-import { db, auth } from "@services";
 import { useCartStore } from "@store";
 import { formatNumericArray, formatPrice } from "@utils";
 
@@ -13,14 +10,12 @@ import * as S from "./styles";
 
 type Props = {
   color: string;
-  minValue: number;
-  setFetching: (value: boolean) => void;
+  isFetching: boolean;
+  onSave: () => void;
 };
 
-export function Cart({ color, minValue, setFetching }: Props) {
-  const [isFetching, setIsFetching] = useState(false);
-  const { cart, removeFromCart, clearCart } = useCartStore();
-  const cartCollection = collection(db, "cart");
+export function Cart({ color, isFetching, onSave }: Props) {
+  const { cart, removeFromCart } = useCartStore();
 
   const total = useMemo(
     () => cart.reduce((acc, item) => acc + item.price, 0),
@@ -40,41 +35,6 @@ export function Cart({ color, minValue, setFetching }: Props) {
     toast.success("Removed successfully.");
   };
 
-  const saveHandler = async () => {
-    if (total < minValue) {
-      toast.warn(`The value must be greater than ${formatPrice(minValue)}`);
-      return;
-    }
-
-    try {
-      setIsFetching(true);
-      setFetching(true);
-      const prevCart = (
-        await getDoc(doc(cartCollection, auth.currentUser?.uid))
-      ).data() as { cart: ICart[] };
-
-      if (!prevCart) {
-        await setDoc(doc(cartCollection, auth.currentUser?.uid), {
-          cart: [...cart],
-        });
-        clearCart();
-        toast.success("Cart has been saved.");
-        return;
-      }
-
-      await setDoc(doc(cartCollection, auth.currentUser?.uid), {
-        cart: [...prevCart.cart, ...cart],
-      });
-      clearCart();
-      toast.success("Cart has been saved.");
-    } catch (e) {
-      toast.error("An error has occurred. Try it later.");
-    } finally {
-      setIsFetching(false);
-      setFetching(false);
-    }
-  };
-
   return (
     <S.Container>
       <S.Title>CART</S.Title>
@@ -82,7 +42,7 @@ export function Cart({ color, minValue, setFetching }: Props) {
       <S.TotalWrapper>
         CART <span>TOTAL: {formatPrice(total)}</span>
       </S.TotalWrapper>
-      <S.SubmitButton color={color} onClick={saveHandler} disabled={isFetching}>
+      <S.SubmitButton color={color} onClick={onSave} disabled={isFetching}>
         {isFetching ? (
           <Loading color={color} size={50} />
         ) : (

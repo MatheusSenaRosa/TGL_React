@@ -9,11 +9,13 @@ import { formatNumericArray } from "@utils";
 import * as S from "./styles";
 
 type Props = {
-  onClose: () => void;
   color: string;
+  isFetching: boolean;
+  onSave: () => void;
+  onClose: () => void;
 };
 
-export function CartModal({ onClose, color }: Props) {
+export function CartModal({ onClose, color, onSave, isFetching }: Props) {
   const { cart, removeFromCart } = useCartStore();
   const [isClosing, setIsClosing] = useState(false);
 
@@ -39,8 +41,9 @@ export function CartModal({ onClose, color }: Props) {
   };
 
   const onCloseHandler = () => {
-    setIsClosing(true);
+    if (isFetching) return;
 
+    setIsClosing(true);
     setTimeout(() => {
       setIsClosing(false);
       onClose();
@@ -59,7 +62,7 @@ export function CartModal({ onClose, color }: Props) {
             <h2>CART</h2>
           </S.Header>
           <CartList data={cart} color={color} removeItem={removeHandler} />
-          <S.SubmitButton color={color}>
+          <S.SubmitButton color={color} onClick={onSave} disabled={isFetching}>
             Save <ArrowRight weight="bold" />
           </S.SubmitButton>
         </S.Modal>

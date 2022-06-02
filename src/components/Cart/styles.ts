@@ -59,7 +59,11 @@ export const SubmitButton = styled.button`
     gap: ${rem(9)};
     transition: all 0.3s;
 
-    :hover {
+    :disabled {
+      cursor: not-allowed;
+    }
+
+    :not(:disabled):hover {
       background-color: ${color};
       color: ${theme.colors.background.body};
     }

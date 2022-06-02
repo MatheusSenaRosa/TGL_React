@@ -1,9 +1,9 @@
 import { setDoc, collection, doc, getDoc } from "firebase/firestore";
 import { ArrowRight } from "phosphor-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
-import { CartList } from "@components";
+import { CartList, Loading } from "@components";
 import { ICart } from "@interfaces";
 import { db, auth } from "@services";
 import { useCartStore } from "@store";
@@ -17,6 +17,7 @@ type Props = {
 };
 
 export function Cart({ color, minValue }: Props) {
+  const [isLoading, setIsLoading] = useState(false);
   const { cart, removeFromCart, clearCart } = useCartStore();
   const cartCollection = collection(db, "cart");
 
@@ -45,6 +46,7 @@ export function Cart({ color, minValue }: Props) {
     }
 
     try {
+      setIsLoading(true);
       const prevCart = (
         await getDoc(doc(cartCollection, auth.currentUser?.uid))
       ).data() as { cart: ICart[] };
@@ -65,6 +67,8 @@ export function Cart({ color, minValue }: Props) {
       toast.success("Cart has been saved.");
     } catch (e) {
       toast.error("An error has occurred. Try it later.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,9 +79,15 @@ export function Cart({ color, minValue }: Props) {
       <S.TotalWrapper>
         CART <span>TOTAL: {formatPrice(total)}</span>
       </S.TotalWrapper>
-      <S.SubmitButton color={color} onClick={saveHandler}>
-        Save
-        <ArrowRight weight="bold" />
+      <S.SubmitButton color={color} onClick={saveHandler} disabled={isLoading}>
+        {isLoading ? (
+          <Loading color={color} size={50} />
+        ) : (
+          <>
+            Save
+            <ArrowRight weight="bold" />
+          </>
+        )}
       </S.SubmitButton>
     </S.Container>
   );

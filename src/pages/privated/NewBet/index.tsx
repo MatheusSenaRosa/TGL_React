@@ -22,6 +22,7 @@ export function NewBet() {
   const [numericArray, setNumericArray] = useState<string[]>([]);
   const [currentBet, setCurrentBet] = useState<CurrentBet>({} as CurrentBet);
   const [isCartModal, setIsCartModal] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   const navigate = useNavigate();
   const { cart, addToCart } = useCartStore();
@@ -236,7 +237,11 @@ export function NewBet() {
                   Clear game
                 </button>
               </span>
-              <button type="button" onClick={addToCartHandler}>
+              <button
+                type="button"
+                onClick={addToCartHandler}
+                disabled={isFetching}
+              >
                 <ShoppingCart size={29} />
                 Add to cart
               </button>
@@ -245,6 +250,7 @@ export function NewBet() {
           <Cart
             color={currentBet.game.color}
             minValue={gamesData.min_cart_value}
+            setFetching={(value: boolean) => setIsFetching(value)}
           />
         </S.Container>
       </PrivatedScreen>

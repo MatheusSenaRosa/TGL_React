@@ -266,6 +266,10 @@ export const ActionWrapper = styled.section<{ color: string }>`
     align-items: center;
     justify-content: space-between;
 
+    > button:last-child:disabled {
+      cursor: not-allowed;
+    }
+
     button {
       padding: ${rem(10)} ${rem(43)} ${rem(13)} ${rem(25)};
       cursor: pointer;
@@ -279,7 +283,8 @@ export const ActionWrapper = styled.section<{ color: string }>`
       font-style: normal;
       gap: ${rem(28)};
       border: ${rem(1)} solid ${color};
-      :hover {
+
+      :not(:disabled):hover {
         background-color: ${shade(0.3, color)};
         border-color: ${shade(0.3, color)};
       }

@@ -14,10 +14,11 @@ import * as S from "./styles";
 type Props = {
   color: string;
   minValue: number;
+  setFetching: (value: boolean) => void;
 };
 
-export function Cart({ color, minValue }: Props) {
-  const [isLoading, setIsLoading] = useState(false);
+export function Cart({ color, minValue, setFetching }: Props) {
+  const [isFetching, setIsFetching] = useState(false);
   const { cart, removeFromCart, clearCart } = useCartStore();
   const cartCollection = collection(db, "cart");
 
@@ -46,7 +47,8 @@ export function Cart({ color, minValue }: Props) {
     }
 
     try {
-      setIsLoading(true);
+      setIsFetching(true);
+      setFetching(true);
       const prevCart = (
         await getDoc(doc(cartCollection, auth.currentUser?.uid))
       ).data() as { cart: ICart[] };
@@ -68,7 +70,8 @@ export function Cart({ color, minValue }: Props) {
     } catch (e) {
       toast.error("An error has occurred. Try it later.");
     } finally {
-      setIsLoading(false);
+      setIsFetching(false);
+      setFetching(false);
     }
   };
 
@@ -79,8 +82,8 @@ export function Cart({ color, minValue }: Props) {
       <S.TotalWrapper>
         CART <span>TOTAL: {formatPrice(total)}</span>
       </S.TotalWrapper>
-      <S.SubmitButton color={color} onClick={saveHandler} disabled={isLoading}>
-        {isLoading ? (
+      <S.SubmitButton color={color} onClick={saveHandler} disabled={isFetching}>
+        {isFetching ? (
           <Loading color={color} size={50} />
         ) : (
           <>

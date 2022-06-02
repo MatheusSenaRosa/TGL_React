@@ -1,10 +1,10 @@
 import { ArrowRight, X } from "phosphor-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
 import { CartList, Portal } from "@components";
 import { useCartStore } from "@store";
-import { formatNumericArray } from "@utils";
+import { formatNumericArray, formatPrice } from "@utils";
 
 import * as S from "./styles";
 
@@ -26,6 +26,11 @@ export function CartModal({ onClose, color, onSave, isFetching }: Props) {
       document.body.style.overflow = "auto";
     };
   }, []);
+
+  const total = useMemo(
+    () => cart.reduce((acc, item) => acc + item.price, 0),
+    [cart]
+  );
 
   const removeHandler = (id: number, numbers: string[]) => {
     toast.dismiss();
@@ -62,6 +67,9 @@ export function CartModal({ onClose, color, onSave, isFetching }: Props) {
             <h2>CART</h2>
           </S.Header>
           <CartList data={cart} color={color} removeItem={removeHandler} />
+          <S.TotalWrapper>
+            CART <span>TOTAL: {formatPrice(total)}</span>
+          </S.TotalWrapper>
           <S.SubmitButton color={color} onClick={onSave} disabled={isFetching}>
             Save <ArrowRight weight="bold" />
           </S.SubmitButton>

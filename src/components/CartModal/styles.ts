@@ -75,9 +75,24 @@ export const Header = styled.header`
   `}
 `;
 
+export const TotalWrapper = styled.div`
+  ${({ theme }) => css`
+    margin: 10px 0;
+
+    text-align: center;
+
+    font-size: ${rem(20)};
+    font-weight: bold;
+    color: ${theme.colors.text.primary};
+
+    span {
+      font-weight: normal;
+    }
+  `}
+`;
+
 export const SubmitButton = styled.button<{ color: string }>`
   ${({ theme, color }) => css`
-    margin-top: ${rem(10)};
     color: ${color};
     font-weight: bold;
     height: ${rem(70)};

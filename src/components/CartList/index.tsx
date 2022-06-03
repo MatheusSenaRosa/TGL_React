@@ -36,23 +36,23 @@ export function CartList({ color, data, removeItem }: Props) {
       {!!data.length &&
         data.map((item, index) => (
           <S.Item
-            color={item.color}
-            key={formatNumericArray(item.numbers) + item.id}
+            color={item.game.color}
+            key={formatNumericArray(item.numbers) + item.game.id}
             isRemoving={isRemoving.isRemoving && isRemoving.index === index}
           >
             <div>
               <button
                 type="button"
-                onClick={() => removeHandler(item.id, item.numbers, index)}
+                onClick={() => removeHandler(item.game.id, item.numbers, index)}
               >
                 <Trash size={30} />
               </button>
-              <span color={item.color} />
+              <span color={item.game.color} />
             </div>
             <div>
               <p>{formatNumericArray(item.numbers)}</p>
               <h4>
-                {item.name} <span>{formatPrice(item.price)}</span>
+                {item.game.name} <span>{formatPrice(item.game.price)}</span>
               </h4>
             </div>
           </S.Item>

@@ -129,7 +129,7 @@ export function NewBet() {
     if (cart.length) {
       const alreadyExists = cart.some(
         (item) =>
-          item.id === id &&
+          item.game.id === id &&
           formatNumericArray(item.numbers) ===
             formatNumericArray(currentBet.selectedNumbers)
       );
@@ -142,13 +142,16 @@ export function NewBet() {
     }
 
     toast.dismiss();
-    addToCart({ id, color, price, numbers: currentBet.selectedNumbers, name });
+    addToCart({
+      game: { id, color, price, name },
+      numbers: currentBet.selectedNumbers,
+    });
     setCurrentBet((prev) => ({ ...prev, selectedNumbers: [] }));
     toast.success("Added successfully.");
   };
 
   const saveHandler = async () => {
-    const total = cart.reduce((acc, cur) => cur.price + acc, 0);
+    const total = cart.reduce((acc, cur) => cur.game.price + acc, 0);
 
     if (total < gamesData.min_cart_value) {
       toast.warn(
@@ -165,9 +168,20 @@ export function NewBet() {
         await getDoc(doc(cartCollection, auth.currentUser?.uid))
       ).data() as { cart: ICart[] };
 
+      const formattedCart = cart.map((item) => ({
+        game: {
+          id: item.game.id,
+          color: item.game.color,
+          name: item.game.name,
+          price: item.game.price,
+        },
+        numbers: item.numbers,
+        createdAt: new Date(),
+      }));
+
       if (!prevCart) {
         await setDoc(doc(cartCollection, auth.currentUser?.uid), {
-          cart: [...cart],
+          cart: [...formattedCart],
         });
         clearCart();
         toast.success("Cart has been saved.");
@@ -175,7 +189,7 @@ export function NewBet() {
       }
 
       await setDoc(doc(cartCollection, auth.currentUser?.uid), {
-        cart: [...prevCart.cart, ...cart],
+        cart: [...prevCart.cart, ...formattedCart],
       });
       clearCart();
       toast.success("Cart has been saved.");

@@ -18,7 +18,7 @@ export function Cart({ color, isFetching, onSave }: Props) {
   const { cart, removeFromCart } = useCartStore();
 
   const total = useMemo(
-    () => cart.reduce((acc, item) => acc + item.price, 0),
+    () => cart.reduce((acc, item) => acc + item.game.price, 0),
     [cart]
   );
 
@@ -28,7 +28,7 @@ export function Cart({ color, isFetching, onSave }: Props) {
     const index = cart.findIndex(
       (item) =>
         formatNumericArray(item.numbers) === formatNumericArray(numbers) &&
-        item.id === id
+        item.game.id === id
     );
 
     removeFromCart(index);

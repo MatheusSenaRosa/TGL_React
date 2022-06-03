@@ -3,4 +3,4 @@ export { zoomIn, zoomOut } from "./zoom";
 export { slideXIn, slideXOut } from "./slideX";
 export { spin } from "./spin";
 export { slideYIn, slideYOut } from "./slideY";
-export { slideXOutCart, slideXInCart } from "./cartSlide";
+export { slideXOutCart, slideXInCart } from "./cart";

@@ -1,28 +1,26 @@
 import { css, keyframes } from "styled-components";
 
-export const slideInCart = keyframes`
+export const slideXInCart = keyframes`
     ${css`
-      from {
+      0% {
+        transform: translateX(-150px);
         opacity: 0;
-        transform: translateX(-100%);
+      }
+      80% {
+        transform: translateX(20px);
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
       }
     `}
 `;
 
-export const slideOutCart = keyframes`
+export const slideXOutCart = keyframes`
     ${css`
       to {
         opacity: 0;
         transform: translateX(-100%);
       }
     `}
-`;
-
-export const slideYOutCart = keyframes`
-    ${css`
-      to {
-        transform: translateY(100px);
-      }
-    `}
-
 `;

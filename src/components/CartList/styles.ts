@@ -1,6 +1,8 @@
 import { rem, shade } from "polished";
 import styled, { css } from "styled-components";
 
+import { slideXInCart, slideXOutCart } from "@animations";
+
 export const List = styled.ul<{
   isEmpty: boolean;
   color: string;
@@ -9,6 +11,7 @@ export const List = styled.ul<{
     overflow-x: hidden;
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
 
     display: flex;
     flex-direction: column;
@@ -22,34 +25,32 @@ export const List = styled.ul<{
       font-size: ${rem(25)};
       color: ${theme.colors.error};
     `}
-
     ::-webkit-scrollbar {
       width: ${rem(5)};
       height: 1 ${rem(0)};
       border-radius: ${rem(5)};
     }
-
     ::-webkit-scrollbar-track {
       background: transparent;
     }
-
     ::-webkit-scrollbar-thumb {
       background: ${color};
       border-radius: ${rem(5)};
     }
-
     ::-webkit-scrollbar-thumb:hover {
       background: ${shade(0.3, color!)};
     }
   `}
 `;
 
-export const Item = styled.li<{ color: string }>`
-  ${({ theme, color }) => css`
+export const Item = styled.li<{ color: string; isRemoving: boolean }>`
+  ${({ theme, color, isRemoving }) => css`
     display: flex;
     position: relative;
     gap: ${rem(12)};
     padding: ${rem(15)} 0;
+
+    animation: ${isRemoving ? slideXOutCart : slideXInCart} 0.3s forwards;
 
     div:first-child {
       min-width: 14%;

@@ -2,7 +2,7 @@ import { ArrowRight, X } from "phosphor-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
-import { CartList, Portal } from "@components";
+import { CartList, Portal, Loading } from "@components";
 import { useCartStore } from "@store";
 import { formatNumericArray, formatPrice } from "@utils";
 
@@ -71,7 +71,14 @@ export function CartModal({ onClose, color, onSave, isFetching }: Props) {
             CART <span>TOTAL: {formatPrice(total)}</span>
           </S.TotalWrapper>
           <S.SubmitButton color={color} onClick={onSave} disabled={isFetching}>
-            Save <ArrowRight weight="bold" />
+            {isFetching ? (
+              <Loading color={color} size={40} />
+            ) : (
+              <>
+                Save
+                <ArrowRight weight="bold" />
+              </>
+            )}
           </S.SubmitButton>
         </S.Modal>
       </S.Container>

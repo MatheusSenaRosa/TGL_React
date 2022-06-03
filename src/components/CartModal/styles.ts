@@ -77,7 +77,7 @@ export const Header = styled.header`
 
 export const TotalWrapper = styled.div`
   ${({ theme }) => css`
-    margin: 10px 0;
+    margin: ${rem(10)} 0;
 
     text-align: center;
 

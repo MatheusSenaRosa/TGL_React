@@ -1,5 +1,7 @@
 import { collection, doc, getDoc } from "firebase/firestore";
+import { ArrowRight } from "phosphor-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Loading, PrivatedScreen, SelectGameButton } from "@components";
@@ -12,7 +14,7 @@ import * as S from "./styles";
 export function Home() {
   const [recentGames, setRecentGames] = useState<IFormattedRecentGames[]>([]);
   const [isFetching, setIsFetching] = useState(true);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const cartCollection = collection(db, "cart");
 
   useEffect(() => {
@@ -61,7 +63,7 @@ export function Home() {
           <section>
             <h2>RECENT GAMES</h2>
             <p>Filters</p>
-            <div>
+            <S.FiltersWrapper>
               {recentGames.map((item) => (
                 <SelectGameButton
                   key={item.name}
@@ -71,10 +73,12 @@ export function Home() {
                   onClick={() => null}
                 />
               ))}
-            </div>
+            </S.FiltersWrapper>
           </section>
 
-          <div>New Bet</div>
+          <S.NewBetButton type="button" onClick={() => navigate("/new-bet")}>
+            New Bet <ArrowRight weight="bold" size={25} />
+          </S.NewBetButton>
         </S.HeaderWrapper>
       </S.Container>
     </PrivatedScreen>

@@ -17,6 +17,26 @@ export const Container = styled.main<{ isLoading?: boolean }>`
   `}
 `;
 
+export const NewBetButton = styled.button`
+  ${({ theme }) => css`
+    color: ${theme.colors.text.primary};
+    font-size: ${rem(24)};
+    margin-left: auto;
+    font-size: ${rem(24)};
+    font-weight: bold;
+    color: ${theme.colors.primary};
+
+    border: none;
+    background-color: transparent;
+
+    display: flex;
+    align-items: center;
+    gap: ${rem(10)};
+
+    cursor: pointer;
+  `}
+`;
+
 export const HeaderWrapper = styled.header`
   ${({ theme }) => css`
     display: flex;
@@ -36,18 +56,11 @@ export const HeaderWrapper = styled.header`
         color: ${theme.colors.text.secondary};
         font-size: ${rem(17)};
       }
-
-      div {
-        display: flex;
-        gap: ${rem(25)};
-      }
-    }
-
-    div {
-      margin-left: auto;
-      font-size: ${rem(24)};
-      font-weight: bold;
-      color: ${theme.colors.primary};
     }
   `}
+`;
+
+export const FiltersWrapper = styled.div`
+  display: flex;
+  gap: ${rem(25)};
 `;

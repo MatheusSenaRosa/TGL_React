@@ -1,11 +1,20 @@
 import { rem } from "polished";
 import styled, { css } from "styled-components";
 
-export const Container = styled.main`
-  flex: 1;
+export const Container = styled.main<{ isLoading?: boolean }>`
+  ${({ isLoading }) => css`
+    flex: 1;
 
-  margin-top: ${rem(74)};
-  padding: 0 ${rem(200)} 0 ${rem(185)};
+    margin-top: ${rem(74)};
+    padding: 0 ${rem(200)} 0 ${rem(185)};
+
+    ${isLoading &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `}
+  `}
 `;
 
 export const HeaderWrapper = styled.header`

@@ -2,7 +2,7 @@ import { collection, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { PrivatedScreen, SelectGameButton } from "@components";
+import { Loading, PrivatedScreen, SelectGameButton } from "@components";
 import { IFormattedRecentGames, IRecentGames } from "@interfaces";
 import { auth, db } from "@services";
 import { formatRecentGames } from "@utils";
@@ -42,7 +42,9 @@ export function Home() {
           { text: "Account", path: "/account", isHeader: true },
         ]}
       >
-        <S.Container>aaa</S.Container>
+        <S.Container isLoading>
+          <Loading size={80} />
+        </S.Container>
       </PrivatedScreen>
     );
   }

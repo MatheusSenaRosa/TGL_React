@@ -11,3 +11,4 @@ export type { NavButtonsType } from "./SideBar";
 export { CartModal } from "./CartModal";
 export { CartList } from "./CartList";
 export { Portal } from "./Portal";
+export { SelectGameButton } from "./SelectGameButton";

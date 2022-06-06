@@ -10,8 +10,6 @@ export const Container = styled.main`
 
 export const HeaderWrapper = styled.header`
   ${({ theme }) => css`
-    border: 1px solid red;
-
     display: flex;
     align-items: center;
 
@@ -25,13 +23,18 @@ export const HeaderWrapper = styled.header`
 
       p {
         margin-left: ${rem(45)};
+        margin-right: ${rem(15)};
         color: ${theme.colors.text.secondary};
         font-size: ${rem(17)};
+      }
+
+      div {
+        display: flex;
+        gap: ${rem(25)};
       }
     }
 
     div {
-      border: 1px solid red;
       margin-left: auto;
       font-size: ${rem(24)};
       font-weight: bold;

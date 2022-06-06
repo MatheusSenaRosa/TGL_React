@@ -2,20 +2,15 @@ import { collection, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { PrivatedScreen } from "@components";
-import { IRecentGames } from "@interfaces";
+import { PrivatedScreen, SelectGameButton } from "@components";
+import { IFormattedRecentGames, IRecentGames } from "@interfaces";
 import { auth, db } from "@services";
 import { formatRecentGames } from "@utils";
 
 import * as S from "./styles";
 
-type FormattedRecentGames = {
-  name: string;
-  items: IRecentGames[];
-};
-
 export function Home() {
-  const [recentGames, setRecentGames] = useState<FormattedRecentGames[]>();
+  const [recentGames, setRecentGames] = useState<IFormattedRecentGames[]>([]);
   const [isFetching, setIsFetching] = useState(true);
   // const navigate = useNavigate();
   const cartCollection = collection(db, "cart");
@@ -29,7 +24,7 @@ export function Home() {
           ).data() as { cart: IRecentGames[] };
 
           setRecentGames(formatRecentGames(cart));
-        } catch (e) {
+        } catch {
           toast.error("An error has occurred.");
         } finally {
           setIsFetching(false);
@@ -38,8 +33,6 @@ export function Home() {
     };
     getData();
   }, [auth.currentUser]);
-
-  console.log(recentGames);
 
   if (isFetching) {
     return (
@@ -66,6 +59,17 @@ export function Home() {
           <section>
             <h2>RECENT GAMES</h2>
             <p>Filters</p>
+            <div>
+              {recentGames.map((item) => (
+                <SelectGameButton
+                  key={item.name}
+                  color={item.color}
+                  isActive={false}
+                  text={item.name}
+                  onClick={() => null}
+                />
+              ))}
+            </div>
           </section>
 
           <div>New Bet</div>

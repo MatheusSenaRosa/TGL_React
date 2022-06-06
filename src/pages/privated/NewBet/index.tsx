@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Cart, CartModal, Loading, PrivatedScreen } from "@components";
+import {
+  Cart,
+  CartModal,
+  Loading,
+  PrivatedScreen,
+  SelectGameButton,
+} from "@components";
 import { ICart, IGame, IGames, IRecentGames } from "@interfaces";
 import { auth, db } from "@services";
 import { useCartStore } from "@store";
@@ -240,15 +246,13 @@ export function NewBet() {
               <h3>Choose a game</h3>
               <div>
                 {gamesData.games.map((game) => (
-                  <S.ChooseGameButton
-                    type="button"
+                  <SelectGameButton
+                    text={game.name}
                     color={game.color}
                     key={game.id}
                     isActive={currentBet.game.id === game.id}
                     onClick={() => setCurrentBet({ game, selectedNumbers: [] })}
-                  >
-                    {game.name}
-                  </S.ChooseGameButton>
+                  />
                 ))}
               </div>
 

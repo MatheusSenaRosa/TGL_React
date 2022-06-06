@@ -1,9 +1,4 @@
-import { IRecentGames } from "@interfaces";
-
-type FormattedRecentGames = {
-  name: string;
-  items: IRecentGames[];
-};
+import { IRecentGames, IFormattedRecentGames } from "@interfaces";
 
 export const formatRecentGames = (data: IRecentGames[]) => {
   const formattedData = data.reduce((acc, cur) => {
@@ -13,6 +8,7 @@ export const formatRecentGames = (data: IRecentGames[]) => {
     if (index === -1) {
       newAcc.push({
         name: cur.game.name,
+        color: cur.game.color,
         items: [cur],
       });
     } else {
@@ -20,7 +16,7 @@ export const formatRecentGames = (data: IRecentGames[]) => {
     }
 
     return newAcc;
-  }, [] as FormattedRecentGames[]);
+  }, [] as IFormattedRecentGames[]);
 
   return formattedData;
 };

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Cart, CartModal, Loading, PrivatedScreen } from "@components";
-import { ICart, IGame, IGames } from "@interfaces";
+import { ICart, IGame, IGames, IRecentGames } from "@interfaces";
 import { auth, db } from "@services";
 import { useCartStore } from "@store";
 import { formatNumericArray, formatPrice, numberToString } from "@utils";
@@ -168,15 +168,9 @@ export function NewBet() {
         await getDoc(doc(cartCollection, auth.currentUser?.uid))
       ).data() as { cart: ICart[] };
 
-      const formattedCart = cart.map((item) => ({
-        game: {
-          id: item.game.id,
-          color: item.game.color,
-          name: item.game.name,
-          price: item.game.price,
-        },
-        numbers: item.numbers,
-        createdAt: new Date(),
+      const formattedCart: IRecentGames[] = cart.map((item) => ({
+        ...item,
+        createdAt: new Date().toLocaleDateString("pt-br"),
       }));
 
       if (!prevCart) {

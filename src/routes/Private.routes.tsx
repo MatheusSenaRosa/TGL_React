@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Home, NewBet } from "@privateRoutes";
 import { NotFound } from "@publicRoutes";
 
-export function PrivatedRoutes() {
+export function PrivateRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />

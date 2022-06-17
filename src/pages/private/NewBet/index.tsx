@@ -1,4 +1,4 @@
-import { collection, getDoc, doc, setDoc } from "firebase/firestore";
+import { collection, getDoc, doc } from "firebase/firestore";
 import { ShoppingCart } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,10 +11,16 @@ import {
   PrivatedScreen,
   SelectGameButton,
 } from "@components";
-import { ICart, IGame, IGames, IRecentGames } from "@interfaces";
-import { auth, db } from "@services";
+import { IGame, IGames } from "@interfaces";
+import { db, getCartCollection, setCartCollection } from "@services";
 import { useCartStore } from "@store";
-import { formatNumericArray, formatPrice, numberToString } from "@utils";
+import {
+  calculateTotal,
+  formatDateCart,
+  formatNumericArray,
+  formatPrice,
+  numberToString,
+} from "@utils";
 
 import * as S from "./styles";
 
@@ -32,7 +38,6 @@ export function NewBet() {
 
   const navigate = useNavigate();
   const { cart, addToCart, clearCart } = useCartStore();
-  const cartCollection = collection(db, "cart");
   const gamesCollection = collection(db, "games");
 
   useEffect(() => {
@@ -157,9 +162,7 @@ export function NewBet() {
   };
 
   const saveHandler = async () => {
-    const total = cart.reduce((acc, cur) => cur.game.price + acc, 0);
-
-    if (total < gamesData.min_cart_value) {
+    if (calculateTotal(cart) < gamesData.min_cart_value) {
       toast.warn(
         `The value must be greater than ${formatPrice(
           gamesData.min_cart_value
@@ -170,30 +173,17 @@ export function NewBet() {
 
     try {
       setIsFetching(true);
-      const prevCart = (
-        await getDoc(doc(cartCollection, auth.currentUser?.uid))
-      ).data() as { cart: ICart[] };
+      const prevCart = await getCartCollection();
+      const formattedCart = formatDateCart(cart);
 
-      const formattedCart: IRecentGames[] = cart.map((item) => ({
-        ...item,
-        createdAt: new Date().toLocaleDateString("pt-br"),
-      }));
-
-      if (!prevCart) {
-        await setDoc(doc(cartCollection, auth.currentUser?.uid), {
-          cart: [...formattedCart],
-        });
-        clearCart();
-        toast.success("Cart has been saved.");
-        return;
+      if (prevCart) {
+        await setCartCollection([...prevCart.cart, ...formattedCart]);
+      } else {
+        await setCartCollection(formattedCart);
       }
-
-      await setDoc(doc(cartCollection, auth.currentUser?.uid), {
-        cart: [...prevCart.cart, ...formattedCart],
-      });
       clearCart();
       toast.success("Cart has been saved.");
-    } catch (e) {
+    } catch {
       toast.error("An error has occurred. Try it later.");
     } finally {
       setIsFetching(false);

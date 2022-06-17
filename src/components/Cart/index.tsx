@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import { CartList, Loading } from "@components";
 import { useCartStore } from "@store";
-import { formatNumericArray, formatPrice } from "@utils";
+import { calculateTotal, formatNumericArray, formatPrice } from "@utils";
 
 import * as S from "./styles";
 
@@ -17,10 +17,7 @@ type Props = {
 export function Cart({ color, isFetching, onSave }: Props) {
   const { cart, removeFromCart } = useCartStore();
 
-  const total = useMemo(
-    () => cart.reduce((acc, item) => acc + item.game.price, 0),
-    [cart]
-  );
+  const total = useMemo(() => calculateTotal(cart), [cart]);
 
   const removeHandler = (id: number, numbers: string[]) => {
     toast.dismiss();

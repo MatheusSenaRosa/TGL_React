@@ -4,7 +4,7 @@
     "paths": {
       "@styles": ["./styles/index"],
       "@components": ["./components/index"],
-      "@privatedRoutes": ["./pages/privated/index"],
+      "@privateRoutes": ["./pages/private/index"],
       "@publicRoutes": ["./pages/public/index"],
       "@store": ["./shared/store/index"],
       "@utils": ["./shared/utils/index"],

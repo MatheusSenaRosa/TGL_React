@@ -1,2 +1,5 @@
 export { auth, db } from "./config";
-export { getCartCollection, setCartCollection } from "./useCartCollection";
+export {
+  getRecentGamesCollection,
+  setRecentGamesCollection,
+} from "./useRecentGamesCollection";

@@ -1,4 +1,3 @@
-import { collection, doc, getDoc } from "firebase/firestore";
 import { ArrowRight } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +5,7 @@ import { toast } from "react-toastify";
 
 import { Loading, PrivatedScreen, SelectGameButton } from "@components";
 import { IFilterButton, IRecentGames } from "@interfaces";
-import { auth, db } from "@services";
+import { auth, getRecentGamesCollection } from "@services";
 import { formatPrice, getFilterButtons } from "@utils";
 
 import * as S from "./styles";
@@ -17,24 +16,23 @@ export function Home() {
   const [recentGames, setRecentGames] = useState<IRecentGames[]>([]);
 
   const navigate = useNavigate();
-  const cartCollection = collection(db, "cart");
 
   useEffect(() => {
     const getData = async () => {
       if (auth.currentUser?.uid) {
         try {
-          const response = (
-            await getDoc(doc(cartCollection, auth.currentUser.uid))
-          ).data() as { cart: IRecentGames[] };
+          const response = await getRecentGamesCollection();
+          console.log(response);
 
-          setFilterButtons(getFilterButtons(response.cart));
-          setRecentGames(response.cart);
+          setFilterButtons(getFilterButtons(response.games));
+          setRecentGames(response.games);
         } catch ({ message }) {
+          console.log(message);
           if (
-            message === "Cannot read properties of undefined (reading 'cart')"
-          ) {
+            message === "Cannot read properties of undefined (reading 'games')"
+          )
             return;
-          }
+
           toast.error("An error has occurred.");
         } finally {
           setIsFetching(false);

@@ -1,6 +1,6 @@
 import { collection, getDoc, doc } from "firebase/firestore";
 import { ShoppingCart } from "phosphor-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -12,14 +12,18 @@ import {
   SelectGameButton,
 } from "@components";
 import { IGame, IGames } from "@interfaces";
-import { db, getCartCollection, setCartCollection } from "@services";
+import {
+  db,
+  getRecentGamesCollection,
+  setRecentGamesCollection,
+} from "@services";
 import { useCartStore } from "@store";
 import {
   calculateTotal,
-  formatDateCart,
   formatNumericArray,
   formatPrice,
   numberToString,
+  formatDateRecentGames,
 } from "@utils";
 
 import * as S from "./styles";
@@ -40,25 +44,26 @@ export function NewBet() {
   const { cart, addToCart, clearCart } = useCartStore();
   const gamesCollection = collection(db, "games");
 
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const response = (
-          await getDoc(doc(gamesCollection, "data"))
-        ).data() as IGames;
+  const fetchData = useCallback(async () => {
+    try {
+      const response = (
+        await getDoc(doc(gamesCollection, "data"))
+      ).data() as IGames;
 
-        setGamesData(response);
-        setCurrentBet({
-          game: response.games[0],
-          selectedNumbers: [],
-        });
-      } catch (e) {
-        navigate("/");
-        toast.error("An error has occurred.");
-      }
-    };
-    fetch();
+      setGamesData(response);
+      setCurrentBet({
+        game: response.games[0],
+        selectedNumbers: [],
+      });
+    } catch {
+      navigate("/");
+      toast.error("An error has occurred.");
+    }
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   useEffect(() => {
     const { game } = currentBet;
@@ -173,13 +178,13 @@ export function NewBet() {
 
     try {
       setIsFetching(true);
-      const prevCart = await getCartCollection();
-      const formattedCart = formatDateCart(cart);
+      const prevCart = await getRecentGamesCollection();
+      const formattedGames = formatDateRecentGames(cart);
 
       if (prevCart) {
-        await setCartCollection([...prevCart.cart, ...formattedCart]);
+        await setRecentGamesCollection([...prevCart.games, ...formattedGames]);
       } else {
-        await setCartCollection(formattedCart);
+        await setRecentGamesCollection(formattedGames);
       }
       clearCart();
       toast.success("Cart has been saved.");

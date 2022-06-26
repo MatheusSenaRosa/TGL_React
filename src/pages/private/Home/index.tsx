@@ -1,5 +1,5 @@
 import { ArrowRight } from "phosphor-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -11,9 +11,9 @@ import { formatPrice, getFilterButtons } from "@utils";
 import * as S from "./styles";
 
 export function Home() {
-  const [filterButtons, setFilterButtons] = useState<IFilterButton[]>([]);
   const [isFetching, setIsFetching] = useState(true);
   const [recentGames, setRecentGames] = useState<IRecentGames[]>([]);
+  const [filters, setFilters] = useState<number[]>([]);
 
   const navigate = useNavigate();
 
@@ -22,9 +22,7 @@ export function Home() {
       if (auth.currentUser?.uid) {
         try {
           const response = await getRecentGamesCollection();
-          console.log(response);
 
-          setFilterButtons(getFilterButtons(response.games));
           setRecentGames(response.games);
         } catch ({ message }) {
           console.log(message);
@@ -41,6 +39,33 @@ export function Home() {
     };
     getData();
   }, [auth.currentUser]);
+
+  const filterButtons: IFilterButton[] = useMemo(
+    () => getFilterButtons(recentGames),
+    [recentGames]
+  );
+
+  const filteredGames = useMemo(() => {
+    if (!filters.length) return [];
+
+    const filtered = recentGames.filter((item) =>
+      filters.includes(item.game.id)
+    );
+    return filtered;
+  }, [filters]);
+
+  const filterHandler = (id: number) => {
+    const index = filters.indexOf(id);
+    if (index !== -1) {
+      setFilters((prev) => {
+        const newFilters = [...prev];
+        newFilters.splice(index, 1);
+        return newFilters;
+      });
+      return;
+    }
+    setFilters((prev) => [...prev, id]);
+  };
 
   if (isFetching) {
     return (
@@ -74,9 +99,9 @@ export function Home() {
                 <SelectGameButton
                   key={item.name}
                   color={item.color}
-                  isActive={false}
+                  isActive={filters.includes(item.id)}
                   text={item.name}
-                  onClick={() => null}
+                  onClick={() => filterHandler(item.id)}
                 />
               ))}
             </S.FiltersWrapper>
@@ -90,17 +115,29 @@ export function Home() {
             "No games found"
           ) : (
             <ul>
-              {recentGames.map(
-                ({ createdAt, game: { name, price, color }, numbers }) => (
-                  <S.ItemList color={color}>
-                    <p>{numbers.join(", ")}</p>
-                    <h4>
-                      {createdAt} - ({formatPrice(price)})
-                    </h4>
-                    <h3>{name}</h3>
-                  </S.ItemList>
-                )
-              )}
+              {!filters.length
+                ? recentGames.map(
+                    ({ createdAt, game: { name, price, color }, numbers }) => (
+                      <S.ItemList color={color} key={numbers.join("")}>
+                        <p>{numbers.join(", ")}</p>
+                        <h4>
+                          {createdAt} - ({formatPrice(price)})
+                        </h4>
+                        <h3>{name}</h3>
+                      </S.ItemList>
+                    )
+                  )
+                : filteredGames.map(
+                    ({ createdAt, game: { name, price, color }, numbers }) => (
+                      <S.ItemList color={color} key={numbers.join("")}>
+                        <p>{numbers.join(", ")}</p>
+                        <h4>
+                          {createdAt} - ({formatPrice(price)})
+                        </h4>
+                        <h3>{name}</h3>
+                      </S.ItemList>
+                    )
+                  )}
             </ul>
           )}
         </S.MainWrapper>

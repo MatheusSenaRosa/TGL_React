@@ -14,6 +14,13 @@ export const Container = styled.main<{ isLoading?: boolean }>`
       align-items: center;
       justify-content: center;
     `}
+
+    @media (max-width: ${rem(1440)}) {
+      padding: 0 ${rem(133)} 0 ${rem(115)};
+    }
+
+    @media (max-width: ${rem(1024)}) {
+    }
   `}
 `;
 
@@ -34,6 +41,10 @@ export const NewBetButton = styled.button`
     gap: ${rem(10)};
 
     cursor: pointer;
+
+    @media (max-width: ${rem(1024)}) {
+      margin: 0;
+    }
   `}
 `;
 
@@ -55,6 +66,21 @@ export const HeaderWrapper = styled.header`
         margin-right: ${rem(15)};
         color: ${theme.colors.text.secondary};
         font-size: ${rem(17)};
+      }
+    }
+
+    @media (max-width: ${rem(1024)}) {
+      flex-direction: column-reverse;
+      justify-content: center;
+
+      section {
+        margin-top: ${rem(10)};
+        flex-direction: column;
+        gap: ${rem(10)};
+
+        p {
+          margin: 0;
+        }
       }
     }
   `}

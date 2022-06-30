@@ -38,7 +38,7 @@ export const List = styled.ul<{
       border-radius: ${rem(5)};
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: ${shade(0.3, color!)};
+      background: ${shade(0.3, color)};
     }
   `}
 `;

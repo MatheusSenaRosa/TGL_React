@@ -25,7 +25,6 @@ export function Home() {
 
           setRecentGames(response.games);
         } catch ({ message }) {
-          console.log(message);
           if (
             message === "Cannot read properties of undefined (reading 'games')"
           )
@@ -110,7 +109,7 @@ export function Home() {
             New Bet <ArrowRight weight="bold" size={25} />
           </S.NewBetButton>
         </S.HeaderWrapper>
-        <S.MainWrapper isEmpty={!recentGames.length}>
+        <S.ContentWrapper isEmpty={!recentGames.length}>
           {!recentGames.length ? (
             "No games found"
           ) : (
@@ -140,7 +139,7 @@ export function Home() {
                   )}
             </ul>
           )}
-        </S.MainWrapper>
+        </S.ContentWrapper>
       </S.Container>
     </PrivatedScreen>
   );

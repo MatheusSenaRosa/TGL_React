@@ -1,4 +1,4 @@
-import { rem } from "polished";
+import { rem, shade } from "polished";
 import styled, { css } from "styled-components";
 
 export const Container = styled.main<{ isLoading?: boolean }>`
@@ -20,6 +20,15 @@ export const Container = styled.main<{ isLoading?: boolean }>`
     }
 
     @media (max-width: ${rem(1024)}) {
+      padding: 0 ${rem(100)} 0 ${rem(85)};
+    }
+
+    @media (max-width: ${rem(768)}) {
+      margin-top: ${rem(50)};
+    }
+
+    @media (max-width: ${rem(425)}) {
+      padding: 0 ${rem(10)};
     }
   `}
 `;
@@ -56,6 +65,7 @@ export const HeaderWrapper = styled.header`
     section {
       display: flex;
       align-items: center;
+
       h2 {
         color: ${theme.colors.text.primary};
         font-size: ${rem(24)};
@@ -77,6 +87,7 @@ export const HeaderWrapper = styled.header`
         margin-top: ${rem(10)};
         flex-direction: column;
         gap: ${rem(10)};
+        width: 100%;
 
         p {
           margin: 0;
@@ -89,11 +100,18 @@ export const HeaderWrapper = styled.header`
 export const FiltersWrapper = styled.div`
   display: flex;
   gap: ${rem(25)};
+  max-width: ${rem(395)};
+  overflow-x: auto;
+  padding: ${rem(15)} 0;
+
+  @media (max-width: ${rem(425)}) {
+    width: 100%;
+  }
 `;
 
-export const MainWrapper = styled.section<{ isEmpty: boolean }>`
+export const ContentWrapper = styled.section<{ isEmpty: boolean }>`
   ${({ isEmpty, theme }) => css`
-    margin-top: ${rem(35)};
+    margin-top: ${rem(20)};
 
     ${isEmpty &&
     css`
@@ -110,6 +128,28 @@ export const MainWrapper = styled.section<{ isEmpty: boolean }>`
       max-height: ${rem(600)};
       overflow-y: auto;
       max-width: ${rem(800)};
+
+      ::-webkit-scrollbar {
+        width: ${rem(5)};
+        height: 1 ${rem(0)};
+        border-radius: ${rem(5)};
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: ${theme.colors.primary};
+        border-radius: ${rem(5)};
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: ${shade(0.3, theme.colors.primary)};
+      }
+    }
+
+    @media (max-width: ${rem(1024)}) {
+      ul {
+        max-width: none;
+      }
     }
   `}
 `;

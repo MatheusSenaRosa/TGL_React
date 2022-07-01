@@ -1,7 +1,5 @@
-import { collection, getDoc, doc } from "firebase/firestore";
 import { ShoppingCart } from "phosphor-react";
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -11,12 +9,7 @@ import {
   PrivatedScreen,
   SelectGameButton,
 } from "@components";
-import { IGame, IGames } from "@interfaces";
-import {
-  db,
-  getRecentGamesCollection,
-  setRecentGamesCollection,
-} from "@services";
+import { getRecentGamesCollection, setRecentGamesCollection } from "@services";
 import { useCartStore } from "@store";
 import {
   calculateTotal,
@@ -27,106 +20,26 @@ import {
 } from "@utils";
 
 import * as S from "./styles";
+import { NewBetContextProvider, useNewBet } from "./useNewBet";
 
-type CurrentBet = {
-  game: IGame;
-  selectedNumbers: string[];
-};
-
-export function NewBet() {
-  const [gamesData, setGamesData] = useState<IGames>({} as IGames);
-  const [numericArray, setNumericArray] = useState<string[]>([]);
-  const [currentBet, setCurrentBet] = useState<CurrentBet>({} as CurrentBet);
+export function NewBetElement() {
+  const {
+    games,
+    currentBet,
+    isLoading,
+    numericArray,
+    cart,
+    onClickNumber,
+    clearGame,
+    completeGame,
+    changeGame,
+    addToCart,
+    clearCart,
+  } = useNewBet();
   const [isCartModal, setIsCartModal] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
 
-  const navigate = useNavigate();
-  const { cart, addToCart, clearCart } = useCartStore();
-  const gamesCollection = collection(db, "games");
-
-  const fetchData = useCallback(async () => {
-    try {
-      const response = (
-        await getDoc(doc(gamesCollection, "data"))
-      ).data() as IGames;
-
-      setGamesData(response);
-      setCurrentBet({
-        game: response.games[0],
-        selectedNumbers: [],
-      });
-    } catch {
-      navigate("/");
-      toast.error("An error has occurred.");
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  useEffect(() => {
-    const { game } = currentBet;
-    if (game?.id) {
-      const array = [];
-      for (let i = 1; i <= game.range; i += 1) {
-        array.push(numberToString(i));
-      }
-      setNumericArray([...array]);
-    }
-  }, [currentBet.game]);
-
-  const onClickNumberHandler = (value: string) => {
-    const { selectedNumbers } = currentBet;
-    const { max_number } = currentBet.game;
-
-    if (selectedNumbers.includes(value)) {
-      setCurrentBet((prev) => ({
-        ...prev,
-        selectedNumbers: prev.selectedNumbers.filter((item) => item !== value),
-      }));
-      return;
-    }
-
-    if (selectedNumbers.length === max_number) {
-      toast.dismiss();
-      toast.warn(`You can\`t select more than ${max_number} numbers.`);
-      return;
-    }
-
-    setCurrentBet((prev) => ({
-      ...prev,
-      selectedNumbers: [...prev.selectedNumbers, value],
-    }));
-  };
-
-  const completeGameHandler = () => {
-    const { selectedNumbers } = currentBet;
-    const { max_number, range } = currentBet.game;
-    const missing = max_number - selectedNumbers.length;
-
-    if (selectedNumbers.length === max_number) {
-      toast.dismiss();
-      toast.warn(`You can\`t select more than ${max_number} numbers.`);
-      return;
-    }
-
-    const newSelectedNumbers: string[] = [];
-
-    for (let i = 1; i <= missing; i += 1) {
-      const randomNumber = numberToString(Math.ceil(Math.random() * range));
-      if (!newSelectedNumbers.includes(randomNumber)) {
-        newSelectedNumbers.push(randomNumber);
-      } else {
-        i -= 1;
-      }
-    }
-
-    setCurrentBet((prev) => ({
-      ...prev,
-      selectedNumbers: [...prev.selectedNumbers, ...newSelectedNumbers],
-    }));
-  };
+  // const { cart, addToCart, clearCart } = useCartStore();
 
   const addToCartHandler = () => {
     const {
@@ -162,16 +75,14 @@ export function NewBet() {
       game: { id, color, price, name },
       numbers: currentBet.selectedNumbers,
     });
-    setCurrentBet((prev) => ({ ...prev, selectedNumbers: [] }));
+    clearGame();
     toast.success("Added successfully.");
   };
 
   const saveHandler = async () => {
-    if (calculateTotal(cart) < gamesData.min_cart_value) {
+    if (calculateTotal(cart) < games.min_cart_value) {
       toast.warn(
-        `The value must be greater than ${formatPrice(
-          gamesData.min_cart_value
-        )}`
+        `The value must be greater than ${formatPrice(games.min_cart_value)}`
       );
       return;
     }
@@ -195,7 +106,7 @@ export function NewBet() {
     }
   };
 
-  if (!gamesData.games) {
+  if (isLoading) {
     return (
       <PrivatedScreen
         navButtons={[
@@ -240,13 +151,13 @@ export function NewBet() {
             <S.ChooseGameWrapper>
               <h3>Choose a game</h3>
               <div>
-                {gamesData.games.map((game) => (
+                {games.games.map((game) => (
                   <SelectGameButton
                     text={game.name}
                     color={game.color}
                     key={game.id}
                     isActive={currentBet.game.id === game.id}
-                    onClick={() => setCurrentBet({ game, selectedNumbers: [] })}
+                    onClick={() => changeGame(game)}
                   />
                 ))}
               </div>
@@ -264,7 +175,7 @@ export function NewBet() {
                     color={currentBet.game.color}
                     key={item}
                     isActive={currentBet.selectedNumbers.includes(item)}
-                    onClick={() => onClickNumberHandler(item)}
+                    onClick={() => onClickNumber(item)}
                   >
                     {item}
                   </S.NumericButton>
@@ -274,15 +185,10 @@ export function NewBet() {
 
             <S.ActionWrapper color={currentBet.game.color}>
               <span>
-                <button type="button" onClick={completeGameHandler}>
+                <button type="button" onClick={completeGame}>
                   Complete game
                 </button>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setCurrentBet((prev) => ({ ...prev, selectedNumbers: [] }))
-                  }
-                >
+                <button type="button" onClick={clearGame}>
                   Clear game
                 </button>
               </span>
@@ -304,5 +210,13 @@ export function NewBet() {
         </S.Container>
       </PrivatedScreen>
     </>
+  );
+}
+
+export function NewBet() {
+  return (
+    <NewBetContextProvider>
+      <NewBetElement />
+    </NewBetContextProvider>
   );
 }

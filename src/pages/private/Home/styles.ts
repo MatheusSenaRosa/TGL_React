@@ -104,6 +104,10 @@ export const FiltersWrapper = styled.div`
   overflow-x: auto;
   padding: ${rem(15)} 0;
 
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   @media (max-width: ${rem(425)}) {
     width: 100%;
   }
@@ -112,6 +116,7 @@ export const FiltersWrapper = styled.div`
 export const ContentWrapper = styled.section<{ isEmpty: boolean }>`
   ${({ isEmpty, theme }) => css`
     margin-top: ${rem(20)};
+    padding-bottom: ${rem(20)};
 
     ${isEmpty &&
     css`

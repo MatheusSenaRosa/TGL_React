@@ -1,5 +1,5 @@
 import { ShoppingCart } from "phosphor-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -10,10 +10,8 @@ import {
   SelectGameButton,
 } from "@components";
 import { getRecentGamesCollection, setRecentGamesCollection } from "@services";
-import { useCartStore } from "@store";
 import {
   calculateTotal,
-  formatNumericArray,
   formatPrice,
   numberToString,
   formatDateRecentGames,
@@ -27,7 +25,6 @@ export function NewBetElement() {
     games,
     currentBet,
     isLoading,
-    numericArray,
     cart,
     onClickNumber,
     clearGame,
@@ -38,46 +35,18 @@ export function NewBetElement() {
   } = useNewBet();
   const [isCartModal, setIsCartModal] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+  const [numericArray, setNumericArray] = useState<string[]>([]);
 
-  // const { cart, addToCart, clearCart } = useCartStore();
-
-  const addToCartHandler = () => {
-    const {
-      selectedNumbers: { length },
-      game: { max_number, color, id, price, name },
-    } = currentBet;
-    const missing = max_number - length;
-
-    if (missing) {
-      toast.dismiss();
-      toast.warn(`You need select ${max_number} numbers.`);
-      toast.warn(`Missing ${missing} number${missing > 1 ? "s" : ""}.`);
-      return;
-    }
-
-    if (cart.length) {
-      const alreadyExists = cart.some(
-        (item) =>
-          item.game.id === id &&
-          formatNumericArray(item.numbers) ===
-            formatNumericArray(currentBet.selectedNumbers)
-      );
-
-      if (alreadyExists) {
-        toast.dismiss();
-        toast.warn("This game already exists in your cart.");
-        return;
+  useEffect(() => {
+    const { game } = currentBet;
+    if (game?.id) {
+      const array = [];
+      for (let i = 1; i <= game.range; i += 1) {
+        array.push(numberToString(i));
       }
+      setNumericArray([...array]);
     }
-
-    toast.dismiss();
-    addToCart({
-      game: { id, color, price, name },
-      numbers: currentBet.selectedNumbers,
-    });
-    clearGame();
-    toast.success("Added successfully.");
-  };
+  }, [currentBet.game]);
 
   const saveHandler = async () => {
     if (calculateTotal(cart) < games.min_cart_value) {
@@ -192,11 +161,7 @@ export function NewBetElement() {
                   Clear game
                 </button>
               </span>
-              <button
-                type="button"
-                onClick={addToCartHandler}
-                disabled={isFetching}
-              >
+              <button type="button" onClick={addToCart} disabled={isFetching}>
                 <ShoppingCart size={29} />
                 Add to cart
               </button>

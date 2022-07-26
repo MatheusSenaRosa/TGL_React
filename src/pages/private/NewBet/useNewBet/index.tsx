@@ -12,19 +12,18 @@ import { toast } from "react-toastify";
 
 import { IGame, IGames, ICart } from "@interfaces";
 import { db } from "@services";
-import { numberToString } from "@utils";
+import { formatNumericArray, numberToString } from "@utils";
 
 interface INewBetContext {
   games: IGames;
   isLoading: boolean;
   currentBet: CurrentBet;
-  numericArray: string[];
   cart: ICart[];
   onClickNumber: (value: string) => void;
   completeGame: () => void;
   clearGame: () => void;
   changeGame: (game: IGame) => void;
-  addToCart: ({ game: { id, color, name, price }, numbers }: ICart) => void;
+  addToCart: () => void;
   clearCart: () => void;
 }
 
@@ -43,7 +42,6 @@ export const NewBetContext = createContext<INewBetContext>(
 
 export function NewBetContextProvider({ children }: Props) {
   const [games, setGames] = useState<IGames>({} as IGames);
-  const [numericArray, setNumericArray] = useState<string[]>([]);
   const [currentBet, setCurrentBet] = useState<CurrentBet>({} as CurrentBet);
   const [cart, setCart] = useState<ICart[]>([]);
 
@@ -72,17 +70,6 @@ export function NewBetContextProvider({ children }: Props) {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    const { game } = currentBet;
-    if (game?.id) {
-      const array = [];
-      for (let i = 1; i <= game.range; i += 1) {
-        array.push(numberToString(i));
-      }
-      setNumericArray([...array]);
-    }
-  }, [currentBet.game]);
 
   useEffect(() => {
     fetchData();
@@ -140,13 +127,54 @@ export function NewBetContextProvider({ children }: Props) {
     }));
   };
 
-  const addToCart = (newItem: ICart) => setCart((prev) => [newItem, ...prev]);
-
-  const changeGame = (game: IGame) =>
-    setCurrentBet({ game, selectedNumbers: [] });
+  console.log(cart);
 
   const clearGame = () =>
     setCurrentBet((prev) => ({ ...prev, selectedNumbers: [] }));
+
+  const addToCart = () => {
+    const {
+      selectedNumbers,
+      game: { max_number, color, id, price, name },
+    } = currentBet;
+    const missing = max_number - selectedNumbers.length;
+
+    if (missing) {
+      toast.dismiss();
+      toast.warn(`You need select ${max_number} numbers.`);
+      toast.warn(`Missing ${missing} number${missing > 1 ? "s" : ""}.`);
+      return;
+    }
+
+    if (cart.length) {
+      const alreadyExists = cart.some(
+        (item) =>
+          item.game.id === id &&
+          formatNumericArray(item.numbers) ===
+            formatNumericArray(currentBet.selectedNumbers)
+      );
+
+      if (alreadyExists) {
+        toast.dismiss();
+        toast.warn("This game already exists in your cart.");
+        return;
+      }
+    }
+
+    toast.dismiss();
+    setCart((prev) => [
+      {
+        game: { id, color, price, name },
+        numbers: currentBet.selectedNumbers,
+      },
+      ...prev,
+    ]);
+    clearGame();
+    toast.success("Added successfully.");
+  };
+
+  const changeGame = (game: IGame) =>
+    setCurrentBet({ game, selectedNumbers: [] });
 
   const clearCart = () => setCart([]);
 
@@ -158,7 +186,6 @@ export function NewBetContextProvider({ children }: Props) {
           isLoading,
           currentBet,
           cart,
-          numericArray,
           onClickNumber,
           completeGame,
           clearGame,
@@ -171,7 +198,6 @@ export function NewBetContextProvider({ children }: Props) {
           isLoading,
           currentBet,
           cart,
-          numericArray,
           onClickNumber,
           completeGame,
           clearGame,

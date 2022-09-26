@@ -127,8 +127,6 @@ export function NewBetContextProvider({ children }: Props) {
     }));
   };
 
-  console.log(cart);
-
   const clearGame = () =>
     setCurrentBet((prev) => ({ ...prev, selectedNumbers: [] }));
 

@@ -19,7 +19,11 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "eslint-plugin-import-helpers"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "eslint-plugin-import-helpers"
+  ],
   "rules": {
     "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "off",
@@ -30,7 +34,9 @@
       "error",
       {
         "selector": "interface",
-        "format": ["PascalCase"],
+        "format": [
+          "PascalCase"
+        ],
         "custom": {
           "regex": "^I[A-Z]",
           "match": true
@@ -68,7 +74,11 @@
           "module",
           "/^@/",
           "/^styles/",
-          ["parent", "sibling", "index"]
+          [
+            "parent",
+            "sibling",
+            "index"
+          ]
         ],
         "alphabetize": {
           "order": "asc",
@@ -76,7 +86,6 @@
         }
       }
     ],
-
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -92,12 +101,17 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".jsx", ".tsx"]
+        "extensions": [
+          ".jsx",
+          ".tsx"
+        ]
       }
     ],
     "react/react-in-jsx-scope": "off",
     "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["error"]
+    "@typescript-eslint/no-use-before-define": [
+      "error"
+    ]
   },
   "settings": {
     "import/resolver": {
